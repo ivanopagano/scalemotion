@@ -1,0 +1,1112 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" xmlns:re="http://purl.org/atompub/rank/1.0">
+    <title type="text">Recent Questions - Stack Overflow</title>
+    <link rel="self" href="http://stackoverflow.com/feeds" type="application/atom+xml" />
+    <link rel="alternate" href="http://stackoverflow.com/questions" type="text/html" />
+    <subtitle>most recent 30 from stackoverflow.com</subtitle>
+    <updated>2012-12-17T17:30:57Z</updated>
+    <id>http://stackoverflow.com/feeds</id>
+    <creativeCommons:license>http://www.creativecommons.org/licenses/by-sa/3.0/rdf</creativeCommons:license> 
+    <entry>
+        <id>http://stackoverflow.com/q/13919025</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Visual c# Replace special characters and white space from a string</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="c#"/><category scheme="http://stackoverflow.com/feeds/tags" term="regex"/><category scheme="http://stackoverflow.com/feeds/tags" term="replace"/>
+        <author>
+            <name>user1346598</name>
+            <uri>http://stackoverflow.com/users/1346598</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13919025/visual-c-sharp-replace-special-characters-and-white-space-from-a-string" />
+        <published>2012-12-17T17:30:33Z</published>
+        <updated>2012-12-17T17:30:33Z</updated>
+        <summary type="html">
+            &lt;p&gt;I want to replace the white space and special characters with a hyphen .
+Thank you in advance&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13919023</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">convert gregorian datetime to mm/dd/yyyy</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="javascript"/><category scheme="http://stackoverflow.com/feeds/tags" term="jquery-mobile"/>
+        <author>
+            <name>Mike</name>
+            <uri>http://stackoverflow.com/users/802331</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13919023/convert-gregorian-datetime-to-mm-dd-yyyy" />
+        <published>2012-12-17T17:30:12Z</published>
+        <updated>2012-12-17T17:30:12Z</updated>
+        <summary type="html">
+            &lt;p&gt;I have a service call that returns a datetime stamp from  sql server database.  I believe its gregorian calendar.&lt;/p&gt;
+
+&lt;p&gt;ex &lt;code&gt;/Date(1355762048307+0000)/&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;I need to display this in a more readable format like &lt;code&gt;MM/DD/YYYY hh:mm:ss&lt;/code&gt;.  How can i do this in javascript of jquery?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13919022</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Something wrong with Python class Inheritance</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="python"/><category scheme="http://stackoverflow.com/feeds/tags" term="class"/><category scheme="http://stackoverflow.com/feeds/tags" term="inheritance"/>
+        <author>
+            <name>Josh Livingston</name>
+            <uri>http://stackoverflow.com/users/1794901</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13919022/something-wrong-with-python-class-inheritance" />
+        <published>2012-12-17T17:29:53Z</published>
+        <updated>2012-12-17T17:29:53Z</updated>
+        <summary type="html">
+            &lt;p&gt;I&#39;m taking a Programming class, and for one of the tests I need to make a class that inherits from an already created class. This is the code the teacher taught me to do, but it doesn&#39;t seem to be working:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Intern(Employer):
+def __init__(self, last_name, first_name, address, phone, email, end_date):
+    Employer(last_name, first_name, address, phone, email)
+    self.end_date=end_date
+def intern_info(self):
+    self.print_info()
+    print self.end_date
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13919019</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Swapping in selection sort not working?</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="java"/><category scheme="http://stackoverflow.com/feeds/tags" term="sorting"/><category scheme="http://stackoverflow.com/feeds/tags" term="selection"/><category scheme="http://stackoverflow.com/feeds/tags" term="swap"/><category scheme="http://stackoverflow.com/feeds/tags" term="xor"/>
+        <author>
+            <name>coder005</name>
+            <uri>http://stackoverflow.com/users/1888988</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13919019/swapping-in-selection-sort-not-working" />
+        <published>2012-12-17T17:29:42Z</published>
+        <updated>2012-12-17T17:29:42Z</updated>
+        <summary type="html">
+            &lt;p&gt;Following it the code for selection sort and when I try to swap the minimum element with bigger one it doesn&#39;t work using XOR operator.It displays 0 in place of values.But swap is working on two constant integers.Why?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  import java.io.*;
+  class selection
+  {
+public static void main(String s[])throws IOException {
+    BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+    System.out.println(&quot;Enter n&quot;);
+    int n=Integer.parseInt(br.readLine());
+    System.out.println(&quot;Enter array&quot;);
+    int a[]=new int[n];
+    for(int i=0;i&amp;lt;n;++i) {
+        a[i]=Integer.parseInt(br.readLine());
+    }
+
+    int min;
+    System.out.println(&quot;Entered Array : &quot;);
+    for(int i=0;i&amp;lt;n;++i)
+        System.out.print(a[i]+&quot; &quot;);
+
+    for(int i=0;i&amp;lt;n;++i) {
+        min=i;
+        for(int j=i+1;j&amp;lt;n;++j) {
+            if(a[min]&amp;gt;a[j])
+                min=j;
+        }
+        a[min]=a[min]^a[i];
+        a[i]=a[min]^a[i];
+        a[min]=a[min]^a[i];
+
+    }
+
+    System.out.println(&quot;\nSorted Array : &quot;);
+    for(int i=0;i&amp;lt;n;++i) {
+        System.out.print(a[i]+&quot; &quot;);
+    }
+}
+ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;OUTPUT is :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Enter n
+8
+Enter array
+1
+5
+4
+6
+2
+8
+9
+7
+Entered Array : 
+1 5 4 6 2 8 9 7 
+Sorted Array : 
+0 2 0 5 0 7 8 0 
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13919018</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Database—Multiple User Types: Different Data</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="mysql"/><category scheme="http://stackoverflow.com/feeds/tags" term="database"/><category scheme="http://stackoverflow.com/feeds/tags" term="codeigniter"/>
+        <author>
+            <name>Vecta</name>
+            <uri>http://stackoverflow.com/users/261355</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13919018/databasemultiple-user-types-different-data" />
+        <published>2012-12-17T17:29:41Z</published>
+        <updated>2012-12-17T17:29:41Z</updated>
+        <summary type="html">
+            &lt;p&gt;I&#39;m having a bit of trouble figuring out how to structure my database for an application I&#39;m building. &lt;/p&gt;
+
+&lt;p&gt;There will be three different types of users:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Admin&lt;/li&gt;
+&lt;li&gt;Applicants &lt;/li&gt;
+&lt;li&gt;Reviewers&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I&#39;m planning on having a general &lt;code&gt;users&lt;/code&gt; table to store shared information between each user type. However, I&#39;ll need to store quite a bit of information for Applicants that I won&#39;t for Reviewers, or Admins, and I&#39;ll need to store some permissions information for Reviewers that I won&#39;t for Applicants. &lt;/p&gt;
+
+&lt;p&gt;I know I&#39;ll need to set up some additional tables to accommodate this information but I&#39;m not sure how to do so. Should my &lt;code&gt;users&lt;/code&gt; table have an &lt;code&gt;admin_data&lt;/code&gt;, &lt;code&gt;reviewer_data&lt;/code&gt;, &lt;code&gt;applic_data&lt;/code&gt; fields as FKs? How would I detect what type of a user a person is when they login? &lt;/p&gt;
+
+&lt;p&gt;Each user will only need to be one type.&lt;/p&gt;
+
+&lt;p&gt;Thank you for your help.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13919017</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Adding tiles in TMX Map ito An Array Cocos2D</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="iphone"/><category scheme="http://stackoverflow.com/feeds/tags" term="objective-c"/><category scheme="http://stackoverflow.com/feeds/tags" term="arrays"/><category scheme="http://stackoverflow.com/feeds/tags" term="cocos2d"/>
+        <author>
+            <name>user1681391</name>
+            <uri>http://stackoverflow.com/users/1681391</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13919017/adding-tiles-in-tmx-map-ito-an-array-cocos2d" />
+        <published>2012-12-17T17:29:38Z</published>
+        <updated>2012-12-17T17:29:38Z</updated>
+        <summary type="html">
+            &lt;p&gt;I know this may be a basic question but i am trying to interate through the tiles in a tiled map i am loading in cocos2D&lt;/p&gt;
+
+&lt;p&gt;And add them to a mutable array list to do things with them later in the program. I am new to objective c so i am not sure how i would go about doing this?&lt;/p&gt;
+
+&lt;p&gt;some help would be great.&lt;/p&gt;
+
+&lt;p&gt;I found this other question but not specific to my question, here is what i found from google around. Not sure if it will will help.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://stackoverflow.com/questions/10146333/objective-c-get-tile-positions-from-cctmxtiledmap-cocos2d&quot;&gt;Objective-C get tile positions from CCTMXTiledMap (Cocos2d)&lt;/a&gt;&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13919015</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Zxing Datamatrix code scanning</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="ios"/><category scheme="http://stackoverflow.com/feeds/tags" term="zxing"/>
+        <author>
+            <name>Jameo</name>
+            <uri>http://stackoverflow.com/users/1490047</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13919015/zxing-datamatrix-code-scanning" />
+        <published>2012-12-17T17:29:37Z</published>
+        <updated>2012-12-17T17:29:37Z</updated>
+        <summary type="html">
+            &lt;p&gt;I am using the zxing datamatrix code scanner in iOS, and there seems to be a bug that makes it so that the code must be in the exact center of the screen in order to read.  As I slide the code closer to the center, it will scan somewhere very close to the exact center of the screen.&lt;/p&gt;
+
+&lt;p&gt;For my app&#39;s purposes, the datamatrix code might be in the center, but also might be anywhere else in the visible part of the image.  &lt;/p&gt;
+
+&lt;p&gt;Can anyone explain this?  Has anyone fixed this? For reference, zxing can scan qr codes anywhere in the visible image.&lt;/p&gt;
+
+&lt;p&gt;This will scan:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.stack.imgur.com/rl2eL.jpg&quot; alt=&quot;This will scan&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;This will not scan...&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://i.stack.imgur.com/JCUFt.jpg&quot; alt=&quot;This wont scan&quot;&gt;&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13919016</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">how to disactivate @Before for a particular method?</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="testing"/><category scheme="http://stackoverflow.com/feeds/tags" term="junit4"/><category scheme="http://stackoverflow.com/feeds/tags" term="spring-test"/>
+        <author>
+            <name>elfar</name>
+            <uri>http://stackoverflow.com/users/1514092</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13919016/how-to-disactivate-before-for-a-particular-method" />
+        <published>2012-12-17T17:29:37Z</published>
+        <updated>2012-12-17T17:29:37Z</updated>
+        <summary type="html">
+            &lt;p&gt;I am writing a test class in java using spring and junit (actually I have &quot;@RunWith(SpringJUnit4ClassRunner.class)&quot; at the bottom of my class).&lt;/p&gt;
+
+&lt;p&gt;there is a method with @Before annotation that I want it not to be run before a particular test method(but not the rest). how can I do this?&lt;/p&gt;
+
+&lt;p&gt;thanks&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13918996</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">BMI calculator bug</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="c++"/><category scheme="http://stackoverflow.com/feeds/tags" term="math"/>
+        <author>
+            <name>user1768884</name>
+            <uri>http://stackoverflow.com/users/1768884</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13918996/bmi-calculator-bug" />
+        <published>2012-12-17T17:28:07Z</published>
+        <updated>2012-12-17T17:30:30Z</updated>
+        <summary type="html">
+            &lt;p&gt;I&#39;m trying to do a basic BMI calculator, and it works fine when I do the metric side of it, however, the imperial side returns a wrong answer.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;cout &amp;lt;&amp;lt; &quot;What is your weight? &quot;;
+cin &amp;gt;&amp;gt; weight;
+
+cout &amp;lt;&amp;lt; &quot;What is your height in either inches or meters? &quot;;
+cin &amp;gt;&amp;gt; height;
+
+cout &amp;lt;&amp;lt; &quot;Is that metric or imperial? Type 1 for metric, or 0 for imperial &quot;;
+cin &amp;gt;&amp;gt; unit;
+
+if (unit = 1) 
+answer = weight / (height * height);
+if (unit = 0)
+answer = (weight * 703) / (height * height);
+cout &amp;lt;&amp;lt; &quot;Your BMI is &quot; &amp;lt;&amp;lt; answer &amp;lt;&amp;lt; endl;
+system(&quot;PAUSE&quot;);
+return 0;  
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I thought the equation for BMI for imperial, according to Wikipedia was &lt;/p&gt;
+
+&lt;p&gt;Weight(in pounds) * 703 / (height in inches squared)&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13918976</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Crontab is using some sort of hidden cache?</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="php"/><category scheme="http://stackoverflow.com/feeds/tags" term="linux"/><category scheme="http://stackoverflow.com/feeds/tags" term="cron"/><category scheme="http://stackoverflow.com/feeds/tags" term="directory"/><category scheme="http://stackoverflow.com/feeds/tags" term="crontab"/>
+        <author>
+            <name>SofianeM</name>
+            <uri>http://stackoverflow.com/users/1464296</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13918976/crontab-is-using-some-sort-of-hidden-cache" />
+        <published>2012-12-17T17:26:45Z</published>
+        <updated>2012-12-17T17:29:51Z</updated>
+        <summary type="html">
+            &lt;p&gt;I used to have a crontab that ran like this &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;* * * * * /usr/bin/php /var/www/vhosts/default/htdocs/agent/time_keeper.php &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;It worked fine. Now I moved that php script to a new directory and I now have the cron run like this&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;* * * * * /usr/bin/php /var/www/vhosts/default/htdocs/agent/php/time_keeper.php &amp;gt; /dev/null 2&amp;gt;&amp;amp;1&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The new cron does not work. The file is there. I can run it fine from my browser. When I move the file back to its first directory and use the old cron, it works.&lt;/p&gt;
+
+&lt;p&gt;What is going on here?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13918965</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Load a lot of txt file inside a div</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="jquery"/><category scheme="http://stackoverflow.com/feeds/tags" term="html"/>
+        <author>
+            <name>Marcos Paulo</name>
+            <uri>http://stackoverflow.com/users/1856611</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13918965/load-a-lot-of-txt-file-inside-a-div" />
+        <published>2012-12-17T17:25:48Z</published>
+        <updated>2012-12-17T17:29:24Z</updated>
+        <summary type="html">
+            &lt;p&gt;I know the function .load() of jQuery to load one text from a .txt file, but have a way to load a lot of .txt file inside a div?&lt;/p&gt;
+
+&lt;p&gt;I&#39;ve tried to do this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   for (i = 1;i&amp;lt;9;){
+      $(&quot;#slide2 .wrapper&quot;).load(+i+&quot;.txt&quot;);
+      i++;
+   };
+});
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But it functions with image to do a gallery, but not with .txt...&lt;/p&gt;
+
+&lt;p&gt;My intention is to do something like a blog, where i can only put the .txt file in a directory and it be loaded automatically in my HTML.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13918949</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">How to change the boolean &#39;true&#39; in for example &#39;left&#39;</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="java"/><category scheme="http://stackoverflow.com/feeds/tags" term="boolean"/>
+        <author>
+            <name>user1873613</name>
+            <uri>http://stackoverflow.com/users/1873613</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13918949/how-to-change-the-boolean-true-in-for-example-left" />
+        <published>2012-12-17T17:24:52Z</published>
+        <updated>2012-12-17T17:30:42Z</updated>
+        <summary type="html">
+            &lt;p&gt;What is the correct code to change the standard boolean &#39;true&#39; to for exemple &#39;left&#39; or &#39;well done&#39; or ...
+So instead of giving &#39;true&#39; when an expression is true, it has to give &#39;left&#39; for exemple.
+Thanks.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13918836</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">using response.Redirect(url) within a submit button</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="javascript"/><category scheme="http://stackoverflow.com/feeds/tags" term="jsp"/><category scheme="http://stackoverflow.com/feeds/tags" term="httprequest"/>
+        <author>
+            <name>user1712095</name>
+            <uri>http://stackoverflow.com/users/1712095</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13918836/using-response-redirecturl-within-a-submit-button" />
+        <published>2012-12-17T17:18:02Z</published>
+        <updated>2012-12-17T17:29:49Z</updated>
+        <summary type="html">
+            &lt;p&gt;I have the following problem:
+I am writing a code that submit a form to &lt;code&gt;Target.jsp&lt;/code&gt; and display a content within &lt;code&gt;Display.jsp&lt;/code&gt; after the form is submitted to &lt;code&gt;Target.jsp&lt;/code&gt;. &lt;/p&gt;
+
+&lt;p&gt;How  do I use &lt;code&gt;response.Redirect(&quot;jsp/Display&quot;)&lt;/code&gt; within the following code?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;   &amp;lt;form method=&quot;POST&quot; class=&quot;example&quot; action=&quot;/project/jsp/Target.jsp&quot; id=form &amp;gt;
+   &amp;lt;!--Some tags here--&amp;gt;
+
+
+    &amp;lt;input type=&quot;submit&quot; name=&quot;submit&quot; value=&quot;submit Changes&quot; /&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13918595</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">jQuery $(&#39;.div&#39;).each only running one iteration</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="jquery"/><category scheme="http://stackoverflow.com/feeds/tags" term="html"/><category scheme="http://stackoverflow.com/feeds/tags" term="css"/>
+        <author>
+            <name>Shikoki</name>
+            <uri>http://stackoverflow.com/users/1755324</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13918595/jquery-div-each-only-running-one-iteration" />
+        <published>2012-12-17T17:04:01Z</published>
+        <updated>2012-12-17T17:30:41Z</updated>
+        <summary type="html">
+            &lt;p&gt;I&#39;m having a slight issue with some jQuery that I&#39;m trying to write. What I want to do is go through every div with the same class, if that div is has a height greater then 25px then to decrease the font size by 1px until it fits on to one line.&lt;/p&gt;
+
+&lt;p&gt;The code I have works for the first one, but doesn&#39;t run on the other divs, any help would be great!&lt;/p&gt;
+
+&lt;p&gt;Regards,&lt;/p&gt;
+
+&lt;p&gt;Shikoki&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$(document).ready(function() {
+        $(&#39;.lmmteam&#39;).each(function() {
+            $(&#39;.lmmteam&#39;).css(&#39;font-size&#39;, &#39;30px&#39;);
+                while( $(&#39;.lmmteam&#39;).height() &amp;gt; 25 ) 
+                    {
+                        $(&#39;.lmmteam&#39;).css(&#39;font-size&#39;, (parseInt($(&#39;.lmmteam&#39;).css(&#39;font-size&#39;)) - 1) + &quot;px&quot; );
+                    }
+            });
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Just thought I should add the html markup as well to make it easier here you go!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;table&amp;gt;
+  &amp;lt;tr&amp;gt;
+    &amp;lt;td class=&quot;randomclass&quot;&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;lmmteam&quot;&amp;gt;Long text&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;randomclass&quot;&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;randomclass&quot;&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;lmmteam&quot;&amp;gt;Long text&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;randomclass&quot;&amp;gt;&amp;lt;/td&amp;gt;
+  &amp;lt;/tr&amp;gt;
+  &amp;lt;tr&amp;gt;
+    &amp;lt;td class=&quot;randomclass&quot;&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;lmmteam&quot;&amp;gt;Long text&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;randomclass&quot;&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;randomclass&quot;&amp;gt;&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;lmmteam&quot;&amp;gt;Long text&amp;lt;/td&amp;gt;
+    &amp;lt;td class=&quot;randomclass&quot;&amp;gt;&amp;lt;/td&amp;gt;
+  &amp;lt;/tr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;/p&gt;
+
+&lt;p&gt;And there are several rows but the format remains the same. Thanks! &lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13918535</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">Pointing to array element</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="c#"/><category scheme="http://stackoverflow.com/feeds/tags" term="arrays"/><category scheme="http://stackoverflow.com/feeds/tags" term="pointers"/>
+        <author>
+            <name>regular</name>
+            <uri>http://stackoverflow.com/users/1715384</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13918535/pointing-to-array-element" />
+        <published>2012-12-17T17:00:36Z</published>
+        <updated>2012-12-17T17:29:27Z</updated>
+        <summary type="html">
+            &lt;p&gt;What I&#39;m trying to achieve is say i have an array, i want to be able to modify a specific array element throughout my code, by pointing at it.&lt;/p&gt;
+
+&lt;p&gt;for example in C++ i can do this&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;int main(){
+ int arr [5]= {1,2,3,4,5};
+ int *c = &amp;amp;arr[3];
+ cout &amp;lt;&amp;lt; arr[3] &amp;lt;&amp;lt;endl;
+ *c = 0;
+ cout &amp;lt;&amp;lt; arr[3]&amp;lt;&amp;lt;endl;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I did some googling and there seems to be a way to do it through &#39;unsafe&#39;, but i don&#39;t really want to go that route.&lt;/p&gt;
+
+&lt;p&gt;I guess i could create a variable to store the indexes, but I&#39;m actually dealing with slightly more complexity (a list within a list. so having two index variables seems to add complexity to the code.)&lt;/p&gt;
+
+&lt;p&gt;C# has a databinding class, so what I&#39;m currently doing is binding the array element to a textbox (that i have hidden) and modifying that textbox whenever i want to modify the specific array element, but that&#39;s also not a good solution (since i have a textbox that&#39;s not being used for its intended purpose - a bit misleading).&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13918500</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Slow query, want to use stored procedure (ASP.Net MVC3, Generic Repo, POCO)</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="asp.net-mvc"/><category scheme="http://stackoverflow.com/feeds/tags" term="linq"/><category scheme="http://stackoverflow.com/feeds/tags" term="entity-framework"/><category scheme="http://stackoverflow.com/feeds/tags" term="repository-pattern"/>
+        <author>
+            <name>Chuck</name>
+            <uri>http://stackoverflow.com/users/1472835</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13918500/slow-query-want-to-use-stored-procedure-asp-net-mvc3-generic-repo-poco" />
+        <published>2012-12-17T16:58:25Z</published>
+        <updated>2012-12-17T17:29:32Z</updated>
+        <summary type="html">
+            &lt;p&gt;I have an MVC3 app which is using POCO classes separated into distinct layers. I have implemented a generic repo pattern as well.&lt;/p&gt;
+
+&lt;p&gt;I have a dashboard which uses Kendo UI charts for management to view real time stats. As the database is growing the dashboard is slower and slower. I found these reasons:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Records grow daily&lt;/li&gt;
+&lt;li&gt;Each chart calls to the repo to get all the rows to calculate stats with LINQ&lt;/li&gt;
+&lt;li&gt;Automapper is creating my model to viewmodels&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;I would like to speed this up by using stored procedures in the database to get exactly the numbers I need for stats. I am not sure how I should implement this... even though it feels so wrong! Any tips?&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Example Controller with Repo code&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Public Class DashboardController
+    Inherits BaseController
+
+    Private ticketRepo As MaintenanceTicketsRepository
+
+    Public Sub New()
+        Me.ticketRepo = New MaintenanceTicketsRepository(New TicketContext)
+    End Sub
+
+    Function Chart_OpenItems() As ActionResult
+        Dim tickets As IList(Of MaintenanceTicket) = ticketRepo.GetAll().Include(Function(p) p.Priority).Include(Function(s) s.Status).OrderBy(Function(o) o.PriorityId).ToArray()
+         &#39;Do some work with repo then dispose&#39;
+    End Function
+
+    Function Chart_ClosedItems() As ActionResult
+        Dim tickets As IList(Of MaintenanceTicket) = ticketRepo.GetAll().Include(Function(p) p.Priority).Include(Function(s) s.Status).OrderBy(Function(o) o.PriorityId).ToArray()
+         &#39;Do some work with repo then dispose&#39;
+    End Function
+End Class
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13918043</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">use css in django 1.4 development</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="django"/><category scheme="http://stackoverflow.com/feeds/tags" term="django-templates"/>
+        <author>
+            <name>user1781245</name>
+            <uri>http://stackoverflow.com/users/1781245</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13918043/use-css-in-django-1-4-development" />
+        <published>2012-12-17T16:30:31Z</published>
+        <updated>2012-12-17T17:29:31Z</updated>
+        <summary type="html">
+            &lt;p&gt;I&#39;m looking for a way to use a css file in django. I tried many things and I searched in many forums but I can&#39;t find my mistake. This is my code:&lt;/p&gt;
+
+&lt;p&gt;Directory structure:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/projecte
+    manage.py
+    /projecte
+         settings.py
+         url.py
+         wsgi.py
+         /static
+             /css
+                  estil.css
+    /principal
+         models.py
+         views.py
+         forms.py
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;URL.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns 
+urlpatterns = patterns(&#39;&#39;,
+    url(r&#39;^$&#39;,&#39;principal.views.inici&#39;),
+    ...
+)
+urlpatterns += staticfiles_urlpatterns()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;SETTINGS.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;RUTA_PROJECTE = os.path.dirname(os.path.realpath(__file__))
+STATIC_ROOT = os.path.join(RUTA_PROJECTE,&#39;static&#39;)
+STATIC_URL = &#39;/static/&#39;
+
+STATICFILES_DIRS = (   
+os.path.join(RUTA_PROJECTE,&#39;static&#39;),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = ( 
+    ...
+&#39;django.core.context_processors.static&#39;,    
+)
+
+INSTALLED_APPS = (    
+    &#39;django.contrib.staticfiles&#39;,   
+    ...
+&#39;principal&#39;,  
+) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;VIEWS.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def inici(request):
+tracks = Track.objects.all()
+#print(len(tracks))
+
+return render_to_response(&#39;inici.html&#39;,
+    {&#39;tracks&#39;:tracks},
+    context_instance = RequestContext(request))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;INICI.py&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;{{ STATIC_URL }}css/estil.css&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;when I enter the style does not work. I have no error but nothing happends.
+Thanks you for your help&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13917332</id>
+        <re:rank scheme="http://stackoverflow.com">4</re:rank>
+        <title type="text">Simple Injector: Registering a type with constructor argument that&#39;s based on its parent</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="c#"/><category scheme="http://stackoverflow.com/feeds/tags" term="dependency-injection"/><category scheme="http://stackoverflow.com/feeds/tags" term="ioc-container"/><category scheme="http://stackoverflow.com/feeds/tags" term="simple-injector"/>
+        <author>
+            <name>Thewads</name>
+            <uri>http://stackoverflow.com/users/1785306</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13917332/simple-injector-registering-a-type-with-constructor-argument-thats-based-on-it" />
+        <published>2012-12-17T15:46:11Z</published>
+        <updated>2012-12-17T17:30:36Z</updated>
+        <summary type="html">
+            &lt;p&gt;I am currently in the process of removing Ninject from my project, and moving to using Simple Injector but there is one thing that I can not get working properly.&lt;/p&gt;
+
+&lt;p&gt;For my logging, in the registering of services, I was previously able to pass in a parameter into my logging class as such&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;_kernel.Bind&amp;lt;ILogger&amp;gt;().To&amp;lt;Logger&amp;gt;()
+    .WithConstructorArgument(&quot;name&quot;,
+        x =&amp;gt; x.Request.ParentContext.Request.Service.FullName);
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I am looking for a way to recreate this in Simple Injector.  So far I have everything else working but this.  I can get the logging to work, albeit without having the correct logger names being shown, by doing the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;_container.Register&amp;lt;ILogger&amp;gt;(() =&amp;gt; new Logger(&quot;test&quot;));
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Anyone got any experience in doing anything similar?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13917110</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">Modify included layout in Android?</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="java"/><category scheme="http://stackoverflow.com/feeds/tags" term="android"/><category scheme="http://stackoverflow.com/feeds/tags" term="xml"/>
+        <author>
+            <name>Bobbake4</name>
+            <uri>http://stackoverflow.com/users/509967</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13917110/modify-included-layout-in-android" />
+        <published>2012-12-17T15:33:10Z</published>
+        <updated>2012-12-17T17:30:38Z</updated>
+        <summary type="html">
+            &lt;p&gt;I am using an include tag in an Android layout file to include a relative layout row that I would like to repeat a few times. The problem is that after I include the row I cannot modify the text of a textview inside the layout. Is there anyway I can modify the text of a textview that is part of an include? Mainly I would like to insert 4 of these rows with custom text specified in the xml if possible.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13905883</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">MS Access: Taking information from Login form table and passing to another form</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="ms-access"/><category scheme="http://stackoverflow.com/feeds/tags" term="global-variables"/><category scheme="http://stackoverflow.com/feeds/tags" term="access-vba"/>
+        <author>
+            <name>Kang Che Sun</name>
+            <uri>http://stackoverflow.com/users/1908538</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13905883/ms-access-taking-information-from-login-form-table-and-passing-to-another-form" />
+        <published>2012-12-16T22:00:56Z</published>
+        <updated>2012-12-17T17:30:31Z</updated>
+        <summary type="html">
+            &lt;p&gt;Hi I have a login form which requires the user to enter username and then password. The username and password is checked through in a table and then allows-does not allow the user access to fill in another form. &lt;/p&gt;
+
+&lt;p&gt;In the table there is information regarding the persons name, email, etc. In my second form I want the personal information already displayed so that they wont have to fill it in. Basically, by logging into the form and opening another form it will recognise who the person is and will automatically fill in their details. Thanks&lt;/p&gt;
+
+&lt;p&gt;Ken&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13893659</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Trouble on extending Rails in a sub-directory of the &#39;lib&#39; directory</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="ruby-on-rails"/><category scheme="http://stackoverflow.com/feeds/tags" term="ruby"/><category scheme="http://stackoverflow.com/feeds/tags" term="ruby-on-rails-3"/><category scheme="http://stackoverflow.com/feeds/tags" term="validation"/><category scheme="http://stackoverflow.com/feeds/tags" term="extending"/>
+        <author>
+            <name>Backo</name>
+            <uri>http://stackoverflow.com/users/824806</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13893659/trouble-on-extending-rails-in-a-sub-directory-of-the-lib-directory" />
+        <published>2012-12-15T15:51:31Z</published>
+        <updated>2012-12-17T17:30:00Z</updated>
+        <summary type="html">
+            &lt;p&gt;I am using Ruby on Rails 3.2.9 and I would like to extend the framework with a &lt;a href=&quot;http://guides.rubyonrails.org/active_record_validations_callbacks.html#custom-validators&quot; rel=&quot;nofollow&quot;&gt;custom validator&lt;/a&gt; located in a sub-directory of the &lt;code&gt;lib/&lt;/code&gt; directory. I implemented the following:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# lib/extension/rails/custom_validator.rb
+module Extension
+  module Rails
+    class CustomValidator &amp;lt; ActiveModel::EachValidator
+      # ...
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After I restart the server I get the &lt;code&gt;Unknown validator: &#39;CustomValidator&#39;&lt;/code&gt; error. How can I solve the problem?&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;em&gt;Note I&lt;/em&gt;: In the &lt;code&gt;config/application.rb&lt;/code&gt; file I stated &lt;code&gt;config.autoload_paths += %W(#{config.root}/lib)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note II&lt;/em&gt;: If I put the &lt;code&gt;custom_validator.rb&lt;/code&gt; file &quot;directly under&quot; the &lt;code&gt;lib/&lt;/code&gt; directory (that is, without &quot;sub-directoring&quot; the file) and I use the following code then it works.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# lib/custom_validator.rb
+class CustomValidator &amp;lt; ActiveModel::EachValidator
+  # ...
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13886519</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">wordpress api how to get user&#39;s links</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="objective-c"/><category scheme="http://stackoverflow.com/feeds/tags" term="ios"/><category scheme="http://stackoverflow.com/feeds/tags" term="osx"/><category scheme="http://stackoverflow.com/feeds/tags" term="wordpress"/><category scheme="http://stackoverflow.com/feeds/tags" term="api"/>
+        <author>
+            <name>radvan72</name>
+            <uri>http://stackoverflow.com/users/509851</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13886519/wordpress-api-how-to-get-users-links" />
+        <published>2012-12-14T21:30:55Z</published>
+        <updated>2012-12-17T17:29:33Z</updated>
+        <summary type="html">
+            &lt;p&gt;Anyone knows how to retrieve user&#39;s links via Wordpress API ? (The ones that get posted on their own (not as posts) and are assigned to various categories)&lt;/p&gt;
+
+&lt;p&gt;I know how to get all the posts, but that apparently doesn&#39;t include the links.&lt;/p&gt;
+
+&lt;p&gt;For example I get the images attached to posts like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@&quot;https://public-api.wordpress.com/rest/v1/%@&quot;, method]]];
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;in this case the request being: &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;https://public-api.wordpress.com/rest/v1/sites/123456/posts
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wordpress has this REST API, but there just doesn&#39;t seem to be anything about user&#39;s links there:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://developer.wordpress.com/docs/api/&quot; rel=&quot;nofollow&quot;&gt;https://developer.wordpress.com/docs/api/&lt;/a&gt;&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13885219</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">How do I prevent ADO.Net from checking for a concurrency violation?</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term=".net"/><category scheme="http://stackoverflow.com/feeds/tags" term="ado.net"/><category scheme="http://stackoverflow.com/feeds/tags" term="dataadapter"/>
+        <author>
+            <name>Keith Walton</name>
+            <uri>http://stackoverflow.com/users/22448</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13885219/how-do-i-prevent-ado-net-from-checking-for-a-concurrency-violation" />
+        <published>2012-12-14T19:39:49Z</published>
+        <updated>2012-12-17T17:29:25Z</updated>
+        <summary type="html">
+            &lt;p&gt;My &lt;code&gt;DataAdapter.UpdateCommand&lt;/code&gt; calls a stored procedure that does other things beyond just updating the current record (deleting related records, for example). The rows affected by my stored procedure can be zero because of this, triggering the following error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Concurrency violation: the UpdateCommand affected 0 of the expected 1 records
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I know I can trap the error, but I would prefer to set ADO.Net to not check for concurrency violations in specific cases. &lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/13492411</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">Mysql Select with LIKE clause is not working Chinese characters</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="mysql"/><category scheme="http://stackoverflow.com/feeds/tags" term="select"/>
+        <author>
+            <name>My Name Is Khan</name>
+            <uri>http://stackoverflow.com/users/611232</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/13492411/mysql-select-with-like-clause-is-not-working-chinese-characters" />
+        <published>2012-11-21T11:34:50Z</published>
+        <updated>2012-12-17T17:30:38Z</updated>
+        <summary type="html">
+            &lt;p&gt;I have data stored in single column which are in English and Chinese.&lt;/p&gt;
+
+&lt;p&gt;the data is separated by the separators e.g.
+for Chinese&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!--:zh--&amp;gt;日本&amp;lt;!--:--&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;for English&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!--:en--&amp;gt;English Characters&amp;lt;!--:--&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I would show the content according to users selected language. &lt;/p&gt;
+
+&lt;p&gt;I made a query like this &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT * FROM table WHERE content LIKE &#39;&amp;lt;!--:zh--&amp;gt;%&amp;lt;!--:--&amp;gt;&#39; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The query above works but return empty result set.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;Collation&lt;/code&gt; of &lt;code&gt;content&lt;/code&gt; column is &lt;code&gt;utf8_general_ci&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;I have also tried using the &lt;code&gt;convert&lt;/code&gt; function like below &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;SELECT * FROM table WHERE CONVERT(content USING utf8) 
+                           LIKE CONVERT(&#39;&amp;lt;!--:zh--&amp;gt;%&amp;lt;!--:--&amp;gt;&#39; USING utf8)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But this also does not work.&lt;/p&gt;
+
+&lt;p&gt;I also tried running the query &lt;code&gt;SET NAMES UTF8&lt;/code&gt; but still it does not work.&lt;/p&gt;
+
+&lt;p&gt;I am running queries in &lt;code&gt;PhpMyAdmin&lt;/code&gt; if it does matter.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;qTranslate did not change the database used by WordPress. Translation data is stored in original fields. For that reason there is each field containing all translations for that special field and the data is like this&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!--:en--&amp;gt;English Characters&amp;lt;!--:--&amp;gt;&amp;lt;!--:zh--&amp;gt;日本&amp;lt;!--:--&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://wpml.org/documentation/related-projects/qtranslate-importer/&quot; rel=&quot;nofollow&quot;&gt;http://wpml.org/documentation/related-projects/qtranslate-importer/&lt;/a&gt;&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/12355387</id>
+        <re:rank scheme="http://stackoverflow.com">1</re:rank>
+        <title type="text">xcode valid signing identity not found</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="xcode"/><category scheme="http://stackoverflow.com/feeds/tags" term="distribution"/>
+        <author>
+            <name>Ash Var</name>
+            <uri>http://stackoverflow.com/users/1467031</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/12355387/xcode-valid-signing-identity-not-found" />
+        <published>2012-09-10T16:03:38Z</published>
+        <updated>2012-12-17T17:29:59Z</updated>
+        <summary type="html">
+            &lt;p&gt;I can&#39;t find the solution for this problem for 2 weeks!!! That is enormous.&lt;/p&gt;
+
+&lt;p&gt;When I try to validate my app I face an error. Xcode shows: Valid signing identity for ... not found. I don&#39;t know what do and I have tried a lot. Please help.&lt;/p&gt;
+
+&lt;p&gt;Here are the print-screens:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://img838.imageshack.us/img838/9749/20120910195154.png&quot; alt=&quot;Image1&quot;&gt;
+&lt;a href=&quot;http://img838.imageshack.us/img838/9749/20120910195154.png&quot; rel=&quot;nofollow&quot;&gt;Full Size&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://img100.imageshack.us/img100/9126/20120910195440.png&quot; alt=&quot;Image2&quot;&gt;
+&lt;a href=&quot;http://img100.imageshack.us/img100/9126/20120910195440.png&quot; rel=&quot;nofollow&quot;&gt;Full Size&lt;/a&gt;&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/12251295</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">How to prevent jquery ui confirm dialog box from adding twise records when double clicking?</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="jquery"/><category scheme="http://stackoverflow.com/feeds/tags" term="jquery-ui"/>
+        <author>
+            <name>themhz</name>
+            <uri>http://stackoverflow.com/users/885457</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/12251295/how-to-prevent-jquery-ui-confirm-dialog-box-from-adding-twise-records-when-doubl" />
+        <published>2012-09-03T16:20:19Z</published>
+        <updated>2012-12-17T17:30:35Z</updated>
+        <summary type="html">
+            &lt;p&gt;I am trying to add a new record in a table with the following code, using jQuery ui dialog and confirm boxes. If I double click on the confirm button the record will be added twice in the database. How can I prevent this?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;function AddNewClient(){    
+            jQuery(&quot;#confirmdialog&quot;).html(&quot;are you sure&quot;);
+            jQuery(&quot;#confirmdialog&quot;).dialog({
+                  modal: true,  
+                  buttons : {
+                    &quot;Confirm&quot; : function() {                                                                                            
+                        jQuery.ajax({
+                              type: &quot;POST&quot;,                           
+                              url: &quot;index.php?option=com_travelagencycrm&amp;amp;view=clients&amp;amp;task=AddNewClient&amp;amp;format=raw&quot;,
+                              cache: false,     
+                              data : {id:jQuery(&quot;#client_id&quot;).val(),
+                                      fullname:jQuery(&quot;#fullname&quot;).val(),
+                                      vat_id:jQuery(&quot;#vat_id&quot;).val(),                                     
+                                      address:jQuery(&quot;#address&quot;).val(),
+                                      state_id:jQuery(&quot;#state_name&quot;).val(),
+                                      country_id:jQuery(&quot;#country_name&quot;).val(),
+                                      email:jQuery(&quot;#email&quot;).val(),
+                                      phone_1:jQuery(&quot;#phone_1&quot;).val(),
+                                      phone_2:jQuery(&quot;#phone_2&quot;).val(),
+                                      postalcode:jQuery(&quot;#postalcode&quot;).val()                                    
+                                }
+                            }).done(function(msg) {         
+
+                                jQuery(&quot;#tablepanelclients&quot;).flexReload();
+                                //alert(msg);
+                                jQuery(&quot;#confirmdialog&quot;).dialog(&quot;close&quot;);
+                                jQuery(&quot;#editclient&quot;).dialog(&quot;close&quot;);                              
+
+                            }).error(function(msg){
+                                alert(msg);
+                                jQuery(&quot;#confirmdialog&quot;).dialog(&quot;close&quot;);
+                                jQuery(&quot;#editclient&quot;).dialog(&quot;close&quot;);
+                            });
+
+
+                    },
+                    &quot;Cancel&quot; : function() {
+                        jQuery(this).dialog(&quot;close&quot;);
+                    }
+                  }
+                });
+
+              jQuery(&quot;#confirmdialog&quot;).dialog(&quot;open&quot;);
+
+        }
+&lt;/code&gt;&lt;/pre&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/9127802</id>
+        <re:rank scheme="http://stackoverflow.com">2</re:rank>
+        <title type="text">Munin server with apache - You don&#39;t have permission to access /munin on this server</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="apache"/><category scheme="http://stackoverflow.com/feeds/tags" term="munin"/>
+        <author>
+            <name>user959129</name>
+            <uri>http://stackoverflow.com/users/0</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/9127802/munin-server-with-apache-you-dont-have-permission-to-access-munin-on-this-se" />
+        <published>2012-02-03T11:17:30Z</published>
+        <updated>2012-12-17T17:29:59Z</updated>
+        <summary type="html">
+            &lt;p&gt;On a fresh apache and munin server install when I to to domain.com/munin I get this error.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Forbidden
+
+You don&#39;t have permission to access /munin on this server.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;for these directories I did a chown -R munin:munin&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;dbdir /var/lib/munin
+htmldir /var/cache/munin/www
+logdir /var/log/munin
+rundir  /var/run/munin
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;What am I supposed to do with apache?  I restated apache with /etc/init.d/apache restart but still get forbidden.  I have made no changes  to the apache config files from a fresh apache install.&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/3978059</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">Django form QuerySet for ModelChoiceField</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="python"/><category scheme="http://stackoverflow.com/feeds/tags" term="django"/><category scheme="http://stackoverflow.com/feeds/tags" term="django-forms"/>
+        <author>
+            <name>Salgo</name>
+            <uri>http://stackoverflow.com/users/73641</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/3978059/django-form-queryset-for-modelchoicefield" />
+        <published>2010-10-20T12:58:11Z</published>
+        <updated>2012-12-17T17:30:46Z</updated>
+        <summary type="html">
+            &lt;p&gt;I&#39;ve got a Form which I&#39;m using the following field in.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;contact_country = forms.ModelChoiceField(queryset=Country.objects.all())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The Country model looks like this&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Country(models.Model):
+    iso = models.CharField(max_length=2)
+    name = models.CharField(max_length=80)
+    printable_name = models.CharField(max_length=80)
+    iso3 = models.CharField(max_length=3,null=True, blank=True)
+    numcode = models.IntegerField(null=True, blank=True)
+    special = models.BooleanField(default=False)
+
+    def __unicode__(self):  
+        return self.printable_name
+
+    class Meta:
+        ordering = [ &#39;printable_name&#39; ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &#39;special&#39; field indicates that the country is &quot;special&quot;. If the country is &quot;special&quot; I want it to appear before the rest of the listing - as I&#39;m sure you&#39;ve seen elsewhere on the wed. &lt;/p&gt;
+
+&lt;p&gt;e.g. I want English speaking countries like Australia, United Kingdom and United States at the top of the select but also want them to appear again with the rest of the countries.&lt;/p&gt;
+
+&lt;p&gt;Is that possible with QuerySet? Or should I be looking elsewhere?&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/3103366</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">jQuery Slide Right/Left</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="jquery"/>
+        <author>
+            <name>Cameron</name>
+            <uri>http://stackoverflow.com/users/302533</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/3103366/jquery-slide-right-left" />
+        <published>2010-06-23T16:07:01Z</published>
+        <updated>2012-12-17T17:29:59Z</updated>
+        <summary type="html">
+            &lt;p&gt;I have the following JS:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$(document).ready(function () {
+    $(&quot;.LeftColumn&quot;).hide();
+    $(&quot;.SidebarToggle&quot;).toggle(function () {
+        $(this).addClass(&quot;active&quot;);
+        $(this).text(&quot;Hide Sidebar&quot;);
+        $(this).attr(&quot;title&quot;, &quot;Hide Sidebar&quot;);
+        //$(&quot;.LeftColumn&quot;).fadeIn(&quot;fast&quot;);
+        $(&quot;.LeftColumn&quot;).show(&quot;slide&quot;, { direction: &quot;left&quot; }, 100);
+        return false;
+    },
+    function () {
+        $(this).removeClass(&quot;active&quot;);
+        $(this).text(&quot;Show Sidebar&quot;);
+        $(this).attr(&quot;title&quot;, &quot;Show Sidebar&quot;);
+        //$(&quot;.LeftColumn&quot;).fadeOut(&quot;fast&quot;);
+        $(&quot;.LeftColumn&quot;).hide(&quot;slide&quot;, { direction: &quot;left&quot; }, 100);
+        return false;
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which basically shows and hides a div with a class of LeftColumn. The problem I have is that LeftColumn floats left and I have another div called Middle Column that floats left next to it. But when I do the animation the LeftColumn does a nice easing slide but the MiddleColumn will snap in and out to fill the void. How can I get the MiddleColumn to ease back and forth in relation to the LeftColumn (baring in mind that the MiddleColumn has no defined width).&lt;/p&gt;
+
+&lt;p&gt;Thanks&lt;/p&gt;
+
+        </summary>
+    </entry>
+    <entry>
+        <id>http://stackoverflow.com/q/2052200</id>
+        <re:rank scheme="http://stackoverflow.com">0</re:rank>
+        <title type="text">How to set errorContainer in jQuery validation dynamically?</title>
+        <category scheme="http://stackoverflow.com/feeds/tags" term="jquery"/><category scheme="http://stackoverflow.com/feeds/tags" term="validation"/><category scheme="http://stackoverflow.com/feeds/tags" term="jquery-validate"/>
+        <author>
+            <name>johnz</name>
+            <uri>http://stackoverflow.com/users/232894</uri>
+        </author>
+        <link rel="alternate" href="http://stackoverflow.com/questions/2052200/how-to-set-errorcontainer-in-jquery-validation-dynamically" />
+        <published>2010-01-12T20:41:43Z</published>
+        <updated>2012-12-17T17:29:59Z</updated>
+        <summary type="html">
+            &lt;p&gt;Can I dynamically set errorContainer in &lt;a href=&quot;http://bassistance.de/jquery-plugins/jquery-plugin-validation/&quot; rel=&quot;nofollow&quot;&gt;jQuery validation&lt;/a&gt;, which means showing different error container base on the button clicked. &lt;/p&gt;
+
+&lt;p&gt;This is what I am trying to do, but seems doesn&#39;t work:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;     $(&#39;#b1&#39;).click(function(evt) {
+        $(&#39;#form1&#39;).validate().resetForm();
+        validator.settings.errorContainer = $(&#39;#m1&#39;);
+        validator.settings.errorLabelContainer = $(&#39;ul&#39;, $(&#39;#m1&#39;));
+
+        ValidateAndSubmit(evt)
+        if (evt.isDefaultPrevented())
+            return false;
+
+        alert(&quot;b1 clicked&quot;);
+    });
+
+    $(&#39;#b2&#39;).click(function(evt) {
+        $(&#39;#form1&#39;).validate().resetForm();
+        validator.settings.errorContainer = $(&#39;#m2&#39;);
+        validator.settings.errorLabelContainer = $(&#39;ul&#39;, $(&#39;#m2&#39;));         
+
+        ValidateAndSubmit(evt);
+        if (evt.isDefaultPrevented())
+            return false;
+
+        alert(&quot;b2 clicked&quot;);
+    });
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;the reason I&#39;m doing this, because I&#39;m using asp.net webform all my module inside one form tag, so I can&#39;t define another form inside existing form and set validation for each form, and I can only have one validation bind to the form. &lt;/p&gt;
+
+&lt;p&gt;I am using encosia&#39;s solution to simulate validation group using jQuery validation for sub-form under one form tag which is working perfectly, but in some case sub-forms under different tabs, so I want to showing the error container in each tab.&lt;/p&gt;
+
+&lt;p&gt;I have created a simple sample to explain what i&#39;m trying to do
+&lt;a href=&quot;http://dl.dropbox.com/u/2358165/test/validation/validation.html&quot; rel=&quot;nofollow&quot;&gt;sample here&lt;/a&gt;&lt;/p&gt;
+
+        </summary>
+    </entry>
+</feed>
