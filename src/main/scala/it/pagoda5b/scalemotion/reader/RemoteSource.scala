@@ -21,10 +21,7 @@ case class RemoteSource(urlString: String) {
 /**
  * Il parser estrae i dati utili dal contenuto della risposta remota.
  */
-trait ContentParser {
-
-	//Il tipo di entry del feed
-	type EntryType
+trait ContentParser[T] {
 
 	//Il titolo
 	def parseTitle(root: xml.Elem): String
@@ -33,7 +30,7 @@ trait ContentParser {
 	def parseNumberOfEntries(root: xml.Elem): Int
 
 	//Genera la singola entry dall'elemento del feed
-	def parseEntry(entry: xml.Elem): EntryType
+	def parseEntry(entry: xml.Elem): T
 
 }
 
@@ -45,7 +42,7 @@ case class FeedEntry(id: String, title: String, link: String, categories: Seq[St
 /**
  * Parser specifico per il feed rss di StackOverflow
  */
-trait SOFFeedParser extends ContentParser {
+trait SOFFeedParser extends ContentParser[FeedEntry] {
 
 	//Regular Expression per estrarre le date
 	private val DateExpression = """(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z""".r
@@ -60,8 +57,6 @@ trait SOFFeedParser extends ContentParser {
 					minutes.toInt,
 					seconds.toInt)
 	}
-
-	type EntryType = FeedEntry
 
 	def parseTitle(root: xml.Elem) = (root \\ "feed" \ "title").text
 
