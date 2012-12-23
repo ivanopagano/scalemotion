@@ -27,7 +27,7 @@ class RemoteSourceTest extends WordSpec with ShouldMatchers {
       val xmlTree: Option[Elem] = (new RemoteSource("http://stackoverflow.com/feeds/tag/scala").read).option.apply()
 
       xmlTree should be('defined)
-      xmlTree map (content => (content \\ "feed" \ "id").text) should be (Some("http://stackoverflow.com/feeds/tag/scala"))
+      xmlTree map (content => (content \\ "feed" \ "id").text) should be(Some("http://stackoverflow.com/feeds/tag/scala"))
       xmlTree map (content => (content \\ "feed" \ "title").text) should be(Some("active questions tagged scala - Stack Overflow"))
     }
 
@@ -60,6 +60,26 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
         'author("user1346598"),
         'published(new DateTime(2012, 12, 17, 17, 30, 33)),
         'updated(new DateTime(2012, 12, 17, 17, 30, 33)))
+    }
+    "parse all the entries as objects" in {
+      val entryIdMatcher = """http://stackoverflow.com/q/\d+""".r
+      val entries = (parser parseAllEntries source)
+      entries should have size(30)
+      (entries forall (_.isInstanceOf[FeedEntry])) should be (true)
+      (entries forall (entry => (entryIdMatcher findFirstIn entry.id).isDefined)) should be (true)
+    }
+    "parse and filter the entries as objects" in {
+      val withAuthor: String => Option[Node => Boolean] = author => Some(node => (node \\ "author" \ "name").text == author)
+      val entries = (parser parseAllEntries (source, withAuthor("Josh Livingston")))
+      entries should have size(1)
+      entries.head should have(
+        'id("http://stackoverflow.com/q/13919022"),
+        'title("Something wrong with Python class Inheritance"),
+        'link("http://stackoverflow.com/questions/13919022/something-wrong-with-python-class-inheritance"),
+        'categories(Seq("python", "class", "inheritance")),
+        'author("Josh Livingston"),
+        'published(new DateTime(2012, 12, 17, 17, 29, 53)),
+        'updated(new DateTime(2012, 12, 17, 17, 29, 53)))
     }
 
   }

@@ -1,5 +1,6 @@
 package it.pagoda5b.scalemotion.reader
 import org.joda.time._
+import xml.{ Elem, Node }
 
 /**
  * La classe accede ad una sorgente di dati remota (un feed)
@@ -14,7 +15,7 @@ case class RemoteSource(urlString: String) {
   /**
    * legge la sorgente in modo asincrono, restituendo una {{{Promise}}} del contenuto xml
    */
-  def read: Promise[xml.Elem] = Http(feed OK as.xml.Elem)
+  def read: Promise[Elem] = Http(feed OK as.xml.Elem)
 
 }
 
@@ -24,13 +25,16 @@ case class RemoteSource(urlString: String) {
 trait ContentParser[T] {
 
   //Il titolo
-  def parseTitle(root: xml.Elem): String
+  def parseTitle(root: Elem): String
 
   //Il numero di entries
-  def parseNumberOfEntries(root: xml.Elem): Int
+  def parseNumberOfEntries(root: Elem): Int
 
   //Genera la singola entry dall'elemento del feed
-  def parseEntry(entry: xml.Elem): T
+  def parseEntry(entry: Node): T
+
+  //Estrae le entries del feed, con un filtro opzionale
+  def parseAllEntries(root: Elem, filtering: Option[Node => Boolean] = None): Seq[T]
 
 }
 
@@ -58,11 +62,17 @@ trait SOFFeedParser extends ContentParser[FeedEntry] {
       seconds.toInt)
   }
 
-  def parseTitle(root: xml.Elem) = (root \\ "feed" \ "title").text
+  def parseTitle(root: Elem) = (root \\ "feed" \ "title").text
 
-  def parseNumberOfEntries(root: xml.Elem) = (root \\ "entry").size
+  def parseNumberOfEntries(root: Elem) = (root \\ "entry").size
 
-  def parseEntry(entry: xml.Elem) = FeedEntry(
+  def parseAllEntries(root: Elem, filtering: Option[Node => Boolean] = None): Seq[FeedEntry] = {
+    val allSeq = (root \\ "entry").toSeq
+    val filtered = filtering map (allSeq filter _) getOrElse (allSeq)
+    filtered map parseEntry
+  }
+
+  def parseEntry(entry: Node) = FeedEntry(
     id = (entry \ "id").text,
     title = (entry \ "title").text,
     link = (entry \ "link" \ "@href").text,
