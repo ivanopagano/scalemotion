@@ -23,6 +23,14 @@ class RemoteSourceTest extends WordSpec with ShouldMatchers {
 
     }
 
+    "read a stackoverflow tag-specific feed" in {
+      val xmlTree: Option[Elem] = (new RemoteSource("http://stackoverflow.com/feeds/tag/scala").read).option.apply()
+
+      xmlTree should be('defined)
+      xmlTree map (content => (content \\ "feed" \ "id").text) should be (Some("http://stackoverflow.com/feeds/tag/scala"))
+      xmlTree map (content => (content \\ "feed" \ "title").text) should be(Some("active questions tagged scala - Stack Overflow"))
+    }
+
   }
 }
 
