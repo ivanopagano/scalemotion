@@ -48,6 +48,8 @@ case class FeedEntry(id: String, title: String, link: String, categories: Seq[St
  */
 trait SOFFeedParser extends ContentParser[FeedEntry] {
 
+  import SOFFeedParser.EntryFilter
+
   //Regular Expression per estrarre le date
   private val DateExpression = """(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})Z""".r
 
@@ -66,8 +68,8 @@ trait SOFFeedParser extends ContentParser[FeedEntry] {
 
   def parseNumberOfEntries(root: Elem) = (root \\ "entry").size
 
-  def parseAllEntries(root: Elem, filtering: Option[Node => Boolean] = None): Seq[FeedEntry] = {
-    val allSeq = (root \\ "entry").toSeq
+  def parseAllEntries(root: Elem, filtering: EntryFilter = None): Seq[FeedEntry] = {
+    val allSeq = (root \\ "entry")
     val filtered = filtering map (allSeq filter _) getOrElse (allSeq)
     filtered map parseEntry
   }
@@ -80,5 +82,31 @@ trait SOFFeedParser extends ContentParser[FeedEntry] {
     author = (entry \ "author" \ "name").text,
     published = (entry \ "published").text,
     updated = (entry \ "updated").text)
+
+}
+
+object SOFFeedParser {
+
+  //Alias for an optional filter on xml nodes
+  type EntryFilter = Option[Node => Boolean]
+
+  /**
+   * ****************************
+   * Predefined filters
+   * ****************************
+   */
+
+  /**
+   * Selects entries with a specific title
+   */
+  val withTitle: String => EntryFilter =
+    title =>
+      Some(node => (node \\ "title").text contains title)
+  /**
+   * Selects entries with a specific author
+   */
+  val withAuthor: String => EntryFilter =
+    author =>
+      Some(node => (node \\ "author" \ "name").text == author)
 
 }
