@@ -94,8 +94,15 @@ trait SOFFeedParser extends ContentParser[FeedEntry] {
 
 object SOFFeedParser {
 
-  //Alias di un filtro opzionale sui nodi xml
+  //alias di un filtro opzionale sui nodi xml
   type EntryFilter = Option[Node => Boolean]
+
+  //l'espressione seleziona dei semplici tag xml
+  private val tagMatcher = "</?[A-Za-z]+>".r
+  /**
+   * Rimuove da un testo i tag racchiusi fra parentesi angolate (e.g. <p> e </p>)
+   */
+  def removeXmlTagging(text: String): String = tagMatcher replaceAllIn (text, "")
 
   /**
    * ****************************
