@@ -150,6 +150,7 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
           """    self.print_info()""" +
           """    print self.end_date"""
       (SOFFeedParser removeXmlTagging text) should equal (cleaned)
+      (SOFFeedParser removeXmlTagging "<no tag here< nor here") should equal ("<no tag here< nor here")
     }
 
   }
