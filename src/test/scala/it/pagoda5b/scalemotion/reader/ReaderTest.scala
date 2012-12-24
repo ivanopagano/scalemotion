@@ -6,9 +6,10 @@ import xml._
 
 class RemoteSourceTest extends WordSpec with ShouldMatchers {
 
-  "A remote reader for scala site feed " should {
+  "A remote reader " should {
 
     "read the expected xml feed" in {
+      //converte la Promise in un valore opzionale e aspetta la risposta asincrona (chiamando apply)
       val xmlTree: Option[Elem] = (new RemoteSource("http://www.scala-lang.org/rss.xml").read).option.apply()
 
       xmlTree should be('defined)
@@ -16,7 +17,7 @@ class RemoteSourceTest extends WordSpec with ShouldMatchers {
       xmlTree map (content => (content \\ "channel" \ "link").text) should be(Some("http://www.scala-lang.org/"))
     }
 
-    "find the correct number of 24 entries" in {
+    "find the correct number of entries" in {
       val xmlTree: Option[Elem] = (new RemoteSource("http://www.scala-lang.org/rss.xml").read).option.apply()
 
       xmlTree map (content => (content \\ "item").size) should be(Some(24))
@@ -40,15 +41,16 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
 
     import java.io.File
     import org.joda.time._
+    import SOFFeedParser._
 
-    val source: Elem = XML.loadFile(new File(getClass.getClassLoader.getResource("testFeed.xml").toURI))
+    implicit val source: Elem = XML.loadFile(new File(this.getClass.getClassLoader.getResource("testFeed.xml").toURI))
     val parser = new SOFFeedParser {}
 
     "read the feed title" in {
-      (parser parseTitle source) should be("Recent Questions - Stack Overflow")
+      (parser parseTitle) should be("Recent Questions - Stack Overflow")
     }
     "count the number of entries" in {
-      (parser parseNumberOfEntries source) should be(30)
+      (parser parseNumberOfEntries) should be(30)
     }
     "correctly read the first entry" in {
       val entry = parser parseEntry (source \\ "entry").head.asInstanceOf[Elem]
@@ -63,14 +65,13 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
     }
     "parse as objects all the entries" in {
       val entryIdMatcher = """http://stackoverflow.com/q/\d+""".r
-      val entries = (parser parseAllEntries source)
+      val entries = (parser parseAllEntries)
       entries should have size (30)
       (entries forall (_.isInstanceOf[FeedEntry])) should be(true)
       (entries forall (entry => (entryIdMatcher findFirstIn entry.id).isDefined)) should be(true)
     }
-    "parse as objects and filter by author the entries" in {
-      import SOFFeedParser._
-      val entries = (parser parseAllEntries (source, withAuthor("Josh Livingston")))
+    "parse as objects the entries filtered by author" in {
+      val entries = (parser parseAllEntries withAuthor("Josh Livingston"))
       entries should have size (1)
       entries.head should have(
         'id("http://stackoverflow.com/q/13919022"),
@@ -81,9 +82,8 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
         'published(new DateTime(2012, 12, 17, 17, 29, 53)),
         'updated(new DateTime(2012, 12, 17, 17, 29, 53)))
     }
-    "parse as objects and filter by title content the entries" in {
-      import SOFFeedParser._
-      val entries = (parser parseAllEntries (source, withTitle("selection sort")))
+    "parse as objects the entries filtered by title content" in {
+      val entries = (parser parseAllEntries withTitle("selection sort"))
       entries should have size (1)
       entries.head should have(
         'id("http://stackoverflow.com/q/13919019"),
@@ -94,9 +94,8 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
         'published(new DateTime(2012, 12, 17, 17, 29, 42)),
         'updated(new DateTime(2012, 12, 17, 17, 29, 42)))
     }
-    "parse as objects and filter by a tag the entries" in {
-      import SOFFeedParser._
-      val entries = (parser parseAllEntries (source, withTag("swap")))
+    "parse as objects the entries filtered by a tag" in {
+      val entries = (parser parseAllEntries withTag("swap"))
       entries should have size (1)
       entries.head should have(
         'id("http://stackoverflow.com/q/13919019"),
@@ -107,10 +106,11 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
         'published(new DateTime(2012, 12, 17, 17, 29, 42)),
         'updated(new DateTime(2012, 12, 17, 17, 29, 42)))
     }
-    "parse as objects and filter by composite the entries" in {
-      import SOFFeedParser._
-      (parser parseAllEntries (source, withTitle("not"))) should have size (4)
-      val entries = (parser parseAllEntries (source, withTitle("not") and withTag("java")))
+    "parse as objects the entries filtered by composite criteria" in {
+      //verifica il singolo filtro
+      (parser parseAllEntries withTitle("not")) should have size (4)
+      //applica il filtro composto
+      val entries = (parser parseAllEntries (withTitle("not") and withTag("java")))
       entries should have size (1)
       entries.head should have(
         'id("http://stackoverflow.com/q/13919019"),

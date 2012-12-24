@@ -13,7 +13,7 @@ case class RemoteSource(urlString: String) {
   val feed = url(urlString)
 
   /**
-   * legge la sorgente in modo asincrono, restituendo una {{{Promise}}} del contenuto xml
+   * legge la sorgente in modo asincrono, restituendo una [[Promise]] del contenuto xml
    */
   def read: Promise[Elem] = Http(feed OK as.xml.Elem)
 
@@ -25,16 +25,16 @@ case class RemoteSource(urlString: String) {
 trait ContentParser[T] {
 
   //Il titolo
-  def parseTitle(root: Elem): String
+  def parseTitle(implicit source: Elem): String
 
   //Il numero di entries
-  def parseNumberOfEntries(root: Elem): Int
+  def parseNumberOfEntries(implicit source: Elem): Int
 
   //Genera la singola entry dall'elemento del feed
   def parseEntry(entry: Node): T
 
   //Estrae le entries del feed, con un filtro opzionale
-  def parseAllEntries(root: Elem, filtering: Option[Node => Boolean] = None): Seq[T]
+  def parseAllEntries(filtering: Option[Node => Boolean] = None)(implicit source: Elem): Seq[T]
 
 }
 
@@ -64,15 +64,22 @@ trait SOFFeedParser extends ContentParser[FeedEntry] {
       seconds.toInt)
   }
 
-  def parseTitle(root: Elem) = (root \\ "feed" \ "title").text
+  def parseTitle(implicit source: Elem) = (source \\ "feed" \ "title").text
 
-  def parseNumberOfEntries(root: Elem) = (root \\ "entry").size
+  def parseNumberOfEntries(implicit source: Elem) = (source \\ "entry").size
 
-  def parseAllEntries(root: Elem, filtering: EntryFilter = None): Seq[FeedEntry] = {
-    val allSeq = (root \\ "entry")
+  def parseAllEntries(filtering: EntryFilter = None)(implicit source: Elem): Seq[FeedEntry] = {
+    val allSeq = (source \\ "entry")
     val filtered = filtering map (allSeq filter _) getOrElse (allSeq)
     filtered map parseEntry
   }
+
+  /**
+   * overloading che rende piu' omogenea la chiamata senza parametri a quella con i filtri
+   * i.e. "parser parseAllEntries" vs. "parser parseAllEntries ()"
+   *      che e' analoga, ad esempio, a "parser parseAllEntries withTag(tag)"
+   */
+  def parseAllEntries(implicit source: Elem): Seq[FeedEntry] = parseAllEntries()(source)
 
   def parseEntry(entry: Node) = FeedEntry(
     id = (entry \ "id").text,
@@ -87,35 +94,35 @@ trait SOFFeedParser extends ContentParser[FeedEntry] {
 
 object SOFFeedParser {
 
-  //Alias for an optional filter on xml nodes
+  //Alias di un filtro opzionale sui nodi xml
   type EntryFilter = Option[Node => Boolean]
 
   /**
    * ****************************
-   * Predefined filters
+   * Filtri predefiniti
    * ****************************
    */
 
   /**
-   * Selects entries with specific id
+   * sceglie le entry con un id
    */
   val withId: String => EntryFilter =
     id =>
       Some(node => (node \\ "id").text == id)
   /**
-   * Selects entries with specific words in the title
+   * sceglie le entry con un delle parole specifiche nel titolo
    */
   val withTitle: String => EntryFilter =
     title =>
       Some(node => (node \\ "title").text contains title)
   /**
-   * Selects entries with a specific author
+   * sceglie le entry di un autore
    */
   val withAuthor: String => EntryFilter =
     author =>
       Some(node => (node \\ "author" \ "name").text == author)
   /**
-   * Selects entries with the specified tag
+   * sceglie le entry con un tag
    */
   val withTag: String => EntryFilter =
     tag =>
@@ -123,17 +130,17 @@ object SOFFeedParser {
 
   /**
    * ****************************
-   * Filters composition
+   * Composizione dei filtri
    * ****************************
    */
 
   /**
-   * DSL to compose EntryFilters
+   * DSL per comporre EntryFilters
    */
   case class Composable(filter: EntryFilter) {
 
     /**
-     * combines the filter wrapped by this class with another provided filter
+     * compone il filtro contenuto in questa classe con un altro filtro
      */
     def and(other: EntryFilter): EntryFilter = for {
       f1 <- filter
@@ -142,7 +149,7 @@ object SOFFeedParser {
 
   }
 
-  //implicitly converts a EntryFilter to a Composable Filter wrapper
+  //converte implicitamente un EntryFilter in un [[Composable]] di filtri
   implicit def filterComposable(f: EntryFilter): Composable = Composable(f)
 
 }
