@@ -36,7 +36,7 @@ class RemoteSourceTest extends WordSpec with ShouldMatchers {
 
 class FeedParserTest extends WordSpec with ShouldMatchers {
 
-  "A feed parser" should {
+  "The SOF feed parser" should {
 
     import java.io.File
     import org.joda.time._
@@ -70,7 +70,6 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
     }
     "parse as objects and filter by author the entries" in {
       import SOFFeedParser._
-      // val withAuthor: String => Option[Node => Boolean] = author => Some(node => (node \\ "author" \ "name").text == author)
       val entries = (parser parseAllEntries (source, withAuthor("Josh Livingston")))
       entries should have size (1)
       entries.head should have(
@@ -85,6 +84,33 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
     "parse as objects and filter by title content the entries" in {
       import SOFFeedParser._
       val entries = (parser parseAllEntries (source, withTitle("selection sort")))
+      entries should have size (1)
+      entries.head should have(
+        'id("http://stackoverflow.com/q/13919019"),
+        'title("Swapping in selection sort not working?"),
+        'link("http://stackoverflow.com/questions/13919019/swapping-in-selection-sort-not-working"),
+        'categories(Seq("java", "sorting", "selection", "swap", "xor")),
+        'author("coder005"),
+        'published(new DateTime(2012, 12, 17, 17, 29, 42)),
+        'updated(new DateTime(2012, 12, 17, 17, 29, 42)))
+    }
+    "parse as objects and filter by a tag the entries" in {
+      import SOFFeedParser._
+      val entries = (parser parseAllEntries (source, withTag("swap")))
+      entries should have size (1)
+      entries.head should have(
+        'id("http://stackoverflow.com/q/13919019"),
+        'title("Swapping in selection sort not working?"),
+        'link("http://stackoverflow.com/questions/13919019/swapping-in-selection-sort-not-working"),
+        'categories(Seq("java", "sorting", "selection", "swap", "xor")),
+        'author("coder005"),
+        'published(new DateTime(2012, 12, 17, 17, 29, 42)),
+        'updated(new DateTime(2012, 12, 17, 17, 29, 42)))
+    }
+    "parse as objects and filter by composite the entries" in {
+      import SOFFeedParser._
+      (parser parseAllEntries (source, withTitle("not"))) should have size (4)
+      val entries = (parser parseAllEntries (source, withTitle("not") and withTag("java")))
       entries should have size (1)
       entries.head should have(
         'id("http://stackoverflow.com/q/13919019"),
