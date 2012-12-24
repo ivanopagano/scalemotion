@@ -41,7 +41,7 @@ trait ContentParser[T] {
 /**
  * Raccoglie i dati di una entry nel feed
  */
-case class FeedEntry(id: String, title: String, link: String, categories: Seq[String], author: String, published: DateTime, updated: DateTime)
+case class FeedEntry(id: String, title: String, link: String, categories: Seq[String], author: String, published: DateTime, updated: DateTime, summary: String)
 
 /**
  * Parser specifico per il feed rss di StackOverflow
@@ -88,8 +88,8 @@ trait SOFFeedParser extends ContentParser[FeedEntry] {
     categories = (entry \ "category" \\ "@term") map (_.text),
     author = (entry \ "author" \ "name").text,
     published = (entry \ "published").text,
-    updated = (entry \ "updated").text)
-
+    updated = (entry \ "updated").text,
+    summary = ((entry \ "summary").text filter (!_.isControl)).trim) //Il sommario e' semplificato, tolti spazi e caratteri di controllo
 }
 
 object SOFFeedParser {

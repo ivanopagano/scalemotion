@@ -61,7 +61,8 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
         'categories(Seq("c#", "regex", "replace")),
         'author("user1346598"),
         'published(new DateTime(2012, 12, 17, 17, 30, 33)),
-        'updated(new DateTime(2012, 12, 17, 17, 30, 33)))
+        'updated(new DateTime(2012, 12, 17, 17, 30, 33)),
+        'summary("""<p>I want to replace the white space and special characters with a hyphen .Thank you in advance</p>"""))
     }
     "parse as objects all the entries" in {
       val entryIdMatcher = """http://stackoverflow.com/q/\d+""".r
@@ -80,7 +81,16 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
         'categories(Seq("python", "class", "inheritance")),
         'author("Josh Livingston"),
         'published(new DateTime(2012, 12, 17, 17, 29, 53)),
-        'updated(new DateTime(2012, 12, 17, 17, 29, 53)))
+        'updated(new DateTime(2012, 12, 17, 17, 29, 53)),
+        'summary("""<p>I'm taking a Programming class, and for one of the tests I need to make a class that inherits from an already created class. This is the code the teacher taught me to do, but it doesn't seem to be working:</p>""" +
+          """<pre><code>class Intern(Employer):""" +
+          """def __init__(self, last_name, first_name, address, phone, email, end_date):""" +
+          """    Employer(last_name, first_name, address, phone, email)""" +
+          """    self.end_date=end_date""" +
+          """def intern_info(self):""" +
+          """    self.print_info()""" +
+          """    print self.end_date""" +
+          """</code></pre>"""))
     }
     "parse as objects the entries filtered by title content" in {
       val entries = (parser parseAllEntries withTitle("selection sort"))
