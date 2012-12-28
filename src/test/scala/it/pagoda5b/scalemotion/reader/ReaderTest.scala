@@ -133,24 +133,24 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
     }
     "clean up simple html tags from a string" in {
       val text = """<p>I'm taking a Programming class, and for one of the tests I need to make a class that inherits from an already created class. This is the code the teacher taught me to do, but it doesn't seem to be working:</p>""" +
-          """<pre><code>class Intern(Employer):""" +
-          """def __init__(self, last_name, first_name, address, phone, email, end_date):""" +
-          """    Employer(last_name, first_name, address, phone, email)""" +
-          """    self.end_date=end_date""" +
-          """def intern_info(self):""" +
-          """    self.print_info()""" +
-          """    print self.end_date""" +
-          """</code></pre>"""
+        """<pre><code>class Intern(Employer):""" +
+        """def __init__(self, last_name, first_name, address, phone, email, end_date):""" +
+        """    Employer(last_name, first_name, address, phone, email)""" +
+        """    self.end_date=end_date""" +
+        """def intern_info(self):""" +
+        """    self.print_info()""" +
+        """    print self.end_date""" +
+        """</code></pre>"""
       val cleaned = """I'm taking a Programming class, and for one of the tests I need to make a class that inherits from an already created class. This is the code the teacher taught me to do, but it doesn't seem to be working:""" +
-          """class Intern(Employer):""" +
-          """def __init__(self, last_name, first_name, address, phone, email, end_date):""" +
-          """    Employer(last_name, first_name, address, phone, email)""" +
-          """    self.end_date=end_date""" +
-          """def intern_info(self):""" +
-          """    self.print_info()""" +
-          """    print self.end_date"""
-      (SOFFeedParser removeXmlTagging text) should equal (cleaned)
-      (SOFFeedParser removeXmlTagging "<no tag here< nor here") should equal ("<no tag here< nor here")
+        """class Intern(Employer):""" +
+        """def __init__(self, last_name, first_name, address, phone, email, end_date):""" +
+        """    Employer(last_name, first_name, address, phone, email)""" +
+        """    self.end_date=end_date""" +
+        """def intern_info(self):""" +
+        """    self.print_info()""" +
+        """    print self.end_date"""
+      (SOFFeedParser removeXmlTagging text) should equal(cleaned)
+      (SOFFeedParser removeXmlTagging "<no tag here< nor here") should equal("<no tag here< nor here")
     }
 
   }
