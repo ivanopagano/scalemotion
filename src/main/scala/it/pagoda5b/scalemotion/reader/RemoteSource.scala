@@ -14,6 +14,7 @@ case class RemoteSource(urlString: String) {
 
   /**
    * legge la sorgente in modo asincrono, restituendo una [[Promise]] del contenuto xml
+   * TODO: gestire esplicitamente il caso in cui la risposta remote non sia OK
    */
   def read: Promise[Elem] = Http(feed OK as.xml.Elem)
 
