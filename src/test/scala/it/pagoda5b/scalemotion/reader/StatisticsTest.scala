@@ -32,6 +32,7 @@ class FeedStatsTest extends WordSpec with ShouldMatchers {
       val entry = FeedEntry(
         id = "id",
         title = "title",
+        rank = 0,
         link = "link",
         categories = Seq[String](),
         author = "author",

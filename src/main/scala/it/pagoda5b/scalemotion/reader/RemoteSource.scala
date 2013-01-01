@@ -45,6 +45,7 @@ trait ContentParser[T] {
 case class FeedEntry(
   id: String,
   title: String,
+  rank: Int,
   link: String,
   categories: Seq[String],
   author: String,
@@ -93,6 +94,7 @@ trait SOFFeedParser extends ContentParser[FeedEntry] {
   def parseEntry(entry: Node) = FeedEntry(
     id = (entry \ "id").text,
     title = (entry \ "title").text,
+    rank = (entry \ "rank").text.toInt,
     link = (entry \ "link" \ "@href").text,
     categories = (entry \ "category" \\ "@term") map (_.text),
     author = (entry \ "author" \ "name").text,
@@ -143,6 +145,12 @@ object SOFFeedParser {
   val withTag: String => EntryFilter =
     tag =>
       Some(node => (node \\ "category" \\ "@term") exists (_.text == tag))
+  /**
+   * sceglie le entry con un rank
+   */
+  val withRank: String => EntryFilter =
+    rank =>
+      Some(node => (node \\ "rank") exists (_.text == rank))
 
   /**
    * ****************************

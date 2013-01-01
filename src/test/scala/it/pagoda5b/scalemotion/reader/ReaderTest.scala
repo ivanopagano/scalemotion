@@ -57,6 +57,7 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
       entry should have(
         'id("http://stackoverflow.com/q/13919025"),
         'title("Visual c# Replace special characters and white space from a string"),
+        'rank(0),
         'link("http://stackoverflow.com/questions/13919025/visual-c-sharp-replace-special-characters-and-white-space-from-a-string"),
         'categories(Seq("c#", "regex", "replace")),
         'author("user1346598"),
@@ -77,6 +78,7 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
       entries.head should have(
         'id("http://stackoverflow.com/q/13919022"),
         'title("Something wrong with Python class Inheritance"),
+        'rank(0),
         'link("http://stackoverflow.com/questions/13919022/something-wrong-with-python-class-inheritance"),
         'categories(Seq("python", "class", "inheritance")),
         'author("Josh Livingston"),
@@ -98,6 +100,7 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
       entries.head should have(
         'id("http://stackoverflow.com/q/13919019"),
         'title("Swapping in selection sort not working?"),
+        'rank(0),
         'link("http://stackoverflow.com/questions/13919019/swapping-in-selection-sort-not-working"),
         'categories(Seq("java", "sorting", "selection", "swap", "xor")),
         'author("coder005"),
@@ -110,6 +113,7 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
       entries.head should have(
         'id("http://stackoverflow.com/q/13919019"),
         'title("Swapping in selection sort not working?"),
+        'rank(0),
         'link("http://stackoverflow.com/questions/13919019/swapping-in-selection-sort-not-working"),
         'categories(Seq("java", "sorting", "selection", "swap", "xor")),
         'author("coder005"),
@@ -125,6 +129,7 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
       entries.head should have(
         'id("http://stackoverflow.com/q/13919019"),
         'title("Swapping in selection sort not working?"),
+        'rank(0),
         'link("http://stackoverflow.com/questions/13919019/swapping-in-selection-sort-not-working"),
         'categories(Seq("java", "sorting", "selection", "swap", "xor")),
         'author("coder005"),
