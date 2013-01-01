@@ -23,4 +23,9 @@ trait SOFEntryStatistics { self: SOFFeedParser =>
    */
   def extractWordCounts(entry: FeedEntry): Map[String, Int] = ((removeXmlTagging _) andThen (countWords _))(entry.summary)
 
+  /**
+   * calcola i totali delle parole contenute in tutte le entry passate
+   */
+  def extractWordCounts(entries: Iterable[FeedEntry]): Map[String, Int] = entries.par map (extractWordCounts) reduce { (m1, m2) => m1 ++ m2 }
+
 }
