@@ -11,7 +11,12 @@ trait SOFEntryStatistics { self: SOFFeedParser =>
   /**
    * conta le singole parole del testo passato, vengono rimossi i caratteri di interpunzione e gli spazi
    */
-  def countWords(text: String): Map[String, Int] = text.split(commonSeparators).filterNot(_.isEmpty).groupBy(identity(_)).filterKeys(isPlainWord).mapValues(_.size)
+  def countWords(text: String): Map[String, Int] =
+    text.split(commonSeparators)
+      .filterNot(_.isEmpty)
+      .groupBy(identity(_))
+      .filterKeys(isPlainWord)
+      .mapValues(_.size)
 
   /**
    * controlla se il testo passato e' una parola composta solo da lettere o numeri

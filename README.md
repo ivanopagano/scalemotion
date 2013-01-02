@@ -5,7 +5,7 @@ Questo progetto consiste di una semplice (ma non troppo) applicazione illustrati
 
 Intento
 -------
-Lo scopo &egrave; i presentare una proposta di intervento al [codemotion 2013](http://roma.codemotion.it/) di Roma con l'idea di mostrare il linguaggio in un contesto applicativo non esclusivamente didattico.  
+Lo scopo &egrave; di presentare una proposta di intervento al [codemotion 2013](http://roma.codemotion.it/) di Roma con l'idea di mostrare il linguaggio in un contesto applicativo non esclusivamente didattico.  
 Questa esigenza nasce dalla volont&agrave; di esporre qualcosa che vada oltre il solito codice pensato "ad-hoc" per mostrare le varie strutture del linguaggio, ma che dia un'idea concreta di prodotto finale.
 
 In tal senso l'applicazione dovrebbe essere auto-consistente, completa, purch&eacute; non troppo sofisticata, per evitare di introdurre troppi concetti ad un eventuale pubblico inesperto.
