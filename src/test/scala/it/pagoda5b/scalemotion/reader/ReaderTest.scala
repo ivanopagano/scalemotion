@@ -2,7 +2,9 @@ package it.pagoda5b.scalemotion.reader
 
 import org.scalatest._
 import org.scalatest.matchers._
-import xml._
+import org.scalatest.OptionValues._
+import xml.{ XML, Elem }
+import dispatch.Promise
 
 class RemoteSourceTest extends WordSpec with ShouldMatchers {
 
@@ -10,26 +12,22 @@ class RemoteSourceTest extends WordSpec with ShouldMatchers {
 
     "read the expected xml feed" in {
       //converte la Promise in un valore opzionale e aspetta la risposta asincrona (chiamando apply)
-      val xmlTree: Option[Elem] = (new RemoteSource("http://www.scala-lang.org/rss.xml").read).option.apply()
+      val xmlTree: Promise[Option[Elem]] = (new RemoteSource("http://www.scala-lang.org/rss.xml").read).option
 
-      xmlTree should be('defined)
-      xmlTree map (content => (content \\ "channel" \ "title").text) should be(Some("The Scala Programming Language"))
-      xmlTree map (content => (content \\ "channel" \ "link").text) should be(Some("http://www.scala-lang.org/"))
+      (xmlTree() map (content => (content \\ "channel" \ "title").text)).value should be ("The Scala Programming Language")
+      (xmlTree() map (content => (content \\ "channel" \ "link").text)).value should be ("http://www.scala-lang.org/")
     }
-
     "find the correct number of entries" in {
-      val xmlTree: Option[Elem] = (new RemoteSource("http://www.scala-lang.org/rss.xml").read).option.apply()
+      val xmlTree: Promise[Option[Elem]] = (new RemoteSource("http://www.scala-lang.org/rss.xml").read).option
 
-      xmlTree map (content => (content \\ "item").size) should be(Some(24))
+      (xmlTree() map (content => (content \\ "item").size)).value should be (24)
 
     }
-
     "read a stackoverflow tag-specific feed" in {
-      val xmlTree: Option[Elem] = (new RemoteSource("http://stackoverflow.com/feeds/tag/scala").read).option.apply()
+      val xmlTree: Promise[Option[Elem]] = (new RemoteSource("http://stackoverflow.com/feeds/tag/scala").read).option
 
-      xmlTree should be('defined)
-      xmlTree map (content => (content \\ "feed" \ "id").text) should be(Some("http://stackoverflow.com/feeds/tag/scala"))
-      xmlTree map (content => (content \\ "feed" \ "title").text) should be(Some("active questions tagged scala - Stack Overflow"))
+      (xmlTree() map (content => (content \\ "feed" \ "id").text)).value should be ("http://stackoverflow.com/feeds/tag/scala")
+      (xmlTree() map (content => (content \\ "feed" \ "title").text)).value should be ("active questions tagged scala - Stack Overflow")
     }
 
   }
@@ -47,10 +45,10 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
     val parser = new SOFFeedParser {}
 
     "read the feed title" in {
-      (parser parseTitle) should be("Recent Questions - Stack Overflow")
+      (parser parseTitle) should be ("Recent Questions - Stack Overflow")
     }
     "count the number of entries" in {
-      (parser parseNumberOfEntries) should be(30)
+      (parser parseNumberOfEntries) should be (30)
     }
     "correctly read the first entry" in {
       val entry = parser parseEntry (source \\ "entry").head.asInstanceOf[Elem]
@@ -66,11 +64,12 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
         'summary("""<p>I want to replace the white space and special characters with a hyphen .Thank you in advance</p>"""))
     }
     "parse as objects all the entries" in {
+      val entryIdPattern = """http://stackoverflow.com/q/\d+""".r.pattern
       val entryIdMatcher = """http://stackoverflow.com/q/\d+""".r
       val entries = (parser parseAllEntries)
       entries should have size (30)
-      (entries forall (_.isInstanceOf[FeedEntry])) should be(true)
-      (entries forall (entry => (entryIdMatcher findFirstIn entry.id).isDefined)) should be(true)
+      entries forall (_.isInstanceOf[FeedEntry]) should be (true)
+      (entries forall (entry => entryIdPattern.matcher(entry.id).matches)) should be (true)
     }
     "parse as objects the entries filtered by author" in {
       val entries = (parser parseAllEntries withAuthor("Josh Livingston"))
@@ -154,8 +153,9 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
         """def intern_info(self):""" +
         """    self.print_info()""" +
         """    print self.end_date"""
-      (SOFFeedParser removeXmlTagging text) should equal(cleaned)
-      (SOFFeedParser removeXmlTagging "<no tag here< nor here") should equal("<no tag here< nor here")
+      (SOFFeedParser removeXmlTagging text) should equal (cleaned)
+      val unchanged = "<no tag here< nor here"
+      (SOFFeedParser removeXmlTagging unchanged) should be (unchanged)
     }
 
   }
