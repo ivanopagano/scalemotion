@@ -15,30 +15,43 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entries:
   // rappresentazione semplificata, per un debug pi&ugrave; immediato
   override def toString: String = "SOFFeed(%s, %s, %d entries)".format(feedUrl, tagSpecific, entries.size)
 
-  //Riferimento al feed remoto
-  private[this] val remote = RemoteSource(tagSpecific map { feedUrl + "/" + _ } getOrElse feedUrl)
+  // riferimento al feed remoto
+  private[this] val remote = RemoteSource(tagSpecific map { feedUrl + "/tag/" + _ } getOrElse feedUrl)
 
   /*
-   *legge il contenuto remoto, come [[Promise]] di un possibile risultato, 
-   *che sar&agrave; {{{None}}} in caso di qualche errore di lettura del feed
+   * legge il contenuto remoto, come [[Promise]] di un possibile risultato, 
+   * che sar&agrave; {{{None}}} in caso di qualche errore di lettura del feed
    */
   private[this] lazy val xmlContent = remote.read.option
 
-  //applica la funzione di parsing al contenuto del feed, letto dalla [[Promise]], restituendo un valore opzionale
+  /*
+   * applica la funzione di parsing al contenuto del feed, letto dalla [[Promise]]
+   *
+   * Il valore restituito &egrave; opzionale per tenere conto che la lettura del feed dalla rete 
+   * potrebbe fallire
+   */
   private[this] def optionally[T](parseFunction: xml.Elem => T): Option[T] = xmlContent() map parseFunction
 
   /**
    * restituisce l'eventuale titolo del feed, se disponibile
+   *
+   * 'nota implementativa': il parametro implicito &egrave; necessario perch&eacute; comunque la chiamata
+   * a [[#optionally]] tenta di valutare la {{{lambda expression}}} passata pretendendo un
+   * parametro implicito, che invece verrebbe fornito all'interno della funzione stessa in modo esplicito
    */
   def title: Option[String] = optionally(implicit xml => parseTitle)
 
   /**
    * restituisce il numero di entries contenute leggendo in remoto, se disponibile
+   *
+   * cfr. la nota implementativa a [[#title]]
    */
   def numberOfEntries: Option[Int] = optionally(implicit xml => parseNumberOfEntries)
 
   /**
    * restituisce le entry contenute leggendo da remoto, se disponibili
+   *
+   * cfr. la nota implementativa a [[#title]]
    */
   def latestEntries: Option[Seq[FeedEntry]] = optionally(implicit xml => parseAllEntries)
 
