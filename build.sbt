@@ -1,6 +1,6 @@
 name := "scalemotion"
 
-version := "0.0.2"
+version := "0.2"
 
 scalaVersion := "2.9.2"
 
