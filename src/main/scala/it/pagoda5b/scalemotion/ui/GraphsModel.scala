@@ -18,6 +18,9 @@ object GraphsModel {
    */
   val feedProperty: ObjectProperty[SOFFeed] = new SimpleObjectProperty(this, "feed", SOFFeed("http://stackoverflow.com/feeds"))
 
+  /**
+   * stabilisce la soglia minima per un termine affinch&eacute; venga inclusa nei dati del grafico
+   */
   val histogramThresholdProperty: IntegerProperty = new SimpleIntegerProperty(this, "histogramThreshold", 10)
 
   /**
@@ -28,6 +31,9 @@ object GraphsModel {
     wordsValues.setAll(extractValues)
   }
 
+  /*
+   * elabora i valori forniti dal feed
+   */
   private def extractValues: JList[XYChart.Data[String, Number]] = feedProperty.get
     .extractWordStatistics
     .filter {
@@ -37,15 +43,14 @@ object GraphsModel {
     .sortBy { case (key, count) => count }(Ordering.Int.reverse)
     .map(toChartData)
 
-  val wordsValues: ObservableList[XYChart.Data[String, Number]] = FXCollections.observableArrayList[XYChart.Data[String, Number]]
+  private val wordsValues: ObservableList[XYChart.Data[String, Number]] = FXCollections.observableArrayList[XYChart.Data[String, Number]]
 
-  val wordsSeries: XYChart.Series[String, Number] = new XYChart.Series(wordsValues)
+  private val wordsSeries: XYChart.Series[String, Number] = new XYChart.Series(wordsValues)
 
-  def toChartData(data: (String, Int)): XYChart.Data[String, Number] = new XYChart.Data(data._1, data._2)
+  private def toChartData(data: (String, Int)): XYChart.Data[String, Number] = new XYChart.Data(data._1, data._2)
 
-  def getSeries: ObservableList[XYChart.Series[String, Number]] = {
-    val list = FXCollections.observableArrayList[XYChart.Series[String, Number]]
-    list.setAll(wordsSeries)
-    list
-  }
+  /**
+   * contiene le serie di istogrammi con i conteggi delle parole
+   */
+  val series: ObservableList[XYChart.Series[String, Number]] = FXCollections.observableArrayList[XYChart.Series[String, Number]](wordsSeries)
 }

@@ -1,14 +1,19 @@
 package it.pagoda5b.scalemotion.ui
 
 import javafx.application.{ Application => FXApp, Platform }
+import javafx.animation._
+import javafx.animation.Animation.INDEFINITE
 import javafx.stage.{ Stage, WindowEvent }
+import javafx.event.ActionEvent
 import javafx.scene.SceneBuilder
 import javafx.scene.chart._
-import javafx.scene.control.{ ButtonBuilder, ScrollPaneBuilder }
+import javafx.scene.control.{ Label, LabelBuilder, ScrollPaneBuilder }
 import javafx.scene.control.ScrollPane.ScrollBarPolicy
-import javafx.scene.layout.StackPaneBuilder
+import javafx.scene.layout.{ AnchorPane, AnchorPaneBuilder }
+import javafx.geometry.Pos._
 import javafx.beans.property.SimpleStringProperty
 import javafx.util.Builder
+import javafx.util.Duration._
 import javafx.util.converter.NumberStringConverter
 
 /**
@@ -30,8 +35,17 @@ class GraphsApp extends FXApp {
     import FXBuilderUtils._
     import FXEventHandlersUtils._
 
-    stage.setTitle("Stack Overflow Analisys")
+    //titolo della finestra
+    stage.setTitle("Stack Overflow Analysis")
 
+    //mostra la soglia minima stabilita per l'istogramma, per impedire di affollare il grafico
+    lazy val thresholdLabel: Label = create[LabelBuilder]
+      .alignment(TOP_RIGHT)
+
+    //mostra i conteggi delle parole contenute nei feed
+    lazy val chart: BarChart[String, Number] = makeBarChart
+
+    //costruisce il contenuto della scena
     val scene = create[SceneBuilder]
       .width(800)
       .height(600)
@@ -41,25 +55,53 @@ class GraphsApp extends FXApp {
           .fitToHeight(true)
           .hbarPolicy(ScrollBarPolicy.AS_NEEDED)
           .content {
-            create[StackPaneBuilder]
-              .children(makeBarChart)
+            create[AnchorPaneBuilder]
+              .children(
+                chart,
+                thresholdLabel)
           }
       }
 
+    thresholdLabel.textProperty.bind(new SimpleStringProperty("Count threshold set to ").concat(GraphsModel.histogramThresholdProperty))
+
+    //allinea etichetta e grafico
+    AnchorPane.setTopAnchor(thresholdLabel, 50)
+    AnchorPane.setRightAnchor(thresholdLabel, 20)
+    AnchorPane.setTopAnchor(chart, 0)
+    AnchorPane.setBottomAnchor(chart, 0)
+    AnchorPane.setRightAnchor(chart, 0)
+    AnchorPane.setLeftAnchor(chart, 0)
+
+    //imposta la scena sullo stage
     stage.setScene(scene)
     stage.sizeToScene()
+    //esce in caso di chiusura della finestra
     stage.setOnCloseRequest {
-      (e: WindowEvent) => Platform.exit()
+      (_: WindowEvent) => Platform.exit()
     }
-    GraphsModel.populate()
-    stage.show()
+    //aggiorna i dati
+    val updateTimer: Timeline = TimelineBuilder.create
+      .keyFrames(
+        new KeyFrame(
+          seconds(10),
+          (_: ActionEvent) => GraphsModel.populate()))
+      .cycleCount(INDEFINITE)
 
+    //calcola il primo conteggio
+    GraphsModel.populate()
+    updateTimer.play()
+    
+    stage.show()
   }
 
+  /*
+   * crea l'istogramma e lo popola
+   */
   private def makeBarChart: BarChart[String, Number] = {
     import FXBuilderUtils._
 
-    val chart = createChart[String, Number, BarChartBuilder]
+    createChart[String, Number, BarChartBuilder]
+      .title("Word Histograms for the Stackoverflow feed")
       .XAxis {
         CategoryAxisBuilder.create
           .label("words in the feed summaries")
@@ -68,17 +110,15 @@ class GraphsApp extends FXApp {
       .YAxis {
         NumberAxisBuilder.create
           .label("frequency of appearance")
-          .tickUnit(1.0)
+          .tickUnit(1)
           .tickLabelFormatter(new NumberStringConverter(new java.text.DecimalFormat("0")))
           .minorTickVisible(false)
           .build
       }
       .animated(true)
-      .data(GraphsModel.getSeries)
+      .data(GraphsModel.series)
       .build
 
-    chart.titleProperty.bind(new SimpleStringProperty("Word Histograms for the Stackoverflow feed\nwith a count of at least ").concat(GraphsModel.histogramThresholdProperty))
-    chart
   }
 
 }

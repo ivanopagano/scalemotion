@@ -23,8 +23,8 @@ object FXEventHandlersUtils {
 object FXBuilderUtils {
   import javafx.scene.SceneBuilder
   import javafx.scene.chart.BarChartBuilder
-  import javafx.scene.control.{ ButtonBuilder, ScrollPaneBuilder }
-  import javafx.scene.layout.StackPaneBuilder
+  import javafx.scene.control._
+  import javafx.scene.layout._
   import javafx.util.Builder
 
   /**
@@ -38,7 +38,9 @@ object FXBuilderUtils {
    */
   implicit val sceneBuild: SceneBuilder[_] = SceneBuilder.create()
   implicit val buttonBuild: ButtonBuilder[_] = ButtonBuilder.create()
+  implicit val labelBuild: LabelBuilder[_] = LabelBuilder.create()
   implicit val stackPaneBuild: StackPaneBuilder[_] = StackPaneBuilder.create()
+  implicit val anchorPaneBuild: AnchorPaneBuilder[_] = AnchorPaneBuilder.create()
   implicit val scrollPaneBuild: ScrollPaneBuilder[_] = ScrollPaneBuilder.create()
   implicit val barChartBuild: BarChartBuilder[_, _, _] = BarChartBuilder.create()
 

@@ -19,9 +19,9 @@ trait SOFEntryStatistics { self: SOFFeedParser =>
       .mapValues(_.size)
 
   /**
-   * controlla se il testo passato e' una parola composta solo da lettere o numeri
+   * controlla se il testo passato e' una parola composta solo da almeno una lettera ed eventualemente dei numeri
    */
-  def isPlainWord(word: String): Boolean = word forall (_.isLetterOrDigit)
+  def isPlainWord(word: String): Boolean = (word forall (_.isLetterOrDigit)) && (word exists (_.isLetter))
 
   /**
    * calcola un conteggio delle parole contenute nel *summary*, rimossi i tag xml
