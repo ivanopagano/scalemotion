@@ -2,9 +2,10 @@ package it.pagoda5b.scalemotion.ui
 
 import it.pagoda5b.scalemotion.reader.SOFFeed
 import scala.collection.JavaConversions._
-import java.util.{ Collection => JCollection }
+import scala.math.Ordering
+import java.util.{ Collection => JCollection, List => JList }
 import javafx.scene.chart._
-import javafx.beans.property.SimpleListProperty
+import javafx.beans.property._
 import javafx.collections.{ FXCollections, ObservableList }
 
 /**
@@ -12,24 +13,29 @@ import javafx.collections.{ FXCollections, ObservableList }
  */
 object GraphsModel {
 
-  //il feed da cui estrarre i valori
-  private var data = SOFFeed("http://stackoverflow.com/feeds")
+  /**
+   * il feed da cui estrarre i valori
+   */
+  val feedProperty: ObjectProperty[SOFFeed] = new SimpleObjectProperty(this, "feed", SOFFeed("http://stackoverflow.com/feeds"))
+
+  val histogramThresholdProperty: IntegerProperty = new SimpleIntegerProperty(this, "histogramThreshold", 10)
 
   /**
    * aggiorna i valori dei grafici
    */
   def populate() {
-    data = data.updateFeed
+    feedProperty.set(feedProperty.get.updateFeed)
     wordsValues.setAll(extractValues)
   }
 
-  private def extractValues: JCollection[XYChart.Data[String, Number]] = data
+  private def extractValues: JList[XYChart.Data[String, Number]] = feedProperty.get
     .extractWordStatistics
     .filter {
-      case (_, count) => count > 10
+      case (_, count) => count >= histogramThresholdProperty.get
     }
+    .toSeq
+    .sortBy { case (key, count) => count }(Ordering.Int.reverse)
     .map(toChartData)
-    .toIterable
 
   val wordsValues: ObservableList[XYChart.Data[String, Number]] = FXCollections.observableArrayList[XYChart.Data[String, Number]]
 

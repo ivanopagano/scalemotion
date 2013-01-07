@@ -4,9 +4,12 @@ import javafx.application.{ Application => FXApp, Platform }
 import javafx.stage.{ Stage, WindowEvent }
 import javafx.scene.SceneBuilder
 import javafx.scene.chart._
-import javafx.scene.control.ButtonBuilder
+import javafx.scene.control.{ ButtonBuilder, ScrollPaneBuilder }
+import javafx.scene.control.ScrollPane.ScrollBarPolicy
 import javafx.scene.layout.StackPaneBuilder
+import javafx.beans.property.SimpleStringProperty
 import javafx.util.Builder
+import javafx.util.converter.NumberStringConverter
 
 /**
  * La classe principale, lancia l'applicazione JavaFX
@@ -33,8 +36,14 @@ class GraphsApp extends FXApp {
       .width(800)
       .height(600)
       .root {
-        create[StackPaneBuilder]
-          .children(makeBarChart)
+        create[ScrollPaneBuilder]
+          .fitToWidth(true)
+          .fitToHeight(true)
+          .hbarPolicy(ScrollBarPolicy.AS_NEEDED)
+          .content {
+            create[StackPaneBuilder]
+              .children(makeBarChart)
+          }
       }
 
     stage.setScene(scene)
@@ -50,8 +59,7 @@ class GraphsApp extends FXApp {
   private def makeBarChart: BarChart[String, Number] = {
     import FXBuilderUtils._
 
-    createChart[String, Number, BarChartBuilder]
-      .title("Word Histograms for the Stackoverflow feed")
+    val chart = createChart[String, Number, BarChartBuilder]
       .XAxis {
         CategoryAxisBuilder.create
           .label("words in the feed summaries")
@@ -61,11 +69,16 @@ class GraphsApp extends FXApp {
         NumberAxisBuilder.create
           .label("frequency of appearance")
           .tickUnit(1.0)
+          .tickLabelFormatter(new NumberStringConverter(new java.text.DecimalFormat("0")))
+          .minorTickVisible(false)
           .build
       }
       .animated(true)
       .data(GraphsModel.getSeries)
       .build
+
+    chart.titleProperty.bind(new SimpleStringProperty("Word Histograms for the Stackoverflow feed\nwith a count of at least ").concat(GraphsModel.histogramThresholdProperty))
+    chart
   }
 
 }
