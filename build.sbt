@@ -8,7 +8,8 @@ libraryDependencies ++= Seq(
 	"net.databinder.dispatch" %% "dispatch-core" % "0.9.5",
 	"org.scalatest" %% "scalatest" % "1.8" % "test",
 	"joda-time" % "joda-time" % "2.1",
-	"org.joda" % "joda-convert" % "1.2" % "compile"
+	"org.joda" % "joda-convert" % "1.2" % "compile",
+  "org.slf4j" % "slf4j-jdk14" % "1.7.2"
 )
 
 //The following is specific to setup JAVAFX use with SBT
