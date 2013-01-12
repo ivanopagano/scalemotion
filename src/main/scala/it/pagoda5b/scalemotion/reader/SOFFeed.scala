@@ -8,9 +8,9 @@ package it.pagoda5b.scalemotion.reader
  *
  * @param feedUrl dove trovare il feed
  * @param tagSpecific il feed deve contenere questo tag specifico nelle sue categorie
- * @param entries una mappa delle entry gi&agrave; lette
+ * @param entryHistory una mappa di entry gi&agrave; lette precedentemente
  */
-case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entries: Map[String, FeedEntry] = Map()) extends SOFFeedParser with SOFEntryStatistics {
+case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entryHistory: Map[String, FeedEntry] = Map()) extends SOFFeedParser with SOFEntryStatistics {
 
   // rappresentazione semplificata, per un debug pi&ugrave; immediato
   override def toString: String = "SOFFeed(%s, %s, %d entries)".format(feedUrl, tagSpecific, entries.size)
@@ -59,7 +59,7 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entries:
    * restituisce una mappa aggiornata delle entry di questo feed,
    * ottenuta aggiungendo i valori disponibili da remoto, se possibile
    */
-  def updatedEntries: Map[String, FeedEntry] = entries ++ {
+  lazy val entries: Map[String, FeedEntry] = entryHistory ++ {
     for {
       updates <- latestEntries.toList
       entry <- updates
@@ -70,7 +70,7 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entries:
    * restituisce un nuovo [[SOFFeed]], le cui entry sono arricchite con i dati
    * ottenuti in remoto, se al momento disponibili
    */
-  def updateFeed: SOFFeed = copy(entries = updatedEntries)
+  def updateFeed: SOFFeed = copy(entryHistory = entries)
 
   /**
    * ottiene i conteggi delle parole contenute in tutte le domande al momento

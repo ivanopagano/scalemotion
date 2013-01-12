@@ -26,7 +26,7 @@ object GraphsModel {
   /**
    * aggiorna i valori dei grafici
    */
-  def populate() {
+  def readFeed() {
     feedProperty.set(feedProperty.get.updateFeed)
     wordsValues.setAll(extractValues)
   }
@@ -43,7 +43,7 @@ object GraphsModel {
     .sortBy { case (key, count) => count }(Ordering.Int.reverse)
     .map(toChartData)
 
-  private val wordsValues: ObservableList[XYChart.Data[String, Number]] = FXCollections.observableArrayList[XYChart.Data[String, Number]]
+  private val wordsValues: ObservableList[XYChart.Data[String, Number]] = FXCollections.observableArrayList[XYChart.Data[String, Number]](extractValues)
 
   private val wordsSeries: XYChart.Series[String, Number] = new XYChart.Series(wordsValues)
 

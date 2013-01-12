@@ -79,16 +79,16 @@ class GraphsApp extends FXApp {
     stage.setOnCloseRequest {
       (_: WindowEvent) => Platform.exit()
     }
-    //aggiorna i dati
+    //aggiorna i dati dal feed remoto
     val updateTimer: Timeline = TimelineBuilder.create
       .keyFrames(
         new KeyFrame(
           seconds(10),
-          (_: ActionEvent) => GraphsModel.populate()))
+          (_: ActionEvent) => GraphsModel.readFeed()))
       .cycleCount(INDEFINITE)
 
     //calcola il primo conteggio
-    GraphsModel.populate()
+    // GraphsModel.populate()
     updateTimer.play()
     
     stage.show()
