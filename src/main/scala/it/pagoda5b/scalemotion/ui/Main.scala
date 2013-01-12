@@ -11,7 +11,8 @@ import javafx.scene.control.{ Label, LabelBuilder, ScrollPaneBuilder }
 import javafx.scene.control.ScrollPane.ScrollBarPolicy
 import javafx.scene.layout.{ AnchorPane, AnchorPaneBuilder }
 import javafx.geometry.Pos._
-import javafx.beans.property.SimpleStringProperty
+import javafx.beans.binding.StringBinding
+import javafx.beans.Observable
 import javafx.util.Builder
 import javafx.util.Duration._
 import javafx.util.converter.NumberStringConverter
@@ -42,6 +43,10 @@ class GraphsApp extends FXApp {
     lazy val thresholdLabel: Label = create[LabelBuilder]
       .alignment(TOP_RIGHT)
 
+    //indica il tempo passato dall'inizio dei conteggi
+    lazy val elapsedLabel: Label = create[LabelBuilder]
+      .alignment(TOP_RIGHT)
+
     //mostra i conteggi delle parole contenute nei feed
     lazy val chart: BarChart[String, Number] = makeBarChart
 
@@ -58,15 +63,29 @@ class GraphsApp extends FXApp {
             create[AnchorPaneBuilder]
               .children(
                 chart,
-                thresholdLabel)
+                thresholdLabel,
+                elapsedLabel)
           }
       }
 
-    thresholdLabel.textProperty.bind(new SimpleStringProperty("Count threshold set to ").concat(GraphsModel.histogramThresholdProperty))
+    //il testo per la soglia
+    val threshold = createStringBinding(GraphsModel.histogramThresholdProperty) {
+      () => "count lower threshold is " + GraphsModel.histogramThresholdProperty.intValue
+    }
 
-    //allinea etichetta e grafico
-    AnchorPane.setTopAnchor(thresholdLabel, 50)
+    //il tempo trascorso da quando &egrave; iniziato il conteggio
+    val elapsed = createStringBinding(GraphsModel.elapsedTimeProperty) {
+      () => "count started " + GraphsModel.elapsedTimeProperty.getValueSafe
+    }
+
+    thresholdLabel.textProperty.bind(threshold)
+    elapsedLabel.textProperty.bind(elapsed)
+
+    //allinea etichette e grafico
+    AnchorPane.setTopAnchor(thresholdLabel, 70)
     AnchorPane.setRightAnchor(thresholdLabel, 20)
+    AnchorPane.setTopAnchor(elapsedLabel, 50)
+    AnchorPane.setRightAnchor(elapsedLabel, 20)
     AnchorPane.setTopAnchor(chart, 0)
     AnchorPane.setBottomAnchor(chart, 0)
     AnchorPane.setRightAnchor(chart, 0)
@@ -88,7 +107,7 @@ class GraphsApp extends FXApp {
       .cycleCount(INDEFINITE)
 
     updateTimer.play()
-    
+
     stage.show()
   }
 
@@ -117,6 +136,19 @@ class GraphsApp extends FXApp {
       .data(GraphsModel.series)
       .build
 
+  }
+
+  /**
+   * costruisce un binding che ha una stringa come risultato
+   *
+   * @param bounTo Observable a cui il Binding fa riferimneto
+   * @param la funzione che calcola il valore restituito
+   */
+  private def createStringBinding(boundTo: Observable)(computeFunction: () => String): StringBinding = new StringBinding {
+    //il binding viene invalidato con l'oggetto a cui e' vincolato
+    bind(boundTo)
+    //calcola il valore con la funzione passata
+    override def computeValue: String = computeFunction()
   }
 
 }

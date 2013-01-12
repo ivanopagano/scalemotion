@@ -3,9 +3,12 @@ package it.pagoda5b.scalemotion.ui
 import it.pagoda5b.scalemotion.reader.SOFFeed
 import scala.collection.JavaConversions._
 import scala.math.Ordering
-import java.util.{ Collection => JCollection, List => JList }
+import java.util.{ Collection => JCollection, List => JList, Date}
+import org.ocpsoft.prettytime.PrettyTime
+import org.ocpsoft.prettytime.units.JustNow
 import javafx.scene.chart._
 import javafx.beans.property._
+import javafx.beans.binding.StringBinding
 import javafx.collections.{ FXCollections, ObservableList }
 
 /**
@@ -23,11 +26,28 @@ object GraphsModel {
    */
   val histogramThresholdProperty: IntegerProperty = new SimpleIntegerProperty(this, "histogramThreshold", 10)
 
+  // tiene traccia del momento in cui &egrave; stato generato il modello
+  private val histogramStart = {
+    val pt = new PrettyTime(new Date)
+    //necessario per ridurre lo scarto minimo individuato a sotto i 5 minuti
+    pt removeUnit classOf[JustNow]
+    pt
+  }
+
+  /**
+   * indica quanto tempo è passato fra l'ultimo aggiornamento dei dati e la creazione del modello
+   */
+  val elapsedTimeProperty = new StringBinding {
+      override def computeValue = histogramStart format (new Date)
+    }
+
+
   /**
    * aggiorna i dati, e i valori dei grafici se ci sono dati aggiornati
    */
   def refreshData() {
     feedProperty.set(feedProperty.get.updateFeed)
+    elapsedTimeProperty.invalidate()
     if (feedProperty.get.freshDataAvailable) wordsValues.setAll(extractValues)
   }
 
