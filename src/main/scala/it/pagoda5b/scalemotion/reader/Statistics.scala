@@ -7,7 +7,7 @@ trait SOFEntryStatistics { self: SOFFeedParser =>
 
   import SOFFeedParser._
 
-  private val commonSeparators = Array(' ', ',', '.', '\'', '?', '!', ';', ':', '\"')
+  private val commonSeparators = Array(' ', ',', '.', '\'', '/', '?', '!', ';', ':', '\"')
   /**
    * conta le singole parole del testo passato, vengono rimossi i caratteri di interpunzione e gli spazi
    */
