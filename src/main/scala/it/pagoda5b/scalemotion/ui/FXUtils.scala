@@ -49,6 +49,10 @@ object FXBuilderUtils {
    *
    * Questa serie di metodi converte correttamente il valore di ritorno del [[Builder]], rispetto alla
    * parametrizzazione generica, che non permetterebbe di concatenare le chiamate in Scala
+   *
+   * *Nota*: il builder restituito &egrave; sempre lo stesso, ossia l'istanza implicita, quindi il meccanismo
+   * va riverificato nel caso servisse utilizzare il builder pi&ugrave; volte, per controllare che le chiamate che impostano
+   * le property non restituiscano lo stesso oggetto modificato, ma una nuova istanza
    */
   def create[A[B <: A[B]] <: Builder[_]](implicit builder: A[_]) = builder.asInstanceOf[A[_ <: A[_ <: A[_ <: A[_ <: A[_]]]]]]
 
@@ -57,6 +61,10 @@ object FXBuilderUtils {
    *
    * Questa serie di metodi converte correttamente il valore di ritorno del [[Builder]], rispetto alla
    * parametrizzazione generica, che non permetterebbe di concatenare le chiamate in Scala
+   *
+   * *Nota*: il builder restituito &egrave; sempre lo stesso, ossia l'istanza implicita, quindi il meccanismo
+   * va riverificato nel caso servisse utilizzare il builder pi&ugrave; volte, per controllare che le chiamate che impostano
+   * le property non restituiscano lo stesso oggetto modificato, ma una nuova istanza
    */
   def createChart[X, Y, A[X, Y, B <: A[X, Y, B]] <: Builder[_]](implicit builder: A[_, _, _]) = builder.asInstanceOf[A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _]]]]]]]
 
