@@ -70,12 +70,12 @@ class GraphsApp extends FXApp {
 
     //il testo per la soglia
     val threshold = createStringBinding(GraphsModel.histogramThresholdProperty) {
-      () => "count lower threshold is " + GraphsModel.histogramThresholdProperty.intValue
+      "count lower threshold is " + GraphsModel.histogramThresholdProperty.intValue
     }
 
     //il tempo trascorso da quando &egrave; iniziato il conteggio
     val elapsed = createStringBinding(GraphsModel.elapsedTimeProperty) {
-      () => "count started " + GraphsModel.elapsedTimeProperty.getValueSafe
+      "count started " + GraphsModel.elapsedTimeProperty.getValueSafe
     }
 
     thresholdLabel.textProperty.bind(threshold)
@@ -141,14 +141,14 @@ class GraphsApp extends FXApp {
   /**
    * costruisce un binding che ha una stringa come risultato
    *
-   * @param bounTo Observable a cui il Binding fa riferimneto
-   * @param la funzione che calcola il valore restituito
+   * @param boundTo Observable a cui il Binding fa riferimneto
+   * @param il valore che il binding deve restituire
    */
-  private def createStringBinding(boundTo: Observable)(computeFunction: () => String): StringBinding = new StringBinding {
+  private def createStringBinding(boundTo: Observable)(computeFunction: => String): StringBinding = new StringBinding {
     //il binding viene invalidato con l'oggetto a cui e' vincolato
     bind(boundTo)
     //calcola il valore con la funzione passata
-    override def computeValue: String = computeFunction()
+    override def computeValue: String = computeFunction
   }
 
 }
