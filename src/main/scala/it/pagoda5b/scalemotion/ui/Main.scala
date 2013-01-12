@@ -87,8 +87,6 @@ class GraphsApp extends FXApp {
           (_: ActionEvent) => GraphsModel.readFeed()))
       .cycleCount(INDEFINITE)
 
-    //calcola il primo conteggio
-    // GraphsModel.populate()
     updateTimer.play()
     
     stage.show()
