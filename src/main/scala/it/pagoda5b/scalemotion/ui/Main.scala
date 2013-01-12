@@ -83,8 +83,8 @@ class GraphsApp extends FXApp {
     val updateTimer: Timeline = TimelineBuilder.create
       .keyFrames(
         new KeyFrame(
-          seconds(10),
-          (_: ActionEvent) => GraphsModel.readFeed()))
+          seconds(5),
+          (_: ActionEvent) => GraphsModel.refreshData()))
       .cycleCount(INDEFINITE)
 
     updateTimer.play()

@@ -24,11 +24,11 @@ object GraphsModel {
   val histogramThresholdProperty: IntegerProperty = new SimpleIntegerProperty(this, "histogramThreshold", 10)
 
   /**
-   * aggiorna i valori dei grafici
+   * aggiorna i dati, e i valori dei grafici se ci sono dati aggiornati
    */
-  def readFeed() {
+  def refreshData() {
     feedProperty.set(feedProperty.get.updateFeed)
-    wordsValues.setAll(extractValues)
+    if (feedProperty.get.freshDataAvailable) wordsValues.setAll(extractValues)
   }
 
   /*
@@ -43,10 +43,13 @@ object GraphsModel {
     .sortBy { case (key, count) => count }(Ordering.Int.reverse)
     .map(toChartData)
 
+  //i dati tabellari dei conteggi delle parole
   private val wordsValues: ObservableList[XYChart.Data[String, Number]] = FXCollections.observableArrayList[XYChart.Data[String, Number]](extractValues)
 
+  //le serie di istogrammi da inserire nel grafico
   private val wordsSeries: XYChart.Series[String, Number] = new XYChart.Series(wordsValues)
 
+  //inserisce una coppia di valori in un dato valido per una {{{XYChart}}}
   private def toChartData(data: (String, Int)): XYChart.Data[String, Number] = new XYChart.Data(data._1, data._2)
 
   /**

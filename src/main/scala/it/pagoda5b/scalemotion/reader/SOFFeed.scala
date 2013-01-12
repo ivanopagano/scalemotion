@@ -67,6 +67,11 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entryHis
   }
 
   /**
+   * {{{true}}} se l'ultimo aggiornamento ha aggiunto delle nuove entries
+   */
+  lazy val freshDataAvailable = entryHistory != entries
+
+  /**
    * restituisce un nuovo [[SOFFeed]], le cui entry sono arricchite con i dati
    * ottenuti in remoto, se al momento disponibili
    */
