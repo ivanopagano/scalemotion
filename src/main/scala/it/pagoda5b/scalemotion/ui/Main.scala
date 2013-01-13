@@ -11,8 +11,6 @@ import javafx.scene.control.{ Label, LabelBuilder, ScrollPaneBuilder }
 import javafx.scene.control.ScrollPane.ScrollBarPolicy
 import javafx.scene.layout.{ AnchorPane, AnchorPaneBuilder }
 import javafx.geometry.Pos._
-import javafx.beans.binding.StringBinding
-import javafx.beans.Observable
 import javafx.util.Builder
 import javafx.util.Duration._
 import javafx.util.converter.NumberStringConverter
@@ -35,6 +33,7 @@ class GraphsApp extends FXApp {
   override def start(stage: Stage) {
     import FXBuilderUtils._
     import FXEventHandlersUtils._
+    import FXBindingsUtils._
 
     //titolo della finestra
     stage.setTitle("Stack Overflow Analysis")
@@ -75,7 +74,7 @@ class GraphsApp extends FXApp {
 
     //il tempo trascorso da quando &egrave; iniziato il conteggio
     val elapsed = createStringBinding(GraphsModel.elapsedTimeProperty) {
-      "count started " + GraphsModel.elapsedTimeProperty.getValueSafe
+      "count began " + GraphsModel.elapsedTimeProperty.getValueSafe
     }
 
     thresholdLabel.textProperty.bind(threshold)
@@ -136,19 +135,6 @@ class GraphsApp extends FXApp {
       .data(GraphsModel.series)
       .build
 
-  }
-
-  /**
-   * costruisce un binding che ha una stringa come risultato
-   *
-   * @param boundTo Observable a cui il Binding fa riferimneto
-   * @param il valore che il binding deve restituire
-   */
-  private def createStringBinding(boundTo: Observable)(computeFunction: => String): StringBinding = new StringBinding {
-    //il binding viene invalidato con l'oggetto a cui e' vincolato
-    bind(boundTo)
-    //calcola il valore con la funzione passata
-    override def computeValue: String = computeFunction
   }
 
 }

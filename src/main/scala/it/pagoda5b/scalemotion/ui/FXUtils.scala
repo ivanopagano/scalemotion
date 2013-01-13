@@ -16,6 +16,25 @@ object FXEventHandlersUtils {
 
 }
 
+object FXBindingsUtils {
+  import javafx.beans.binding.StringBinding
+  import javafx.beans.Observable
+
+  /**
+   * costruisce un binding che ha una stringa come risultato
+   *
+   * @param boundTo Observable a cui il Binding fa riferimneto
+   * @param il valore che il binding deve restituire
+   */
+  def createStringBinding(boundTo: Observable)(computeFunction: => String): StringBinding = new StringBinding {
+    //il binding viene invalidato con l'oggetto a cui e' vincolato
+    bind(boundTo)
+    //calcola il valore usando la funzione passata
+    override def computeValue: String = computeFunction
+  }
+
+}
+
 /**
  * Aggiunge delle facilitazioni per l'utilizzo delle ''fluent api'' utilizzate
  * dalle classi *Builder dei componenti ''JavaFX''
