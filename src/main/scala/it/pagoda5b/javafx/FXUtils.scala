@@ -1,4 +1,4 @@
-package it.pagoda5b.scalemotion.ui
+package it.pagoda5b.javafx
 
 /**
  * Permette delle semplificazioni per la definizione dell' ''Event Handling''
@@ -14,6 +14,26 @@ object FXEventHandlersUtils {
     def handle(event: E) = handling(event)
   }
 
+}
+
+/**
+ * Semplifica l'utilizzo delle javafx [[Property]] e simili
+ */
+object FXPropertyUtils {
+  import javafx.beans.value.WritableValue
+
+  //Un tipo strutturale, identificato dalla presenza del metodo {{{modify}}}
+  type MOD[A] = { def modify(f: A => A): Unit }
+
+  /**
+   * converte un qualunque [[WritableValue]] in un ''wrapper'' che permette
+   * di trasformare il valore contenuto combinando {{{getValue/setValue}}}
+   */
+  implicit def toModifiableProperty[A](p: WritableValue[A]): MOD[A] = new {
+    def modify(f: A => A) {
+      p.setValue(f(p.getValue))
+    }
+  }
 }
 
 object FXBindingsUtils {

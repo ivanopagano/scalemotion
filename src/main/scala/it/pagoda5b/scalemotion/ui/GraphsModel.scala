@@ -1,6 +1,7 @@
 package it.pagoda5b.scalemotion.ui
 
 import it.pagoda5b.scalemotion.reader.SOFFeed
+import it.pagoda5b.javafx.FXPropertyUtils._
 import scala.collection.JavaConversions._
 import scala.math.Ordering
 import java.util.{ Collection => JCollection, List => JList, Date}
@@ -46,7 +47,7 @@ object GraphsModel {
    * aggiorna i dati, e i valori dei grafici se ci sono dati aggiornati
    */
   def refreshData() {
-    feedProperty.set(feedProperty.get.updateFeed)
+    feedProperty.modify(_.updateFeed)
     elapsedTimeProperty.invalidate()
     if (feedProperty.get.freshDataAvailable) wordsValues.setAll(extractValues)
   }

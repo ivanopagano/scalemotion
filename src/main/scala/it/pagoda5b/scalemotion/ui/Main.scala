@@ -14,6 +14,7 @@ import javafx.geometry.Pos._
 import javafx.util.Builder
 import javafx.util.Duration._
 import javafx.util.converter.NumberStringConverter
+import it.pagoda5b.javafx._
 
 /**
  * La classe principale, lancia l'applicazione JavaFX
