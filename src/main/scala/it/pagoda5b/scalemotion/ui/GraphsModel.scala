@@ -49,13 +49,13 @@ object GraphsModel {
   def refreshData() {
     feedProperty.modify(_.updateFeed)
     elapsedTimeProperty.invalidate()
-    if (feedProperty.get.freshDataAvailable) wordsValues.setAll(extractValues)
+    if (feedProperty.freshDataAvailable) wordsValues.setAll(extractValues)
   }
 
   /*
    * elabora i valori forniti dal feed
    */
-  private def extractValues: JList[XYChart.Data[String, Number]] = feedProperty.get
+  private def extractValues: JList[XYChart.Data[String, Number]] = feedProperty
     .extractWordStatistics
     .filter {
       case (_, count) => count >= histogramThresholdProperty.get
@@ -70,7 +70,7 @@ object GraphsModel {
   //le serie di istogrammi da inserire nel grafico
   private val wordsSeries: XYChart.Series[String, Number] = new XYChart.Series(wordsValues)
 
-  //inserisce una coppia di valori in un dato valido per una {{{XYChart}}}
+  //inserisce una coppia di valori in un dato valido per una `XYChart`
   private def toChartData(data: (String, Int)): XYChart.Data[String, Number] = new XYChart.Data(data._1, data._2)
 
   /**

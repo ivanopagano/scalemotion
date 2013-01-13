@@ -20,7 +20,7 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entryHis
 
   /*
    * legge il contenuto remoto, come [[Promise]] di un possibile risultato, 
-   * che sar&agrave; {{{None}}} in caso di qualche errore di lettura del feed
+   * che sar&agrave; `None` in caso di qualche errore di lettura del feed
    */
   private[this] lazy val xmlContent = remote.read.option
 
@@ -36,7 +36,7 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entryHis
    * restituisce l'eventuale titolo del feed, se disponibile
    *
    * 'nota implementativa': il parametro implicito &egrave; necessario perch&eacute; comunque la chiamata
-   * a [[#optionally]] tenta di valutare la {{{lambda expression}}} passata pretendendo un
+   * a [[#optionally]] tenta di valutare la `lambda expression` passata pretendendo un
    * parametro implicito, che invece verrebbe fornito all'interno della funzione stessa in modo esplicito
    */
   def title: Option[String] = optionally(implicit xml => parseTitle)
@@ -67,7 +67,7 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entryHis
   }
 
   /**
-   * {{{true}}} se l'ultimo aggiornamento ha aggiunto delle nuove entries
+   * `true` se l'ultimo aggiornamento ha aggiunto delle nuove entries
    */
   lazy val freshDataAvailable = entryHistory != entries
 

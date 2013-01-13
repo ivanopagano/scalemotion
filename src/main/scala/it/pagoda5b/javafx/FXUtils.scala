@@ -20,20 +20,29 @@ object FXEventHandlersUtils {
  * Semplifica l'utilizzo delle javafx [[Property]] e simili
  */
 object FXPropertyUtils {
-  import javafx.beans.value.WritableValue
+  import javafx.beans.value._
 
-  //Un tipo strutturale, identificato dalla presenza del metodo {{{modify}}}
+  //Un tipo strutturale, identificato dalla presenza del metodo `modify`
   type MOD[A] = { def modify(f: A => A): Unit }
 
   /**
    * converte un qualunque [[WritableValue]] in un ''wrapper'' che permette
-   * di trasformare il valore contenuto combinando {{{getValue/setValue}}}
+   * di trasformare il valore contenuto combinando `getValue/setValue`
+   *
+   * e.g. invece di chiamare `myProperty.set(myProperty.get + 1)` è sufficiente `myProperty.modify(_ + 1)`
    */
   implicit def toModifiableProperty[A](p: WritableValue[A]): MOD[A] = new {
     def modify(f: A => A) {
       p.setValue(f(p.getValue))
     }
   }
+
+  /**
+   * estrae in modo implicito il valore da un [[ObservableValue]], se necessario per chiamare un metodo
+   *
+   * e.g. invece di chiamare `myProperty.get.myCall` &egrave; sufficiente `myProperty.myCall`
+   */
+  implicit def observableToValue[A](o: ObservableValue[A]): A = o.getValue
 }
 
 object FXBindingsUtils {
@@ -67,7 +76,7 @@ object FXBuilderUtils {
   import javafx.util.Builder
 
   /**
-   * converte il [[Builder]] nell'oggetto creato, senza eseguire il {{{build()}}} esplicitamente
+   * converte il [[Builder]] nell'oggetto creato, senza eseguire il `build()` esplicitamente
    */
   implicit def builderToObject[A](b: Builder[A]): A = b.build()
 
