@@ -21,11 +21,15 @@ class SOFFeedTest extends WordSpec with ShouldMatchers {
         feed.latestEntries.value should have size (30)
         (feed.latestEntries.value forall (entry => entryIdPattern.matcher(entry.id).matches)) should be (true)
       }
+      "record his entries" in {
+        feed.entries should have size (30)
+        (feed.entries.values forall (entry => entryIdPattern.matcher(entry.id).matches)) should be (true)
+      }
       "update his recorded entries" in {
-        val recorded = feed.updateFeed.entries
-        recorded should have size (30)
-        (recorded.keys forall (entryIdPattern.matcher(_).matches)) should be (true)
-        for (e <- feed.latestEntries.value) recorded should contain value (e)
+        val updated = feed.updateFeed.entries
+        updated.size should be >= feed.entries.size
+        (updated.keys forall (entryIdPattern.matcher(_).matches)) should be (true)
+        for (k <- feed.entries.keys) updated should contain key (k)
       }
     }
 
@@ -41,7 +45,7 @@ class SOFFeedTest extends WordSpec with ShouldMatchers {
       }
       "read the latest available entries with the selected category" in {
         tagged.latestEntries.value should have size (30)
-        (tagged.latestEntries.value forall (_.categories contains tag)) should be (true)
+        for (e <- tagged.latestEntries.value) e.categories should contain (tag)
       }
     }
   }
