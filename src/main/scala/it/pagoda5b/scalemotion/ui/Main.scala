@@ -7,10 +7,11 @@ import javafx.stage.{ Stage, WindowEvent }
 import javafx.event.ActionEvent
 import javafx.scene.{ Scene, SceneBuilder }
 import javafx.scene.chart._
-import javafx.scene.control.{ Label, LabelBuilder, ScrollPaneBuilder }
+import javafx.scene.control.{ Label, Slider, LabelBuilder, ScrollPaneBuilder, SliderBuilder }
 import javafx.scene.control.ScrollPane.ScrollBarPolicy
 import javafx.scene.layout.{ AnchorPane, AnchorPaneBuilder }
 import javafx.geometry.Pos._
+import javafx.geometry.Orientation._
 import javafx.util.Builder
 import javafx.util.Duration._
 import javafx.util.converter.NumberStringConverter
@@ -68,6 +69,14 @@ class GraphsApp extends FXApp {
     lazy val thresholdLabel: Label = create[LabelBuilder]
       .alignment(TOP_RIGHT)
 
+    lazy val thresholdControl: Slider = create[SliderBuilder]
+      .min(5)
+      .max(50)
+      .majorTickUnit(1)
+      .minorTickCount(0)
+      .blockIncrement(1)
+      .orientation(HORIZONTAL)
+
     //indica il tempo passato dall'inizio dei conteggi
     lazy val elapsedLabel: Label = create[LabelBuilder]
       .alignment(TOP_RIGHT)
@@ -93,7 +102,8 @@ class GraphsApp extends FXApp {
                 chart,
                 elapsedLabel,
                 entryCountLabel,
-                thresholdLabel)
+                thresholdLabel,
+                thresholdControl)
           }
       }
 
@@ -109,20 +119,24 @@ class GraphsApp extends FXApp {
 
     //il testo per il numero di entry
     val entryCountText = createStringBinding(GraphsModel.feedProperty) {
-      "%d feed entries were processed".format(GraphsModel.feedProperty.entries.size) 
+      "%d feed entries were processed".format(GraphsModel.feedProperty.entries.size)
     }
 
+    //imposta dinamicamente il valore dei controlli in base al modello
+    thresholdControl.valueProperty.bindBidirectional(GraphsModel.histogramThresholdProperty)
     thresholdLabel.textProperty.bind(thresholdText)
     elapsedLabel.textProperty.bind(elapsedText)
     entryCountLabel.textProperty.bind(entryCountText)
 
-    //allinea etichette e grafico
+    //allinea i controlli e il grafico
     AnchorPane.setTopAnchor(elapsedLabel, 50)
     AnchorPane.setRightAnchor(elapsedLabel, 20)
     AnchorPane.setTopAnchor(entryCountLabel, 70)
     AnchorPane.setRightAnchor(entryCountLabel, 20)
     AnchorPane.setTopAnchor(thresholdLabel, 90)
     AnchorPane.setRightAnchor(thresholdLabel, 20)
+    AnchorPane.setTopAnchor(thresholdControl, 110)
+    AnchorPane.setRightAnchor(thresholdControl, 20)
     AnchorPane.setTopAnchor(chart, 0)
     AnchorPane.setBottomAnchor(chart, 0)
     AnchorPane.setRightAnchor(chart, 0)

@@ -2,14 +2,15 @@ package it.pagoda5b.scalemotion.ui
 
 import it.pagoda5b.scalemotion.reader.SOFFeed
 import it.pagoda5b.javafx.FXPropertyUtils._
+import it.pagoda5b.javafx.FXBindingsUtils._
 import scala.collection.JavaConversions._
 import scala.math.Ordering
-import java.util.{ Collection => JCollection, List => JList, Date}
+import java.util.{ Collection => JCollection, List => JList, Date }
 import org.ocpsoft.prettytime.PrettyTime
 import org.ocpsoft.prettytime.units.JustNow
 import javafx.scene.chart._
 import javafx.beans.property._
-import javafx.beans.binding.StringBinding
+import javafx.beans.binding.{ ListBinding, StringBinding }
 import javafx.collections.{ FXCollections, ObservableList }
 
 /**
@@ -39,9 +40,8 @@ object GraphsModel {
    * indica quanto tempo è passato fra l'ultimo aggiornamento dei dati e la creazione del modello
    */
   val elapsedTimeProperty = new StringBinding {
-      override def computeValue = histogramStart format (new Date)
-    }
-
+    override def computeValue = histogramStart format (new Date)
+  }
 
   /**
    * aggiorna i dati, e i valori dei grafici se ci sono dati aggiornati
@@ -49,7 +49,7 @@ object GraphsModel {
   def refreshData() {
     feedProperty.modify(_.updateFeed)
     elapsedTimeProperty.invalidate()
-    if (feedProperty.freshDataAvailable) wordsValues.setAll(extractValues)
+    if (feedProperty.freshDataAvailable) wordsTabular.invalidate()
   }
 
   /*
@@ -64,11 +64,13 @@ object GraphsModel {
     .sortBy { case (key, count) => count }(Ordering.Int.reverse)
     .map(toChartData)
 
-  //i dati tabellari dei conteggi delle parole
-  private val wordsValues: ObservableList[XYChart.Data[String, Number]] = FXCollections.observableArrayList[XYChart.Data[String, Number]](extractValues)
+  //i dati tabellari dei conteggi delle parole, come property
+  private val wordsTabular: ListBinding[XYChart.Data[String, Number]] = createListBinding(histogramThresholdProperty) {
+    FXCollections.observableArrayList[XYChart.Data[String, Number]](extractValues)
+  }
 
   //le serie di istogrammi da inserire nel grafico
-  private val wordsSeries: XYChart.Series[String, Number] = new XYChart.Series(wordsValues)
+  private val wordsSeries: XYChart.Series[String, Number] = new XYChart.Series(wordsTabular)
 
   //inserisce una coppia di valori in un dato valido per una `XYChart`
   private def toChartData(data: (String, Int)): XYChart.Data[String, Number] = new XYChart.Data(data._1, data._2)

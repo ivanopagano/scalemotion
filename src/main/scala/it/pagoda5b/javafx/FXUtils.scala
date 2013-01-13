@@ -46,13 +46,14 @@ object FXPropertyUtils {
 }
 
 object FXBindingsUtils {
-  import javafx.beans.binding.StringBinding
+  import javafx.beans.binding.{ ListBinding, StringBinding }
   import javafx.beans.Observable
+  import javafx.collections.ObservableList
 
   /**
    * costruisce un binding che ha una stringa come risultato
    *
-   * @param boundTo Observable a cui il Binding fa riferimneto
+   * @param boundTo [[Observable]] a cui il [[Binding]] fa riferimneto
    * @param il valore che il binding deve restituire
    */
   def createStringBinding(boundTo: Observable)(computeFunction: => String): StringBinding = new StringBinding {
@@ -60,6 +61,19 @@ object FXBindingsUtils {
     bind(boundTo)
     //calcola il valore usando la funzione passata
     override def computeValue: String = computeFunction
+  }
+
+  /**
+   * costruisce un binding che ha una `ObservableList` come risultato
+   *
+   * @param boundTo [[Observable]] a cui il [[Binding]] fa riferimneto
+   * @param il valore che il binding deve restituire
+   */
+  def createListBinding[A](boundTo: Observable)(computeFunction: => ObservableList[A]): ListBinding[A] = new ListBinding[A] {
+    //il binding viene invalidato con l'oggetto a cui e' vincolato
+    bind(boundTo)
+    //calcola il valore usando la funzione passata
+    override def computeValue: ObservableList[A] = computeFunction
   }
 
 }
@@ -87,6 +101,7 @@ object FXBuilderUtils {
   implicit val sceneBuild: SceneBuilder[_] = SceneBuilder.create()
   implicit val buttonBuild: ButtonBuilder[_] = ButtonBuilder.create()
   implicit val labelBuild: LabelBuilder[_] = LabelBuilder.create()
+  implicit val sliderBuild: SliderBuilder[_] = SliderBuilder.create()
   implicit val stackPaneBuild: StackPaneBuilder[_] = StackPaneBuilder.create()
   implicit val anchorPaneBuild: AnchorPaneBuilder[_] = AnchorPaneBuilder.create()
   implicit val scrollPaneBuild: ScrollPaneBuilder[_] = ScrollPaneBuilder.create()
@@ -102,7 +117,7 @@ object FXBuilderUtils {
    * va riverificato nel caso servisse utilizzare il builder pi&ugrave; volte, per controllare che le chiamate che impostano
    * le property non restituiscano lo stesso oggetto modificato, ma una nuova istanza
    */
-  def create[A[B <: A[B]] <: Builder[_]](implicit builder: A[_]) = builder.asInstanceOf[A[_ <: A[_ <: A[_ <: A[_ <: A[_]]]]]]
+  def create[A[B <: A[B]] <: Builder[_]](implicit builder: A[_]) = builder.asInstanceOf[A[_ <: A[_ <: A[_ <: A[_ <: A[_ <: A[_ <: A[_ <: A[_]]]]]]]]]
 
   /**
    * Type Parameter issue workaround: see [[https://issues.scala-lang.org/browse/SI-6169]]
