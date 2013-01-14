@@ -2,6 +2,7 @@ package it.pagoda5b.scalemotion.reader
 
 import org.scalatest._
 import org.scalatest.matchers._
+import org.joda.time._
 
 class FeedStatsTest extends WordSpec with ShouldMatchers {
 
@@ -22,12 +23,11 @@ class FeedStatsTest extends WordSpec with ShouldMatchers {
         "and" -> 1,
         "need" -> 1,
         "test" -> 1)
-      (statsParser countWords "I want to replace the white space and I need to test .") should be(expectedCounts)
+      (statsParser countWords "I want to replace the white space and I need to test .") should be (expectedCounts)
 
     }
 
     "extract the summary word count from a feed entry" in {
-      import org.joda.time._
 
       val entry = FeedEntry(
         id = "id",
@@ -63,7 +63,46 @@ class FeedStatsTest extends WordSpec with ShouldMatchers {
         "already" -> 1,
         "created" -> 1)
 
-      (statsParser extractWordCounts entry) should be(expectedCounts)
+      (statsParser extractWordCounts entry) should be (expectedCounts)
+    }
+
+    "count the tags in a collection of entries" in {
+      val entries = Seq(
+        FeedEntry(
+          id = "id1",
+          title = "title",
+          rank = 0,
+          link = "link",
+          categories = Seq("tag1", "tag2"),
+          author = "author",
+          published = DateTime.now,
+          updated = DateTime.now,
+          summary = ""),
+        FeedEntry(
+          id = "id2",
+          title = "title",
+          rank = 0,
+          link = "link",
+          categories = Seq("tag2", "tag3"),
+          author = "author",
+          published = DateTime.now,
+          updated = DateTime.now,
+          summary = ""),
+        FeedEntry(
+          id = "id3",
+          title = "title",
+          rank = 0,
+          link = "link",
+          categories = Seq("tag1", "tag2"),
+          author = "author",
+          published = DateTime.now,
+          updated = DateTime.now,
+          summary = ""))
+      val expectedTags = Map(
+        "tag1" -> 2,
+        "tag2" -> 3,
+        "tag3" -> 1)
+      (statsParser extractTagSums entries) should be (expectedTags)
     }
 
   }

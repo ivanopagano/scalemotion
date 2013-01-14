@@ -33,4 +33,16 @@ trait SOFEntryStatistics { self: SOFFeedParser =>
    */
   def extractWordCounts(entries: Iterable[FeedEntry]): Map[String, Int] = entries.par map (extractWordCounts) reduce { (m1, m2) => m1 ++ m2 }
 
+  /**
+   * calcola i conteggi raggruppati delle categorie delle entries
+   */
+  def extractTagSums(entries: Iterable[FeedEntry]): Map[String, Int] = 
+    (for {
+      e <- entries
+      c <- e.categories
+    } yield c)
+    .groupBy(identity(_))
+    .mapValues(_.size)
+
+
 }

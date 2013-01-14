@@ -82,4 +82,10 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entryHis
    * registrate in questo feed
    */
   def extractWordStatistics: Map[String, Int] = extractWordCounts(entries.values)
+
+  /**
+   * ottiene i conteggi dei tag associate alle domande al momento
+   * registrate in questo feed
+   */
+  def extractTagStatistics: Map[String, Int] = extractTagSums(entries.values)
 }
