@@ -64,12 +64,10 @@ class FeedParserTest extends WordSpec with ShouldMatchers {
         'summary("""<p>I want to replace the white space and special characters with a hyphen .Thank you in advance</p>"""))
     }
     "parse as objects all the entries" in {
-      val entryIdPattern = """http://stackoverflow.com/q/\d+""".r.pattern
-      val entryIdMatcher = """http://stackoverflow.com/q/\d+""".r
       val entries = (parser parseAllEntries)
       entries should have size (30)
       entries forall (_.isInstanceOf[FeedEntry]) should be (true)
-      (entries forall (entry => entryIdPattern.matcher(entry.id).matches)) should be (true)
+      for (e <- entries) e.id should fullyMatch regex ("""http://stackoverflow.com/q/\d+""")
     }
     "parse as objects the entries filtered by author" in {
       val entries = (parser parseAllEntries withAuthor("Josh Livingston"))

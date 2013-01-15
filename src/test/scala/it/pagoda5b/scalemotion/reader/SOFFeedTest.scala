@@ -9,7 +9,7 @@ class SOFFeedTest extends WordSpec with ShouldMatchers {
   "The SOFFeed" when {
     "created with no specification tag" should {
       val feed = SOFFeed("http://stackoverflow.com/feeds")
-      val entryIdPattern = """http://stackoverflow.com/q/\d+""".r.pattern
+      val entryIdPattern = """http://stackoverflow.com/q/\d+"""
 
       "have a title" in {
         feed.title.value should be ("Recent Questions - Stack Overflow")
@@ -19,16 +19,16 @@ class SOFFeedTest extends WordSpec with ShouldMatchers {
       }
       "read the latest available entries" in {
         feed.latestEntries.value should have size (30)
-        (feed.latestEntries.value forall (entry => entryIdPattern.matcher(entry.id).matches)) should be (true)
+        for (e <- feed.latestEntries.value) e.id should fullyMatch regex (entryIdPattern)
       }
       "record his entries" in {
         feed.entries should have size (30)
-        (feed.entries.values forall (entry => entryIdPattern.matcher(entry.id).matches)) should be (true)
+        for (e <- feed.entries.values) e.id should fullyMatch regex (entryIdPattern)
       }
       "update his recorded entries" in {
         val updated = feed.updateFeed.entries
         updated.size should be >= feed.entries.size
-        (updated.keys forall (entryIdPattern.matcher(_).matches)) should be (true)
+        for (k <- updated.keys) k should fullyMatch regex (entryIdPattern)
         for (k <- feed.entries.keys) updated should contain key (k)
       }
     }
