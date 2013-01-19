@@ -4,6 +4,7 @@ package it.pagoda5b.javafx
  * Permette delle semplificazioni per la definizione dell' ''Event Handling''
  */
 object FXEventHandlersUtils {
+  import java.lang.Runnable
   import javafx.event._
 
   /**
@@ -12,6 +13,13 @@ object FXEventHandlersUtils {
    */
   implicit def toHandler[E <: Event](handling: E => Unit): EventHandler[E] = new EventHandler[E] {
     def handle(event: E) = handling(event)
+  }
+
+  /**
+   * converte una funzione anonima generica senza risultati in un [[java.lang.Runnable]] che la esegue
+   */
+  implicit def toRunnable(runCode: => Unit): Runnable = new Runnable {
+    def run() = runCode
   }
 
 }
@@ -131,4 +139,108 @@ object FXBuilderUtils {
    */
   def createChart[X, Y, A[X, Y, B <: A[X, Y, B]] <: Builder[_]](implicit builder: A[_, _, _]) = builder.asInstanceOf[A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _]]]]]]]
 
+}
+
+//package nesting
+package chart {
+  import javafx.scene.chart._
+  import javafx.beans.property._
+  import org.joda.time._
+  import org.joda.time.format._
+  import java.lang.Number
+  import javafx.collections.FXCollections._
+
+  /**
+   * Una sottoclasse di XYChart che contiene ha come asse x il tempo e viene aggiornata ogni volta
+   * che un nuovo set di dati gli viene passato, controllando autonomamente l'insieme dei dati visualizzati e
+   * l'intervallo temporale, in base ad un parametro
+   *
+   * @param xAxis l'asse x, deve contenere dei valori stringa, che indicheranno il momento in cui vengono aggiunti i dati
+   * @param yAxis l'asse y, contiene dei numeri
+   * @param initialData i valori iniziali come coppie fra (nome_serie, valore)
+   * @param xValuesDisplayed il numero di valori temporali mostrati dal grafico
+   * @param seriesDisplayedProperty quante serie saranno presenti sul grafico (vengono selezionate quelle con i conteggi maggiori)
+   */
+  class TimelineChart(
+    xAxis: CategoryAxis,
+    yAxis: NumberAxis,
+    initialData: Iterable[(String, Number)],
+    xValuesDisplayed: Int = 60,
+    seriesDisplayedProperty: IntegerProperty = new SimpleIntegerProperty(5))
+    extends LineChart[String, Number](xAxis, yAxis) {
+    import scala.collection._
+    import javafx.util.converter.{ LongStringConverter, DateTimeStringConverter }
+    import it.pagoda5b.javafx.FXPropertyUtils._
+
+    //meglio che il grafico si adatti alle sue esigenze di visualizzazione
+    yAxis.setAutoRanging(true)
+
+    //la formattazione dell'asse temporale
+    val timeLabelFormatProperty = new SimpleObjectProperty[DateTimeFormatter](DateTimeFormat.forPattern("hh:mm:ss"))
+
+    //contiene lo storico di tutte le serie inserite, comprese quelle non visualizzate
+    val series: mutable.Map[String, XYChart.Series[String, Number]] = mutable.Map()
+
+    //carica i dati iniziali
+    init()
+
+    /*
+     * Prepara il primo set di grafici con i valori iniziali passati nel costruttore
+     */
+    private def init() {
+      import scala.collection.JavaConversions._
+      val timeTick = timeLabelFormatProperty.print(DateTime.now)
+      series ++= initialData.par.map {
+        case (name, y) => (name, new XYChart.Series[String, Number](name, observableArrayList(new XYChart.Data[String, Number](timeTick, y))))
+      }.seq
+      dataProperty.addAll(selectDisplayed)
+    }
+
+    /*
+     * estrae le serie che devono essere visualizzate, in base alla {{{seriesDisplayedProperty}}} della timeline
+     */
+    private[this] def selectDisplayed: Iterable[XYChart.Series[String, Number]] = {
+      def extractLastValue(s: XYChart.Series[String, Number]): Int = {
+        val data = s.getData()
+        data.get(data.size - 1).getYValue.intValue()
+      }
+
+      //ordina le serie e seleziona le prime n, con n pari al valore di seriesDisplayedProperty
+      series.values
+        .toSeq
+        .sortBy(extractLastValue)(Ordering.Int.reverse)
+        .take(seriesDisplayedProperty.get)
+    }
+
+    /**
+     * aggiunge un nuovo insieme di valori alle serie, identificate dal nome
+     */
+    def pushToSeries(updates: Iterable[(String, Number)]) {
+      import scala.collection.JavaConversions._
+
+      //costuisce l'etichetta per questo istante
+      val timeTick = timeLabelFormatProperty.print(DateTime.now)
+
+      //converte la chiave dell'aggiornamento nella corrispondente serie (l'oggetto)
+      updates.map {
+        case (name, y) => (series getOrElseUpdate (name, new XYChart.Series[String, Number](name, observableArrayList[XYChart.Data[String, Number]])), y)
+      }
+        .foreach {
+          case (s, y) =>
+            /*
+             * aggiunge il nuovo dato alla serie eventualmente rimuovendo 
+             * i valori obsoleti, se ce ne sono pi&ugrave; di quanti previsti
+             */
+            s.dataProperty add (new XYChart.Data(timeTick, y))
+            if (s.dataProperty.size > xValuesDisplayed) s.dataProperty.remove(0, 1)
+        }
+
+      //stabilisce quali serie mostrare, in base alla property
+      val displayed = selectDisplayed
+      dataProperty.retainAll(displayed)
+      dataProperty.addAll(displayed.filter(s => !dataProperty.contains(s)))
+
+    }
+
+  }
 }

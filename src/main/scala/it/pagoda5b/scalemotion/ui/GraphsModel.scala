@@ -28,6 +28,11 @@ object GraphsModel {
    */
   val histogramThresholdProperty: IntegerProperty = new SimpleIntegerProperty(this, "histogramThreshold", 10)
 
+  /**
+   * stabilisce il numero ammesso di timelines mostrate nel grafico dei tag
+   */
+  val timelineThresholdProperty: IntegerProperty = new SimpleIntegerProperty(this, "timelineThreshold", 5)
+
   // tiene traccia del momento in cui &egrave; stato generato il modello
   private val histogramStart = {
     val pt = new PrettyTime(new Date)
@@ -53,9 +58,9 @@ object GraphsModel {
   }
 
   /*
-   * elabora i valori forniti dal feed
+   * elabora i valori forniti dal feed per l'analisi delle parole
    */
-  private def extractValues: JList[XYChart.Data[String, Number]] = feedProperty
+  private def extractCountValues: JList[XYChart.Data[String, Number]] = feedProperty
     .extractWordStatistics
     .filter {
       case (_, count) => count >= histogramThresholdProperty.get
@@ -64,9 +69,17 @@ object GraphsModel {
     .sortBy { case (key, count) => count }(Ordering.Int.reverse)
     .map(toChartData)
 
+  /**
+   * elabora i valori del feed sui conteggi dei tag
+   * TODO: troppe categorie, bisogna mettere una soglia sul numero minimo di conteggi...
+   */
+  def extractTagCounts: Map[String, Number] = feedProperty
+    .extractTagStatistics
+    .mapValues(_.asInstanceOf[Number])
+
   //i dati tabellari dei conteggi delle parole, come property
   private val wordsTabular: ListBinding[XYChart.Data[String, Number]] = createListBinding(histogramThresholdProperty) {
-    FXCollections.observableArrayList[XYChart.Data[String, Number]](extractValues)
+    FXCollections.observableArrayList[XYChart.Data[String, Number]](extractCountValues)
   }
 
   //le serie di istogrammi da inserire nel grafico
@@ -79,4 +92,5 @@ object GraphsModel {
    * contiene le serie di istogrammi con i conteggi delle parole
    */
   val series: ObservableList[XYChart.Series[String, Number]] = FXCollections.observableArrayList[XYChart.Series[String, Number]](wordsSeries)
+
 }

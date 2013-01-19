@@ -16,6 +16,7 @@ import javafx.util.Builder
 import javafx.util.Duration._
 import javafx.util.converter.NumberStringConverter
 import it.pagoda5b.javafx._
+import it.pagoda5b.javafx.chart.TimelineChart
 import it.pagoda5b.javafx.FXPropertyUtils._
 
 /**
@@ -31,6 +32,8 @@ object GraphsApp extends App {
 class GraphsApp extends FXApp {
   import FXBuilderUtils._
   import FXEventHandlersUtils._
+
+  lazy val tagChart: TimelineChart = makeTimeline
 
   /**
    * costruisce la scena e mostra la finestra
@@ -52,7 +55,10 @@ class GraphsApp extends FXApp {
       .keyFrames(
         new KeyFrame(
           seconds(5),
-          (_: ActionEvent) => GraphsModel.refreshData()))
+          (_: ActionEvent) => {
+            GraphsModel.refreshData()
+            tagChart.pushToSeries(GraphsModel.extractTagCounts)
+          }))
       .cycleCount(INDEFINITE)
 
     updateTimer.play()
@@ -86,7 +92,10 @@ class GraphsApp extends FXApp {
       .alignment(TOP_RIGHT)
 
     //mostra i conteggi delle parole contenute nei feed come grafico
-    lazy val chart: BarChart[String, Number] = makeBarChart
+    lazy val countChart: BarChart[String, Number] = makeBarChart
+
+    //test  alias per verificare il funzionamento della timeline
+    val chart = tagChart
 
     val scene = create[SceneBuilder]
       .width(800)
@@ -170,6 +179,27 @@ class GraphsApp extends FXApp {
       .data(GraphsModel.series)
       .build
 
+  }
+
+  /*
+   * crea la timeline
+   */
+  private def makeTimeline: TimelineChart = {
+    import FXBuilderUtils._
+    import chart.TimelineChart
+
+    val timeAxis = CategoryAxisBuilder.create
+      .label("time")
+      .build
+
+    val countAxis = NumberAxisBuilder.create
+      .label("feed entries")
+      .tickUnit(1)
+      .tickLabelFormatter(new NumberStringConverter(new java.text.DecimalFormat("0")))
+      .minorTickVisible(false)
+      .build
+
+    new TimelineChart(timeAxis, countAxis, GraphsModel.extractTagCounts)
   }
 
 }
