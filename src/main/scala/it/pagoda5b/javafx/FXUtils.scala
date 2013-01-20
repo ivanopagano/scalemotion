@@ -61,12 +61,12 @@ object FXBindingsUtils {
   /**
    * costruisce un binding che ha una stringa come risultato
    *
-   * @param boundTo [[Observable]] a cui il [[Binding]] fa riferimneto
+   * @param dependency [[Observable]] a cui il [[Binding]] fa riferimneto
    * @param il valore che il binding deve restituire
    */
-  def createStringBinding(boundTo: Observable)(computeFunction: => String): StringBinding = new StringBinding {
+  def createStringBinding(dependency: Observable*)(computeFunction: => String): StringBinding = new StringBinding {
     //il binding viene invalidato con l'oggetto a cui e' vincolato
-    bind(boundTo)
+    for (o <- dependency) bind(o)
     //calcola il valore usando la funzione passata
     override def computeValue: String = computeFunction
   }
@@ -74,12 +74,12 @@ object FXBindingsUtils {
   /**
    * costruisce un binding che ha una `ObservableList` come risultato
    *
-   * @param boundTo [[Observable]] a cui il [[Binding]] fa riferimneto
+   * @param dependency [[Observable]] a cui il [[Binding]] fa riferimneto
    * @param il valore che il binding deve restituire
    */
-  def createListBinding[A](boundTo: Observable)(computeFunction: => ObservableList[A]): ListBinding[A] = new ListBinding[A] {
+  def createListBinding[A](dependency: Observable*)(computeFunction: => ObservableList[A]): ListBinding[A] = new ListBinding[A] {
     //il binding viene invalidato con l'oggetto a cui e' vincolato
-    bind(boundTo)
+    for (o <- dependency) bind(o)
     //calcola il valore usando la funzione passata
     override def computeValue: ObservableList[A] = computeFunction
   }
@@ -170,7 +170,8 @@ package chart {
     extends LineChart[String, Number](xAxis, yAxis) {
     import scala.collection._
     import javafx.util.converter.{ LongStringConverter, DateTimeStringConverter }
-    import it.pagoda5b.javafx.FXPropertyUtils._
+    import FXPropertyUtils._
+    import FXBindingsUtils._
 
     //meglio che il grafico si adatti alle sue esigenze di visualizzazione
     yAxis.setAutoRanging(true)
@@ -181,13 +182,8 @@ package chart {
     //contiene lo storico di tutte le serie inserite, comprese quelle non visualizzate
     val series: mutable.Map[String, XYChart.Series[String, Number]] = mutable.Map()
 
-    //carica i dati iniziali
-    init()
-
-    /*
-     * Prepara il primo set di grafici con i valori iniziali passati nel costruttore
-     */
-    private def init() {
+    //Prepara il primo set di grafici con i valori iniziali passati nel costruttore
+    {
       import scala.collection.JavaConversions._
       val timeTick = timeLabelFormatProperty.print(DateTime.now)
       series ++= initialData.par.map {
@@ -195,6 +191,12 @@ package chart {
       }.seq
       dataProperty.addAll(selectDisplayed)
     }
+
+    //Rende dinamico il titolo del grafico
+    val titleString = createStringBinding(seriesDisplayedProperty) {
+      "Top %d feed categories on a total of %d".format(seriesDisplayedProperty.get, series.size)
+    }
+    titleProperty.bind(titleString)
 
     /*
      * estrae le serie che devono essere visualizzate, in base alla {{{seriesDisplayedProperty}}} della timeline
@@ -239,6 +241,7 @@ package chart {
       val displayed = selectDisplayed
       dataProperty.retainAll(displayed)
       dataProperty.addAll(displayed.filter(s => !dataProperty.contains(s)))
+      titleString.invalidate()
 
     }
 
