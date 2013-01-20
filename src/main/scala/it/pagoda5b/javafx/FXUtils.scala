@@ -54,7 +54,7 @@ object FXPropertyUtils {
 }
 
 object FXBindingsUtils {
-  import javafx.beans.binding.{ ListBinding, StringBinding }
+  import javafx.beans.binding.{ StringBinding, ListBinding }
   import javafx.beans.Observable
   import javafx.collections.ObservableList
 
@@ -113,6 +113,8 @@ object FXBuilderUtils {
   implicit val stackPaneBuild: StackPaneBuilder[_] = StackPaneBuilder.create()
   implicit val anchorPaneBuild: AnchorPaneBuilder[_] = AnchorPaneBuilder.create()
   implicit val scrollPaneBuild: ScrollPaneBuilder[_] = ScrollPaneBuilder.create()
+  implicit val tabPaneBuild: TabPaneBuilder[_] = TabPaneBuilder.create()
+  implicit val tabBuild: TabBuilder[_] = TabBuilder.create()
   implicit val barChartBuild: BarChartBuilder[_, _, _] = BarChartBuilder.create()
 
   /**
@@ -137,7 +139,8 @@ object FXBuilderUtils {
    * va riverificato nel caso servisse utilizzare il builder pi&ugrave; volte, per controllare che le chiamate che impostano
    * le property non restituiscano lo stesso oggetto modificato, ma una nuova istanza
    */
-  def createChart[X, Y, A[X, Y, B <: A[X, Y, B]] <: Builder[_]](implicit builder: A[_, _, _]) = builder.asInstanceOf[A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _]]]]]]]
+  def createChart[X, Y, A[X, Y, B <: A[X, Y, B]] <: Builder[_]](implicit builder: A[_, _, _]) =
+    builder.asInstanceOf[A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _ <: A[X, Y, _]]]]]]]]]
 
 }
 
@@ -168,6 +171,7 @@ package chart {
     xValuesDisplayed: Int = 60,
     seriesDisplayedProperty: IntegerProperty = new SimpleIntegerProperty(5))
     extends LineChart[String, Number](xAxis, yAxis) {
+
     import scala.collection._
     import javafx.util.converter.{ LongStringConverter, DateTimeStringConverter }
     import FXPropertyUtils._
@@ -246,4 +250,5 @@ package chart {
     }
 
   }
+
 }

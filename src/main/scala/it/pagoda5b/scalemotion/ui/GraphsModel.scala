@@ -91,6 +91,6 @@ object GraphsModel {
   /**
    * contiene le serie di istogrammi con i conteggi delle parole
    */
-  val series: ObservableList[XYChart.Series[String, Number]] = FXCollections.observableArrayList[XYChart.Series[String, Number]](wordsSeries)
+  val wordsSeriesList: ObservableList[XYChart.Series[String, Number]] = FXCollections.observableArrayList[XYChart.Series[String, Number]](wordsSeries)
 
 }

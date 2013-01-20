@@ -7,11 +7,12 @@ import javafx.stage.{ Stage, WindowEvent }
 import javafx.event.ActionEvent
 import javafx.scene.{ Scene, SceneBuilder }
 import javafx.scene.chart._
-import javafx.scene.control.{ Label, Slider, LabelBuilder, ScrollPaneBuilder, SliderBuilder }
-import javafx.scene.control.ScrollPane.ScrollBarPolicy
-import javafx.scene.layout.{ AnchorPane, AnchorPaneBuilder }
+import javafx.scene.control.{ Label, Slider, Tab, LabelBuilder, SliderBuilder, TabPaneBuilder, TabBuilder }
+import javafx.scene.control.TabPane.TabClosingPolicy._
+import javafx.scene.layout.{ AnchorPane, AnchorPaneBuilder, StackPaneBuilder }
 import javafx.geometry.Pos._
 import javafx.geometry.Orientation._
+import javafx.geometry.Side._
 import javafx.util.Builder
 import javafx.util.Duration._
 import javafx.util.converter.NumberStringConverter
@@ -83,37 +84,54 @@ class GraphsApp extends FXApp {
       .blockIncrement(1)
       .orientation(HORIZONTAL)
 
-    //indica il tempo passato dall'inizio dei conteggi
+    //indica il tempo passato dall'inizio dell'esecuzione
     lazy val elapsedLabel: Label = create[LabelBuilder]
       .alignment(TOP_RIGHT)
 
-    //il numero di entry utilizzate per il conteggio
+    //il numero di entry lette da remoto
     lazy val entryCountLabel: Label = create[LabelBuilder]
       .alignment(TOP_RIGHT)
+
+    //duplicata per mostrare il dato su entrambi i grafici
+    lazy val elapsedLabel2: Label = create[LabelBuilder]
+      .alignment(BOTTOM_LEFT)
+
+    //duplicata per mostrare il dato su entrambi i grafici
+    lazy val entryCountLabel2: Label = create[LabelBuilder]
+      .alignment(BOTTOM_LEFT)
 
     //mostra i conteggi delle parole contenute nei feed come grafico
     lazy val countChart: BarChart[String, Number] = makeBarChart
 
-    //test  alias per verificare il funzionamento della timeline
-    val chart = tagChart
-
     val scene = create[SceneBuilder]
-      .width(800)
-      .height(600)
+      .width(1140)
+      .height(712)
       .root {
-        create[ScrollPaneBuilder]
-          .fitToWidth(true)
-          .fitToHeight(true)
-          .hbarPolicy(ScrollBarPolicy.AS_NEEDED)
-          .content {
-            create[AnchorPaneBuilder]
-              .children(
-                chart,
-                elapsedLabel,
-                entryCountLabel,
-                thresholdLabel,
-                thresholdControl)
-          }
+        create[TabPaneBuilder]
+          .side(RIGHT)
+          .tabClosingPolicy(UNAVAILABLE)
+          .tabMinWidth(250)
+          .tabs(
+            create[TabBuilder]
+              .text("word counts")
+              .content {
+                create[AnchorPaneBuilder]
+                  .children(
+                    countChart,
+                    elapsedLabel,
+                    entryCountLabel,
+                    thresholdLabel,
+                    thresholdControl)
+              },
+            create[TabBuilder]
+              .text("top categories")
+              .content {
+                create[AnchorPaneBuilder]
+                  .children(
+                    tagChart,
+                    elapsedLabel2,
+                    entryCountLabel2)
+              })
       }
 
     //il testo per la soglia
@@ -131,11 +149,23 @@ class GraphsApp extends FXApp {
       "%d feed entries were processed".format(GraphsModel.feedProperty.entries.size)
     }
 
+    //duplicati per utilizzarli sulle etichette duplicate
+    // javafx non prevede il riutilizzo dei bindings?
+    val elapsedText2 = createStringBinding(GraphsModel.elapsedTimeProperty) {
+      "count began %s".format(GraphsModel.elapsedTimeProperty.getValueSafe)
+    }
+
+    val entryCountText2 = createStringBinding(GraphsModel.feedProperty) {
+      "%d feed entries were processed".format(GraphsModel.feedProperty.entries.size)
+    }
+
     //imposta dinamicamente il valore dei controlli in base al modello
     thresholdControl.valueProperty.bindBidirectional(GraphsModel.histogramThresholdProperty)
     thresholdLabel.textProperty.bind(thresholdText)
     elapsedLabel.textProperty.bind(elapsedText)
+    elapsedLabel2.textProperty.bind(elapsedText2)
     entryCountLabel.textProperty.bind(entryCountText)
+    entryCountLabel2.textProperty.bind(entryCountText2)
 
     //allinea i controlli e il grafico
     AnchorPane.setTopAnchor(elapsedLabel, 50)
@@ -146,11 +176,20 @@ class GraphsApp extends FXApp {
     AnchorPane.setRightAnchor(thresholdLabel, 20)
     AnchorPane.setTopAnchor(thresholdControl, 110)
     AnchorPane.setRightAnchor(thresholdControl, 20)
-    AnchorPane.setTopAnchor(chart, 0)
-    AnchorPane.setBottomAnchor(chart, 0)
-    AnchorPane.setRightAnchor(chart, 0)
-    AnchorPane.setLeftAnchor(chart, 0)
+    AnchorPane.setTopAnchor(countChart, 0)
+    AnchorPane.setBottomAnchor(countChart, 0)
+    AnchorPane.setRightAnchor(countChart, 0)
+    AnchorPane.setLeftAnchor(countChart, 0)
+    AnchorPane.setBottomAnchor(elapsedLabel2, 120)
+    AnchorPane.setLeftAnchor(elapsedLabel2, 80)
+    AnchorPane.setBottomAnchor(entryCountLabel2, 100)
+    AnchorPane.setLeftAnchor(entryCountLabel2, 80)
+    AnchorPane.setTopAnchor(tagChart, 0)
+    AnchorPane.setBottomAnchor(tagChart, 0)
+    AnchorPane.setRightAnchor(tagChart, 0)
+    AnchorPane.setLeftAnchor(tagChart, 0)
 
+    //restituisce la scena costruita
     scene
   }
 
@@ -176,7 +215,9 @@ class GraphsApp extends FXApp {
           .build
       }
       .animated(true)
-      .data(GraphsModel.series)
+      .data(GraphsModel.wordsSeriesList)
+      .verticalGridLinesVisible(false)
+      .legendVisible(false)
       .build
 
   }
@@ -195,11 +236,17 @@ class GraphsApp extends FXApp {
     val countAxis = NumberAxisBuilder.create
       .label("feed entries")
       .tickUnit(1)
-      .tickLabelFormatter(new NumberStringConverter(new java.text.DecimalFormat("0")))
+      .tickLabelFormatter(new NumberStringConverter(new java.text.DecimalFormat("0.0")))
       .minorTickVisible(false)
       .build
 
-    new TimelineChart(timeAxis, countAxis, GraphsModel.extractTagCounts)
+    new TimelineChart(timeAxis, countAxis, GraphsModel.extractTagCounts) {
+      import javafx.beans.property._
+      import javafx.geometry.Side
+
+      alternativeRowFillVisibleProperty.set(false);
+      legendSideProperty.set(RIGHT)
+    }
   }
 
 }
