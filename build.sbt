@@ -19,3 +19,8 @@ fork in run := true
 
 //gets the javafx runtime as a local dependency
 unmanagedJars in Compile += Attributed.blank(file(scala.util.Properties.javaHome) / "lib" / "jfxrt.jar")
+
+//settings for the one-jar plugin to generate single bundle
+mainClass in oneJar := Some("it.pagoda5b.scalemotion.ui.GraphsApp")
+
+seq(com.github.retronym.SbtOneJar.oneJarSettings: _*)

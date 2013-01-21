@@ -1,4 +1,5 @@
 .DS_Store
 .ensime*
 target/**
+bundle/**
 *sublime-*
