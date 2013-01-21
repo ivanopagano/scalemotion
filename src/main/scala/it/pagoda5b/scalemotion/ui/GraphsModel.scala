@@ -35,9 +35,9 @@ object GraphsModel {
 
   // tiene traccia del momento in cui &egrave; stato generato il modello
   private val histogramStart = {
-    val pt = new PrettyTime(new Date)
-    //necessario per ridurre lo scarto minimo individuato a sotto i 5 minuti
-    pt removeUnit classOf[JustNow]
+    import java.util.Locale
+    val pt = new PrettyTime(new Date, Locale.UK) //tutte le etichette sono in inglese
+    pt removeUnit classOf[JustNow] //necessario per ridurre lo scarto minimo individuato a sotto i 5 minuti
     pt
   }
 
