@@ -212,7 +212,8 @@ package chart {
       }
 
       //ordina le serie e seleziona le prime n, con n pari al valore di seriesDisplayedProperty
-      series.values
+      series
+        .values
         .toSeq
         .sortBy(extractLastValue)(Ordering.Int.reverse)
         .take(seriesDisplayedProperty.get)
@@ -235,7 +236,7 @@ package chart {
           case (s, y) =>
             /*
              * aggiunge il nuovo dato alla serie eventualmente rimuovendo 
-             * i valori obsoleti, se ce ne sono pi&ugrave; di quanti previsti
+             * i valori obsoleti, se ce ne sono piu' di quanti previsti
              */
             s.dataProperty add (new XYChart.Data(timeTick, y))
             if (s.dataProperty.size > xValuesDisplayed) s.dataProperty.remove(0, 1)

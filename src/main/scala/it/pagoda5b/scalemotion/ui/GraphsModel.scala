@@ -66,7 +66,7 @@ object GraphsModel {
       case (_, count) => count >= histogramThresholdProperty.get
     }
     .toSeq
-    .sortBy { case (key, count) => count }(Ordering.Int.reverse)
+    .sortBy { case (_, count) => count }(Ordering.Int.reverse)
     .map(toChartData)
 
   /**
