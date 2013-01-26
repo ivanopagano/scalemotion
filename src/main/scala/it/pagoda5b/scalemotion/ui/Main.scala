@@ -10,6 +10,7 @@ import javafx.scene.chart._
 import javafx.scene.control.{ Label, Slider, Tab, LabelBuilder, SliderBuilder, TabPaneBuilder, TabBuilder }
 import javafx.scene.control.TabPane.TabClosingPolicy._
 import javafx.scene.layout.{ AnchorPane, AnchorPaneBuilder, StackPaneBuilder }
+import javafx.scene.effect.{ DropShadow, DropShadowBuilder }
 import javafx.geometry.Pos._
 import javafx.geometry.Orientation._
 import javafx.geometry.Side._
@@ -71,10 +72,18 @@ class GraphsApp extends FXApp {
   private def prepareScene: Scene = {
     import FXBuilderUtils._
     import FXBindingsUtils._
+    import javafx.scene.paint.Color._
+
+    //un effetto ombra per migliorare la leggibilita' delle scritte
+    lazy val textShadow: DropShadow = create[DropShadowBuilder]
+      .offsetX(2.0)
+      .offsetY(2.0)
+      .color(DARKGREY)
 
     //mostra la soglia minima stabilita per l'istogramma, per impedire di affollare il grafico
     lazy val thresholdLabel: Label = create[LabelBuilder]
       .alignment(TOP_RIGHT)
+      .effect(textShadow)
 
     lazy val thresholdControl: Slider = create[SliderBuilder]
       .min(5)
@@ -87,18 +96,22 @@ class GraphsApp extends FXApp {
     //indica il tempo passato dall'inizio dell'esecuzione
     lazy val elapsedLabel: Label = create[LabelBuilder]
       .alignment(TOP_RIGHT)
+      .effect(textShadow)
 
     //il numero di entry lette da remoto
     lazy val entryCountLabel: Label = create[LabelBuilder]
       .alignment(TOP_RIGHT)
+      .effect(textShadow)
 
     //duplicata per mostrare il dato su entrambi i grafici
     lazy val elapsedLabel2: Label = create[LabelBuilder]
       .alignment(BOTTOM_LEFT)
+      .effect(textShadow)
 
     //duplicata per mostrare il dato su entrambi i grafici
     lazy val entryCountLabel2: Label = create[LabelBuilder]
       .alignment(BOTTOM_LEFT)
+      .effect(textShadow)
 
     //mostra i conteggi delle parole contenute nei feed come grafico
     lazy val countChart: BarChart[String, Number] = makeBarChart

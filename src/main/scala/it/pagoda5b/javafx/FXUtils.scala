@@ -95,6 +95,7 @@ object FXBuilderUtils {
   import javafx.scene.chart.BarChartBuilder
   import javafx.scene.control._
   import javafx.scene.layout._
+  import javafx.scene.effect._
   import javafx.util.Builder
 
   /**
@@ -115,6 +116,7 @@ object FXBuilderUtils {
   implicit val scrollPaneBuild: ScrollPaneBuilder[_] = ScrollPaneBuilder.create()
   implicit val tabPaneBuild: TabPaneBuilder[_] = TabPaneBuilder.create()
   implicit val tabBuild: TabBuilder[_] = TabBuilder.create()
+  implicit val shadowBuild: DropShadowBuilder[_] = DropShadowBuilder.create()
   implicit val barChartBuild: BarChartBuilder[_, _, _] = BarChartBuilder.create()
 
   /**
