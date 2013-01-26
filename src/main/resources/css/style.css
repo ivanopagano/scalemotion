@@ -1,0 +1,157 @@
+/* ====== TIMELINE CHART =========================================================== */
+.timeline-chart {
+	-fx-alternative-row-fill-visible: false;
+  -fx-legend-side: right;
+}
+
+.timeline-chart .axis {
+	-fx-tick-unit: 1;
+	-fx-minor-tick-visible: false;
+}
+
+.chart-series-line {    
+    -fx-stroke-width: 3;
+}
+
+.chart-line-symbol {
+	-fx-padding: 4;
+	-fx-background-radius: 4;
+}
+
+/*
+ crea una maggiore varieta' nella selezione dei colori,
+ in modo da ridurre le probabilita' di avere due serie con colori sovrapposti
+ */
+.default-color0.series0.chart-series-line { -fx-stroke: cadetblue; }
+.default-color1.series0.chart-series-line { -fx-stroke: gold; }
+.default-color2.series0.chart-series-line { -fx-stroke: chocolate; }
+.default-color3.series0.chart-series-line { -fx-stroke: cornflowerblue; }
+.default-color4.series0.chart-series-line { -fx-stroke: mediumorchid; }
+.default-color5.series0.chart-series-line { -fx-stroke: indigo; }
+.default-color6.series0.chart-series-line { -fx-stroke: mediumslateblue; }
+.default-color7.series0.chart-series-line { -fx-stroke: black; }
+.default-color0.series0.chart-line-symbol { -fx-background-color: cadetblue, beige; }
+.default-color1.series0.chart-line-symbol { -fx-background-color: gold, beige; }
+.default-color2.series0.chart-line-symbol { -fx-background-color: chocolate, beige; }
+.default-color3.series0.chart-line-symbol { -fx-background-color: cornflowerblue, beige; }
+.default-color4.series0.chart-line-symbol { -fx-background-color: mediumorchid, beige; }
+.default-color5.series0.chart-line-symbol { -fx-background-color: indigo, beige; }
+.default-color6.series0.chart-line-symbol { -fx-background-color: mediumslateblue, beige; }
+.default-color7.series0.chart-line-symbol { -fx-background-color: black, beige; }
+.default-color0.series1.chart-series-line { -fx-stroke: derive(cadetblue, 20%); }
+.default-color1.series1.chart-series-line { -fx-stroke: derive(gold, 20%); }
+.default-color2.series1.chart-series-line { -fx-stroke: derive(chocolate, 20%); }
+.default-color3.series1.chart-series-line { -fx-stroke: derive(cornflowerblue, 20%); }
+.default-color4.series1.chart-series-line { -fx-stroke: derive(mediumorchid, 20%); }
+.default-color5.series1.chart-series-line { -fx-stroke: derive(indigo, 20%); }
+.default-color6.series1.chart-series-line { -fx-stroke: derive(mediumslateblue, 20%); }
+.default-color7.series1.chart-series-line { -fx-stroke: derive(black, 20%); }
+.default-color0.series1.chart-line-symbol { -fx-background-color: derive(cadetblue, 20%), beige; }
+.default-color1.series1.chart-line-symbol { -fx-background-color: derive(gold, 20%), beige; }
+.default-color2.series1.chart-line-symbol { -fx-background-color: derive(chocolate, 20%), beige; }
+.default-color3.series1.chart-line-symbol { -fx-background-color: derive(cornflowerblue, 20%), beige; }
+.default-color4.series1.chart-line-symbol { -fx-background-color: derive(mediumorchid, 20%), beige; }
+.default-color5.series1.chart-line-symbol { -fx-background-color: derive(indigo, 20%), beige; }
+.default-color6.series1.chart-line-symbol { -fx-background-color: derive(mediumslateblue, 20%), beige; }
+.default-color7.series1.chart-line-symbol { -fx-background-color: derive(black, 20%), beige; }
+.default-color0.series2.chart-series-line { -fx-stroke: derive(cadetblue, 40%); }
+.default-color1.series2.chart-series-line { -fx-stroke: derive(gold, 40%); }
+.default-color2.series2.chart-series-line { -fx-stroke: derive(chocolate, 40%); }
+.default-color3.series2.chart-series-line { -fx-stroke: derive(cornflowerblue, 40%); }
+.default-color4.series2.chart-series-line { -fx-stroke: derive(mediumorchid, 40%); }
+.default-color5.series2.chart-series-line { -fx-stroke: derive(indigo, 40%); }
+.default-color6.series2.chart-series-line { -fx-stroke: derive(mediumslateblue, 40%); }
+.default-color7.series2.chart-series-line { -fx-stroke: derive(black, 40%); }
+.default-color0.series2.chart-line-symbol { -fx-background-color: derive(cadetblue, 40%), beige; }
+.default-color1.series2.chart-line-symbol { -fx-background-color: derive(gold, 40%), beige; }
+.default-color2.series2.chart-line-symbol { -fx-background-color: derive(chocolate, 40%), beige; }
+.default-color3.series2.chart-line-symbol { -fx-background-color: derive(cornflowerblue, 40%), beige; }
+.default-color4.series2.chart-line-symbol { -fx-background-color: derive(mediumorchid, 40%), beige; }
+.default-color5.series2.chart-line-symbol { -fx-background-color: derive(indigo, 40%), beige; }
+.default-color6.series2.chart-line-symbol { -fx-background-color: derive(mediumslateblue, 40%), beige; }
+.default-color7.series2.chart-line-symbol { -fx-background-color: derive(black, 40%), beige; }
+.default-color0.series3.chart-series-line { -fx-stroke: derive(cadetblue, 60%); }
+.default-color1.series3.chart-series-line { -fx-stroke: derive(gold, 60%); }
+.default-color2.series3.chart-series-line { -fx-stroke: derive(chocolate, 60%); }
+.default-color3.series3.chart-series-line { -fx-stroke: derive(cornflowerblue, 60%); }
+.default-color4.series3.chart-series-line { -fx-stroke: derive(mediumorchid, 60%); }
+.default-color5.series3.chart-series-line { -fx-stroke: derive(indigo, 60%); }
+.default-color6.series3.chart-series-line { -fx-stroke: derive(mediumslateblue, 60%); }
+.default-color7.series3.chart-series-line { -fx-stroke: derive(black, 60%); }
+.default-color0.series3.chart-line-symbol { -fx-background-color: derive(cadetblue, 60%), beige; }
+.default-color1.series3.chart-line-symbol { -fx-background-color: derive(gold, 60%), beige; }
+.default-color2.series3.chart-line-symbol { -fx-background-color: derive(chocolate, 60%), beige; }
+.default-color3.series3.chart-line-symbol { -fx-background-color: derive(cornflowerblue, 60%), beige; }
+.default-color4.series3.chart-line-symbol { -fx-background-color: derive(mediumorchid, 60%), beige; }
+.default-color5.series3.chart-line-symbol { -fx-background-color: derive(indigo, 60%), beige; }
+.default-color6.series3.chart-line-symbol { -fx-background-color: derive(mediumslateblue, 60%), beige; }
+.default-color7.series3.chart-line-symbol { -fx-background-color: derive(black, 60%), beige; }
+.default-color0.series4.chart-series-line { -fx-stroke: derive(cadetblue, -20%); }
+.default-color1.series4.chart-series-line { -fx-stroke: derive(gold, -20%); }
+.default-color2.series4.chart-series-line { -fx-stroke: derive(chocolate, -20%); }
+.default-color3.series4.chart-series-line { -fx-stroke: derive(cornflowerblue, -20%); }
+.default-color4.series4.chart-series-line { -fx-stroke: derive(mediumorchid, -20%); }
+.default-color5.series4.chart-series-line { -fx-stroke: derive(indigo, -20%); }
+.default-color6.series4.chart-series-line { -fx-stroke: derive(mediumslateblue, -20%); }
+.default-color7.series4.chart-series-line { -fx-stroke: derive(black, -20%); }
+.default-color0.series4.chart-line-symbol { -fx-background-color: derive(cadetblue, -20%), beige; }
+.default-color1.series4.chart-line-symbol { -fx-background-color: derive(gold, -20%), beige; }
+.default-color2.series4.chart-line-symbol { -fx-background-color: derive(chocolate, -20%), beige; }
+.default-color3.series4.chart-line-symbol { -fx-background-color: derive(cornflowerblue, -20%), beige; }
+.default-color4.series4.chart-line-symbol { -fx-background-color: derive(mediumorchid, -20%), beige; }
+.default-color5.series4.chart-line-symbol { -fx-background-color: derive(indigo, -20%), beige; }
+.default-color6.series4.chart-line-symbol { -fx-background-color: derive(mediumslateblue, -20%), beige; }
+.default-color7.series4.chart-line-symbol { -fx-background-color: derive(black, -20%), beige; }
+.default-color0.series5.chart-series-line { -fx-stroke: derive(cadetblue, -40%); }
+.default-color1.series5.chart-series-line { -fx-stroke: derive(gold, -40%); }
+.default-color2.series5.chart-series-line { -fx-stroke: derive(chocolate, -40%); }
+.default-color3.series5.chart-series-line { -fx-stroke: derive(cornflowerblue, -40%); }
+.default-color4.series5.chart-series-line { -fx-stroke: derive(mediumorchid, -40%); }
+.default-color5.series5.chart-series-line { -fx-stroke: derive(indigo, -40%); }
+.default-color6.series5.chart-series-line { -fx-stroke: derive(mediumslateblue, -40%); }
+.default-color7.series5.chart-series-line { -fx-stroke: derive(black, -40%); }
+.default-color0.series5.chart-line-symbol { -fx-background-color: derive(cadetblue, -40%), beige; }
+.default-color1.series5.chart-line-symbol { -fx-background-color: derive(gold, -40%), beige; }
+.default-color2.series5.chart-line-symbol { -fx-background-color: derive(chocolate, -40%), beige; }
+.default-color3.series5.chart-line-symbol { -fx-background-color: derive(cornflowerblue, -40%), beige; }
+.default-color4.series5.chart-line-symbol { -fx-background-color: derive(mediumorchid, -40%), beige; }
+.default-color5.series5.chart-line-symbol { -fx-background-color: derive(indigo, -40%), beige; }
+.default-color6.series5.chart-line-symbol { -fx-background-color: derive(mediumslateblue, -40%), beige; }
+.default-color7.series5.chart-line-symbol { -fx-background-color: derive(black, -40%), beige; }
+.default-color0.series6.chart-series-line { -fx-stroke: derive(cadetblue, -60%); }
+.default-color1.series6.chart-series-line { -fx-stroke: derive(gold, -60%); }
+.default-color2.series6.chart-series-line { -fx-stroke: derive(chocolate, -60%); }
+.default-color3.series6.chart-series-line { -fx-stroke: derive(cornflowerblue, -60%); }
+.default-color4.series6.chart-series-line { -fx-stroke: derive(mediumorchid, -60%); }
+.default-color5.series6.chart-series-line { -fx-stroke: derive(indigo, -60%); }
+.default-color6.series6.chart-series-line { -fx-stroke: derive(mediumslateblue, -60%); }
+.default-color7.series6.chart-series-line { -fx-stroke: derive(black, -60%); }
+.default-color0.series6.chart-line-symbol { -fx-background-color: derive(cadetblue, -60%), beige; }
+.default-color1.series6.chart-line-symbol { -fx-background-color: derive(gold, -60%), beige; }
+.default-color2.series6.chart-line-symbol { -fx-background-color: derive(chocolate, -60%), beige; }
+.default-color3.series6.chart-line-symbol { -fx-background-color: derive(cornflowerblue, -60%), beige; }
+.default-color4.series6.chart-line-symbol { -fx-background-color: derive(mediumorchid, -60%), beige; }
+.default-color5.series6.chart-line-symbol { -fx-background-color: derive(indigo, -60%), beige; }
+.default-color6.series6.chart-line-symbol { -fx-background-color: derive(mediumslateblue, -60%), beige; }
+.default-color7.series6.chart-line-symbol { -fx-background-color: derive(black, -60%), beige; }
+
+/* ====== BAR CHART =========================================================== */
+.bar-chart {
+	-fx-legend-visible: false;
+	-fx-vertical-grid-lines-visible: false;
+
+}
+
+.chart-bar {
+    -fx-bar-fill: cornflowerblue;
+}
+
+.bar-chart .axis {
+	-fx-tick-unit: 1;
+	-fx-minor-tick-visible: false;
+}
+
+/* ====== LABELS =========================================================== */
+.text-shadow {
+	-fx-effect: dropshadow(gaussian, darkgrey, 10, 0.0, 2.0, 2.0);
+}
