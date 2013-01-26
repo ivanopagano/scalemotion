@@ -3,6 +3,20 @@ Scalemotion
 
 Questo progetto consiste di una semplice (ma non troppo) applicazione illustrativa in `scala`.
 
+Session Abstract
+----------------
+The `scala` language took his share of attention in the last couple of years as it came out of the academic scope and reached out to the enterprise audience.  
+Depending on who's speaking, it's being described as scalable, modern and powerful or as too complex and abstract to be useful.
+ 
+Nowadays there are many resources available to learn the language itself, in the form of books, tutorials, blog-posts. Being educational in their intent, these resources can't give a practical view of how production scala code looks like.
+ 
+In this session we'll try to address the issue, by presenting a code-level view of a showcase `scala` application, all the while giving you the chance to make your own opinion about the language.  
+The app itself is designed with the goal of avoiding the overwhelming complexity of the most popular projects accessible on the `github`, while trying to leverage a good share of the interesting features available.
+ 
+Come join us if you're a developer interested in seeing how the `scala` features build up to make a concrete real-world case. The talk should be accessible to anyone with some working knowledge of `OOP` (`java` in particular) while being interesting to the developer that already got his hands dirty with `scala`.
+ 
+*disclaimer*: no monad has been harmed or mistreated in the making of this application.
+
 Intento
 -------
 Lo scopo &egrave; di presentare una proposta di intervento al [codemotion 2013](http://roma.codemotion.it/) di Roma con l'idea di mostrare il linguaggio in un contesto applicativo non esclusivamente didattico.  
