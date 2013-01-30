@@ -5,17 +5,15 @@ Questo progetto consiste di una semplice (ma non troppo) applicazione illustrati
 
 Session Abstract
 ----------------
-The `scala` language took his share of attention in the last couple of years as it came out of the academic scope and reached out to the enterprise audience.  
-Depending on who's speaking, it's being described as scalable, modern and powerful or as too complex and abstract to be useful.
+The `scala` language has now come out of the academic scene and reached out to the enterprise audience.
  
-Nowadays there are many resources available to learn the language itself, in the form of books, tutorials, blog-posts. Being educational in their intent, these resources can't give a practical view of how production scala code looks like.
+Many resources teach the basics of the language, but we will focus on how production code looks like, through a  source-level view of a showcase application.
  
-In this session we'll try to address the issue, by presenting a code-level view of a showcase `scala` application, all the while giving you the chance to make your own opinion about the language.  
-The app itself is designed with the goal of avoiding the overwhelming complexity of the most popular projects accessible on the `github`, while trying to leverage a good share of the interesting features available.
+The app is designed to avoid the overwhelming complexity of publicly accessible projects, all the while leveraging a good share of the powerful idioms available in `scala`.
  
-Come join us if you're a developer interested in seeing how the `scala` features build up to make a concrete real-world case. The talk should be accessible to anyone with some working knowledge of `OOP` (`java` in particular) while being interesting to the developer that already got his hands dirty with `scala`.
+Some previous knowledge of `scala` or *functional programming* is highly recommended.
  
-*disclaimer*: no monad has been harmed or mistreated in the making of this application.
+*Disclaimer*: no monad has been harmed or mistreated in the making of this app
 
 Intento
 -------
