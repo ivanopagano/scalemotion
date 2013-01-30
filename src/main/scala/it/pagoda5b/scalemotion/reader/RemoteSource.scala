@@ -80,7 +80,10 @@ trait SOFFeedParser extends ContentParser[FeedEntry] {
 
   def parseAllEntries(filtering: EntryFilter = None)(implicit source: Elem): Seq[FeedEntry] = {
     val allSeq = (source \\ "entry")
-    val filtered = filtering map (allSeq filter _) getOrElse (allSeq)
+    val filtered = filtering match {
+      case Some(entryFilter) => allSeq filter entryFilter
+      case _ => allSeq
+    }
     filtered map parseEntry
   }
 
