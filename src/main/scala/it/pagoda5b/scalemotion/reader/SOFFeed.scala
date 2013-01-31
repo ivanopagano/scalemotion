@@ -16,7 +16,10 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entryHis
   override def toString: String = "SOFFeed(%s, %s, %d entries)".format(feedUrl, tagSpecific, entries.size)
 
   // riferimento al feed remoto
-  private[this] val remote = RemoteSource(tagSpecific map { feedUrl + "/tag/" + _ } getOrElse feedUrl)
+  private[this] val remote = tagSpecific match {
+    case Some(tag) => RemoteSource(feedUrl + "/tag/" + tag)
+    case _ => RemoteSource(feedUrl)
+  }
 
   /*
    * legge il contenuto remoto, come [[Promise]] di un possibile risultato, 
