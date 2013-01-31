@@ -13,6 +13,8 @@ libraryDependencies ++= Seq(
   "org.ocpsoft.prettytime" % "prettytime" % "2.1.2.Final"
 )
 
+//"org.scalafx" %% "scalafx-core" % "1.0-SNAPSHOT"
+
 //The following is specific to setup JAVAFX use with SBT
 
 fork in run := true
