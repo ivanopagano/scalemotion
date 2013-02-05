@@ -80,6 +80,7 @@ class GraphsApp extends FXApp {
 
     //controlla la soglia
     lazy val thresholdControl: Slider = create[SliderBuilder]
+      .prefWidth(10)
       .min(5)
       .max(50)
       .majorTickUnit(1)
@@ -142,27 +143,17 @@ class GraphsApp extends FXApp {
       }
 
     //il testo per la soglia
-    val thresholdText = createStringBinding(GraphsModel.histogramThresholdProperty) {
+    def thresholdText = createStringBinding(GraphsModel.histogramThresholdProperty) {
       "count lower threshold is %d".format(GraphsModel.histogramThresholdProperty.intValue)
     }
 
     //il testo per il tempo trascorso
-    val elapsedText = createStringBinding(GraphsModel.elapsedTimeProperty) {
+    def elapsedText = createStringBinding(GraphsModel.elapsedTimeProperty) {
       "count began %s".format(GraphsModel.elapsedTimeProperty.getValueSafe)
     }
 
     //il testo per il numero di entry
-    val entryCountText = createStringBinding(GraphsModel.feedProperty) {
-      "%d feed entries were processed".format(GraphsModel.feedProperty.entries.size)
-    }
-
-    //duplicati per utilizzarli sulle etichette duplicate
-    // javafx non prevede il riutilizzo dei bindings?
-    val elapsedText2 = createStringBinding(GraphsModel.elapsedTimeProperty) {
-      "count began %s".format(GraphsModel.elapsedTimeProperty.getValueSafe)
-    }
-
-    val entryCountText2 = createStringBinding(GraphsModel.feedProperty) {
+    def entryCountText = createStringBinding(GraphsModel.feedProperty) {
       "%d feed entries were processed".format(GraphsModel.feedProperty.entries.size)
     }
 
@@ -170,9 +161,9 @@ class GraphsApp extends FXApp {
     thresholdControl.valueProperty.bindBidirectional(GraphsModel.histogramThresholdProperty)
     thresholdLabel.textProperty.bind(thresholdText)
     elapsedLabel.textProperty.bind(elapsedText)
-    elapsedLabel2.textProperty.bind(elapsedText2)
+    elapsedLabel2.textProperty.bind(elapsedText)
     entryCountLabel.textProperty.bind(entryCountText)
-    entryCountLabel2.textProperty.bind(entryCountText2)
+    entryCountLabel2.textProperty.bind(entryCountText)
 
     //allinea i controlli e il grafico
     AnchorPane.setTopAnchor(elapsedLabel, 50)
