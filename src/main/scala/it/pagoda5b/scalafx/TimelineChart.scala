@@ -98,15 +98,15 @@ trait TimelineBehaviour extends Node with DelayedInit { self: XYChart[String, Nu
     updates.map {
       case (name, y) => (series getOrElseUpdate (name, newSeries(name)), y)
     }
-      .foreach {
-        case (s, y) =>
-          /*
-         * aggiunge il nuovo dato alla serie eventualmente rimuovendo 
-         * i valori obsoleti, se ce ne sono piu' di quanti previsti
-         */
-          s.data add (XYChart.Data[String, Number](timeTick, y))
-          if (s.data.size > xValuesDisplayed) s.data.remove(0, 1)
-      }
+    .foreach {
+      case (s, y) =>
+      /*
+       * aggiunge il nuovo dato alla serie eventualmente rimuovendo 
+       * i valori obsoleti, se ce ne sono piu' di quanti previsti
+       */
+      s.data add (XYChart.Data[String, Number](timeTick, y))
+      if (s.data.size > xValuesDisplayed) s.data.remove(0, 1)
+    }
 
     //stabilisce quali serie mostrare, in base alla property
     val displayed = selectDisplayed map (_.delegate)
