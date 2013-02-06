@@ -15,7 +15,7 @@ import it.pagoda5b.javafx._
  * l'intervallo temporale, in base ad un parametro
  *
  */
-trait TimelineBehaviour extends Node with DelayedInit { self: XYChart[String, Number] =>
+trait TimelineBehaviour extends Node { self: XYChart[String, Number] =>
   import scala.collection._
   import FXBindingsUtils._
   import FXPropertyUtils._
@@ -44,10 +44,10 @@ trait TimelineBehaviour extends Node with DelayedInit { self: XYChart[String, Nu
   lazy val titleText = createStringBinding(seriesDisplayedProperty) {
     "Top %d feed categories on a total of %d".format(seriesDisplayedProperty.get, series.size)
   }
+  title <== titleText
 
-  //Prepara il primo set di grafici con il gruppo valori iniziali definiti in {{{initialData}}}
-  def delayedInit(init: => Unit) {
-    init
+  {
+    //Prepara il primo set di grafici con il gruppo valori iniziali definiti in {{{initialData}}}
     import scala.collection.JavaConversions._
     val timeTick = timeLabelFormat.print(DateTime.now)
     series ++= initialData.par.map {
@@ -56,8 +56,6 @@ trait TimelineBehaviour extends Node with DelayedInit { self: XYChart[String, Nu
         (name, series)
     }.seq
     data.get ++= (selectDisplayed map (_.delegate))
-
-    title <== titleText
   }
 
   /*
@@ -97,15 +95,14 @@ trait TimelineBehaviour extends Node with DelayedInit { self: XYChart[String, Nu
     //converte la chiave dell'aggiornamento nella corrispondente serie (l'oggetto)
     updates.map {
       case (name, y) => (series getOrElseUpdate (name, newSeries(name)), y)
-    }
-    .foreach {
+    }.foreach {
       case (s, y) =>
-      /*
+        /*
        * aggiunge il nuovo dato alla serie eventualmente rimuovendo 
        * i valori obsoleti, se ce ne sono piu' di quanti previsti
        */
-      s.data add (XYChart.Data[String, Number](timeTick, y))
-      if (s.data.size > xValuesDisplayed) s.data.remove(0, 1)
+        s.data add (XYChart.Data[String, Number](timeTick, y))
+        if (s.data.size > xValuesDisplayed) s.data.remove(0, 1)
     }
 
     //stabilisce quali serie mostrare, in base alla property
