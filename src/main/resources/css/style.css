@@ -1,3 +1,15 @@
+/* ====== FULL SCREEN BUTTON =========================================================== */
+.full-screen-btn {
+	-fx-background-color: transparent;
+	-fx-background-insets: 0;
+	-fx-background-radius: 0;
+	-fx-cursor: hand;
+}
+
+.full-screen-btn: hover {
+	-fx-effect: innershadow(gaussian, lightblue, 10, 0.0, 0, 0);
+}
+
 /* ====== TIMELINE CHART =========================================================== */
 .timeline-chart {
 	-fx-alternative-row-fill-visible: false;
@@ -139,7 +151,6 @@
 .bar-chart {
 	-fx-legend-visible: false;
 	-fx-vertical-grid-lines-visible: false;
-
 }
 
 .chart-bar {

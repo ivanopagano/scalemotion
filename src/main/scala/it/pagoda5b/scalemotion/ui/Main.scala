@@ -11,9 +11,10 @@ import scalafx.stage.{ Stage, WindowEvent }
 import scalafx.event.ActionEvent
 import scalafx.scene.Scene
 import scalafx.scene.chart._
-import scalafx.scene.control.{ Label, Slider, TabPane, Tab }
+import scalafx.scene.control.{ Label, Slider, TabPane, Tab, Button }
 import scalafx.scene.control.TabPane.TabClosingPolicy._
-import scalafx.scene.layout.AnchorPane
+import scalafx.scene.layout.{ AnchorPane, StackPane }
+import scalafx.scene.image.{ Image, ImageView }
 import scalafx.geometry.Pos._
 import scalafx.geometry.Orientation._
 import scalafx.geometry.Side._
@@ -120,28 +121,45 @@ object GraphsApp extends JFXApp {
       value <==> GraphsModel.histogramThresholdProperty
     }
 
-    val root = new TabPane() {
-      side = RIGHT
-      tabClosingPolicy = UNAVAILABLE
-      tabMinWidth = 250
-    } += new Tab {
-      text = "word counts"
-      content = new AnchorPane {
-        content = Seq(
-          countChart,
-          elapsedLabel,
-          entryCountLabel,
-          thresholdLabel,
-          thresholdControl)
-      }
-    } += new Tab {
-      text = "top categories"
-      content = new AnchorPane {
-        content = Seq(
-          tagChart,
-          elapsedLabel2,
-          entryCountLabel2)
-      }
+
+    val root = new AnchorPane {
+      content = Seq(
+        new TabPane() {
+          side = RIGHT
+          tabClosingPolicy = UNAVAILABLE
+          tabMinWidth = 250
+          AnchorPane.setTopAnchor(this, 0)
+          AnchorPane.setBottomAnchor(this, 0)
+          AnchorPane.setLeftAnchor(this, 0)
+          AnchorPane.setRightAnchor(this, 0)
+        } += new Tab {
+          text = "word counts"
+          content = new AnchorPane {
+            content = Seq(
+              countChart,
+              elapsedLabel,
+              entryCountLabel,
+              thresholdLabel,
+              thresholdControl)
+          }
+        } += new Tab {
+          text = "top categories"
+          content = new AnchorPane {
+            content = Seq(
+              tagChart,
+              elapsedLabel2,
+              entryCountLabel2)
+          }
+        },
+        new Button(text = "", graphic = new ImageView("img/ic_fullscreen.png")) {
+          onAction = { (_: ActionEvent) =>
+            stage.fullScreen = !stage.fullScreen.value
+          }
+          styleClass add "full-screen-btn"
+          AnchorPane.setBottomAnchor(this, 20)
+          AnchorPane.setRightAnchor(this, 50)
+        }
+      )
     }
 
     //allinea i controlli e il grafico
