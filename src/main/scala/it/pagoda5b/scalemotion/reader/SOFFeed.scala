@@ -39,21 +39,21 @@ case class SOFFeed(feedUrl: String, tagSpecific: Option[String] = None, entryHis
    * a [[#optionally]] tenta di valutare la `lambda expression` passata pretendendo un
    * parametro implicito, che invece verrebbe fornito all'interno della funzione stessa in modo esplicito
    */
-  def title: Option[String] = optionally(implicit xml => parseTitle)
+  def title: Option[String] = optionally (parseTitle(_))
 
   /**
    * restituisce il numero di entries contenute leggendo in remoto, se disponibile
    *
    * cfr. la nota implementativa a [[#title]]
    */
-  def numberOfEntries: Option[Int] = optionally(implicit xml => parseNumberOfEntries)
+  def numberOfEntries: Option[Int] = optionally (parseNumberOfEntries(_))
 
   /**
    * restituisce le entry contenute leggendo da remoto, se disponibili
    *
    * cfr. la nota implementativa a [[#title]]
    */
-  def latestEntries: Option[Seq[FeedEntry]] = optionally(implicit xml => parseAllEntries)
+  def latestEntries: Option[Seq[FeedEntry]] = optionally (parseAllEntries(_))
 
   /**
    * restituisce una mappa aggiornata delle entry di questo feed,
