@@ -116,6 +116,7 @@ object GraphsApp extends JFXApp {
       minorTickCount = 0
       blockIncrement = 1
       orientation = HORIZONTAL
+      prefWidth = 10
       value <==> GraphsModel.histogramThresholdProperty
     }
 
