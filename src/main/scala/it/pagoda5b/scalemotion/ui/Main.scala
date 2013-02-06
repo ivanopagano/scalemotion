@@ -24,7 +24,6 @@ import scalafx.util.converter.NumberStringConverter
  * La classe principale, lancia l'applicazione JavaFX
  */
 object GraphsApp extends JFXApp {
-  import FXEventHandlersUtils._
 
   //mostra i conteggi piu' alti dei tag nei feed, nel tempo
   lazy val tagChart: TimelineChart = makeTimeline
@@ -50,12 +49,10 @@ object GraphsApp extends JFXApp {
         println("animating")
         GraphsModel.refreshData()
         tagChart.pushToSeries(GraphsModel.extractTagCounts)
-      }
-    ))
-  )
+      })))
   tl.cycleCount = INDEFINITE
   tl.play
-    
+
   //costruisce il contenuto della scena
   private def prepareScene: Scene = {
     import FXBindingsUtils._
@@ -73,8 +70,8 @@ object GraphsApp extends JFXApp {
     }
 
     //il testo per il numero di entry
-    def entryCountText = createStringBinding(GraphsModel.feedProperty) {
-      "%d feed entries were processed".format(GraphsModel.feedProperty.entries.size)
+    def entryCountText = createStringBinding(GraphsModel.feed) {
+      "%d feed entries were processed".format(GraphsModel.feed.entries.size)
     }
 
     //mostra la soglia minima stabilita per l'istogramma, per impedire di affollare il grafico
@@ -169,6 +166,7 @@ object GraphsApp extends JFXApp {
     AnchorPane.setRightAnchor(tagChart, 0)
     AnchorPane.setLeftAnchor(tagChart, 0)
 
+    //costruita cosi' la scena occupa tutta la dimensione dello stage
     new Scene(new javafx.scene.Scene(root, 1140, 712)) {
       stylesheets add "css/style.css"
     }

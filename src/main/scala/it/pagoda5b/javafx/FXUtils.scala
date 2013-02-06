@@ -5,15 +5,6 @@ package it.pagoda5b.javafx
  */
 object FXEventHandlersUtils {
   import java.lang.Runnable
-  import javafx.event._
-
-  /**
-   * converte una funzione anonima che elabora un [[Event]] in un [[EventHandler]] dello stesso evento,
-   * la cui implementazione utilizza la funzione
-   */
-  implicit def toHandler[E <: Event](handling: E => Unit): EventHandler[E] = new EventHandler[E] {
-    def handle(event: E) = handling(event)
-  }
 
   /**
    * converte una funzione anonima generica senza risultati in un [[java.lang.Runnable]] che la esegue
@@ -25,38 +16,62 @@ object FXEventHandlersUtils {
 }
 
 /**
- * Semplifica l'utilizzo delle javafx [[Property]] e simili
+ * Semplifica l'utilizzo delle scalafx [[Property]] e simili
  */
 object FXPropertyUtils {
-  import javafx.beans.value._
+  import scalafx.beans.property._
+  import scalafx.beans.value._
 
   //Un tipo strutturale, identificato dalla presenza del metodo `modify`
   type MOD[A] = { def modify(f: A => A): Unit }
 
   /**
-   * converte un qualunque [[WritableValue]] in un ''wrapper'' che permette
+   * converte un qualunque [[ObjectProperty]] in un ''wrapper'' che permette
    * di trasformare il valore contenuto combinando `getValue/setValue`
    *
-   * e.g. invece di chiamare `myProperty.set(myProperty.get + 1)` è sufficiente `myProperty.modify(_ + 1)`
+   * e.g. invece di chiamare `myProperty.value = myProperty.value + 1` &egrave; sufficiente `myProperty.modify(_ + 1)`
    */
-  implicit def toModifiableProperty[A](p: WritableValue[A]): MOD[A] = new {
+  implicit def toModifiableProperty[A <: AnyRef](p: ObjectProperty[A]): MOD[A] = new {
     def modify(f: A => A) {
-      p.setValue(f(p.getValue))
+      p.value = f(p.value)
     }
   }
 
   /**
    * estrae in modo implicito il valore da un [[ObservableValue]], se necessario per chiamare un metodo
    *
-   * e.g. invece di chiamare `myProperty.get.myCall` &egrave; sufficiente `myProperty.myCall`
+   * e.g. invece di chiamare `myProperty.value.myCall` &egrave; sufficiente `myProperty.myCall`
    */
-  implicit def observableToValue[A](o: ObservableValue[A]): A = o.getValue
+  implicit def observableToValue[A](o: ObservableValue[A, _]): A = o()
+
+  implicit def observableToValue[A](o: javafx.beans.value.ObservableValue[A]): A = o.getValue
 }
 
 object FXBindingsUtils {
-  import javafx.beans.binding.{ StringBinding, ListBinding }
-  import javafx.beans.Observable
+  import scalafx.Includes._
+  import scalafx.beans.binding.StringBinding
+  import scalafx.beans.Observable
+  import scalafx.collections._
   import javafx.collections.ObservableList
+  import javafx.beans.{ binding => jfxbb }
+  import jfxbb.ListBinding
+
+  /**
+   * Aggiunge la possibilita' ad un [[ObservableBuffer]] di essere invalidato
+   */
+  private trait ObservableBound[T] { self: ObservableBuffer[T] =>
+    def binding: ListBinding[T]
+
+    def invalidate() {
+      binding.invalidate()
+    }
+
+  }
+
+  /**
+   * Un [[ObservableBuffer]] vincolato ad un [[ListBinding]], che pu&ograve; essere usato per invalidarlo
+   */
+  case class ObservableBoundBuffer[T](val binding: ListBinding[T]) extends ObservableBuffer[T](binding) with ObservableBound[T]
 
   /**
    * costruisce un binding che ha una stringa come risultato
@@ -64,9 +79,9 @@ object FXBindingsUtils {
    * @param dependency [[Observable]] a cui il [[Binding]] fa riferimneto
    * @param il valore che il binding deve restituire
    */
-  def createStringBinding(dependency: Observable*)(computeFunction: => String): StringBinding = new StringBinding {
+  def createStringBinding(dependency: Observable*)(computeFunction: => String): StringBinding = new jfxbb.StringBinding {
     //il binding viene invalidato con l'oggetto a cui e' vincolato
-    for (o <- dependency) bind(o)
+    dependency.foreach(this.bind(_))
     //calcola il valore usando la funzione passata
     override def computeValue: String = computeFunction
   }
@@ -79,7 +94,7 @@ object FXBindingsUtils {
    */
   def createListBinding[A](dependency: Observable*)(computeFunction: => ObservableList[A]): ListBinding[A] = new ListBinding[A] {
     //il binding viene invalidato con l'oggetto a cui e' vincolato
-    for (o <- dependency) bind(o)
+    dependency.foreach(bind(_))
     //calcola il valore usando la funzione passata
     override def computeValue: ObservableList[A] = computeFunction
   }
