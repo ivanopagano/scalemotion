@@ -42,16 +42,15 @@ object GraphsApp extends JFXApp {
   stage.sizeToScene()
 
   //aggiorna i dati dal feed remoto
-  val tl = Timeline(
+  val loop = Timeline(
     Seq(KeyFrame(
-      time = (5 s),
-      onFinished = {
-        println("animating")
+      time = (5 s), //durata del frame di animazione
+      onFinished = { (_: ActionEvent) =>
         GraphsModel.refreshData()
         tagChart.pushToSeries(GraphsModel.extractTagCounts)
       })))
-  tl.cycleCount = INDEFINITE
-  tl.play
+  loop.cycleCount = INDEFINITE //l'animazione si ripete all'infinito
+  loop.play
 
   //costruisce il contenuto della scena
   private def prepareScene: Scene = {

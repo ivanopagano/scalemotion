@@ -59,7 +59,7 @@ object FXBindingsUtils {
   /**
    * Aggiunge la possibilita' ad un [[ObservableBuffer]] di essere invalidato
    */
-  private trait ObservableBound[T] { self: ObservableBuffer[T] =>
+  trait ObservableBound[T] { self: ObservableBuffer[T] =>
     def binding: ListBinding[T]
 
     def invalidate() {
