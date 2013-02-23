@@ -10,10 +10,9 @@ libraryDependencies ++= Seq(
 	"joda-time" % "joda-time" % "2.1",
 	"org.joda" % "joda-convert" % "1.2" % "compile",
   "org.slf4j" % "slf4j-jdk14" % "1.7.2",
-  "org.ocpsoft.prettytime" % "prettytime" % "2.1.2.Final"
+  "org.ocpsoft.prettytime" % "prettytime" % "2.1.2.Final",
+  "org.scalafx" %% "scalafx" % "1.0.0-M1"
 )
-
-//"org.scalafx" %% "scalafx-core" % "1.0-SNAPSHOT"
 
 //The following is specific to setup JAVAFX use with SBT
 
