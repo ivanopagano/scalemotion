@@ -77,7 +77,6 @@ object GraphsModel {
 
   /**
    * elabora i valori del feed sui conteggi dei tag
-   * TODO: troppe categorie, bisogna mettere una soglia sul numero minimo di conteggi...
    */
   def extractTagCounts: Map[String, Number] = feed
     .extractTagStatistics
